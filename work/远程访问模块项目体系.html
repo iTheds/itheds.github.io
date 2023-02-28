@@ -1,0 +1,3449 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="iTheds">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="iTheds">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="远程访问模块项目体系记录于 2022年1月10日。从 2021年10月17日完成节点之后，没有再看本项目。回顾之后，逐渐明朗。  首先要保证底层通信协议的设计。通过继承 CONNECT 类，设计一套协议，能够发送数据，并且按照协议方式接收数据。之后的诸如加密数据的操作都可以在这个类里面设计方法，在上层中调用。 设计一套 I&#x2F;O 模型，用于开辟线程进行监听请求的连接。 设计一套网络模型，解">
+<meta property="og:type" content="website">
+<meta property="og:title" content="远程访问模块项目体系">
+<meta property="og:url" content="http://itheds.github.io/work/%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE%E6%A8%A1%E5%9D%97%E9%A1%B9%E7%9B%AE%E4%BD%93%E7%B3%BB.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="远程访问模块项目体系记录于 2022年1月10日。从 2021年10月17日完成节点之后，没有再看本项目。回顾之后，逐渐明朗。  首先要保证底层通信协议的设计。通过继承 CONNECT 类，设计一套协议，能够发送数据，并且按照协议方式接收数据。之后的诸如加密数据的操作都可以在这个类里面设计方法，在上层中调用。 设计一套 I&#x2F;O 模型，用于开辟线程进行监听请求的连接。 设计一套网络模型，解">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-01-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-02T07:01:24.419Z">
+<meta property="article:author" content="iTheds">
+<meta property="article:tag" content="-- C&#x2F;C++ -- ODBC">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>远程访问模块项目体系 · fi3ework&#39;s Studio</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>fi3ework's Studio.</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+">
+    
+    <!-- 主页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="远程访问模块项目体系"><a href="#远程访问模块项目体系" class="headerlink" title="远程访问模块项目体系"></a>远程访问模块项目体系</h1><p>记录于 2022年1月10日。<br>从 2021年10月17日完成节点之后，没有再看本项目。<br>回顾之后，逐渐明朗。</p>
+<ol>
+<li>首先要保证底层通信协议的设计。通过继承 CONNECT 类，设计一套协议，能够发送数据，并且按照协议方式接收数据。之后的诸如加密数据的操作都可以在这个类里面设计方法，在上层中调用。</li>
+<li>设计一套 I&#x2F;O 模型，用于开辟线程进行监听请求的连接。</li>
+<li>设计一套网络模型，解决这么几个问题<br> (1)接收到连接之后如何处理。是开辟一个线程还是将程序的处理放在线程池中进行处理。<br> (2)连接池维护连接的方式，本质是消除连接数据库带来的延迟。<br> (3)如何表明一个数据库连接的状态，包括已经连接、断开、释放、销毁。</li>
+<li>接口处理，远程访问服务，我们不做任何除网络的操作，我们只是搬运数据。所以在 C++ 接口中要解决：<br> (1)如何和数据库交互。调用数据库端的接口，我们获取哪些信息，这么样固化对数据库的操作，区分 SQL 语句。如果是使用 SQL 引擎，那么我们如何确定结果集。</li>
+<li>覆盖 ODBC 一套。</li>
+</ol>
+<p>一、实现目标：</p>
+<ol>
+<li>完善覆盖 ODBC 接口。</li>
+<li>完善网络模型。</li>
+<li>完善通信协议。</li>
+<li>对 I&#x2F;O模型 进行封装调整。<br>二、现存问题：</li>
+<li>没有直接执行 SQL 语句的接口，目前只能依靠 SQLTOOL 将数据输出到控制台输出缓冲区。</li>
+<li>I&#x2F;O 模型使用的 select 接口暂时未在天脉和锐华中找到。</li>
+</ol>
+<p>四、实现方案：<br>A. 实现结构：<br>B. 具体逻辑：<br>五、替换&#x2F;新研函数：<br>六、节点安排：（按照模块，具体到天或周）<br>七、预计代码行数：<br>5000 - 代码量什么都是假的</p>
+<p>船载实时数据库支持数据持久化，提供 ODBC 标准接口，支持在局域网内远程访问数据库，执行 SQL 92 语句，包括但不限于创建自定义数据库、执行增删改查基本的 CURD 操作。</p>
+<p>数据库提供部分标准的 ODBC 接口，通过执行 SQL 语句实现对数据库的操作。目前包括：</p>
+<ol>
+<li>创建数据库以及创建表。</li>
+<li>查询指定数据库和指定表。</li>
+<li>插入、查询、更新、删除数据。<br>常用接口包括：<br>SQLAllocHandle(分配句柄)、<br>SQLConnect(连接数据库)、<br>SQLExecDirect(执行 SQL 语句)、SQLFetch(游标)、SQLGetData(获取查询的指定列数据)、<br>SQLDisconnect(断开连接)。</li>
+</ol>
+<h2 id="已经覆盖接口"><a href="#已经覆盖接口" class="headerlink" title="已经覆盖接口"></a>已经覆盖接口</h2><p>SQLAllocHandle,SQLFreeHandle<br>SQLExecDirect,SQLFetch,SQLGetData</p>
+<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><h3 id="文件体系"><a href="#文件体系" class="headerlink" title="文件体系"></a>文件体系</h3><ol>
+<li>C++ 部分：<br>头文件：<br>AccessPer.h<br>Communicate.h<br>ConPool.h<br>ConProtocol.h<br>global.h<br>libtzdb.h<br>LogApi.h<br>RASClass.h<br>RASconfig.h<br>RAServer.h<br>RAShandle.h<br>RASKeyword.h<br>RASLib.h<br>SqlResult.h<br>VioConnect.h</li>
+</ol>
+<p>cpp 文件：<br>AccessPer.cpp<br>Communicate.cpp<br>ConPool.cpp<br>ConProtocol.cpp<br>global.cpp<br>libtzdb.cpp<br>LogApi.cpp<br>RASClass.cpp<br>RAServer.cpp<br>RAShandle.cpp<br>SqlResult.cpp<br>VioConnect.cpp</p>
+<ol start="2">
+<li>ODBC 部分和 python 部分：<br>头文件：<br>TzodbcDriver.h</li>
+</ol>
+<p>cpp 文件：<br>DBODBC.cpp<br>DBODBCext.cpp</p>
+<ol start="3">
+<li>Java 部分：<br>java 文件：<br>BaseSocket.java<br>VioConnect.java<br>Config.java<br>DataInfoFormat.java<br>TzdbConnect.java<br>TzdbDriver.java<br>TzdbMetaData.java<br>TzdbResultSet.java<br>TzdbResultSetMetaData.java<br>TzdbStatement.java</li>
+</ol>
+<h3 id="通信协议"><a href="#通信协议" class="headerlink" title="通信协议"></a>通信协议</h3><p>—————|——————-|——————-|—————-|<br>帧头标识        |包号、分包信息      |数据包长度(窗口)    |预留位<br>Payload(可变)</p>
+<p>加密信息预留位                      |CRC校验            |帧尾<br>—————|——————-|——————-|—————-|</p>
+<p>本协议通过以上的协议格式保证协议的可识别性和保证数据的安全性和完整性。</p>
+<p>对于传递的信息，我们将数据库的信息细分为如下几种情况：<br>针对客户端的包：</p>
+<ol>
+<li>SQL 语句。有可能是创表、增删改查中的任何一种。</li>
+<li>连接信息。连接的验证信息。</li>
+<li>释放连接。</li>
+</ol>
+<p>针对数据库服务端的包：</p>
+<ol>
+<li>结果集。SQL 语句查询的内容。用两个参数确定其大小。</li>
+<li>连接的结果信息。是否连接成功，如果连接成功携带相关的 session 。</li>
+<li>释放连接结果。</li>
+</ol>
+<p>以上为主要的信息，其他的诸如环境句柄相关的环境参数、连接句柄相关表级权限、语句句柄相关游标数据等暂不考虑。</p>
+<p>所以在通信协议上本系统开发流程：</p>
+<ol>
+<li>定义一个协议类，在现有的通信协议基本类 CONNECT 上，继承该类并编写 读和写 的方法。</li>
+<li>构造若干个数据结构存储以上数据的数据信息类。需要有基本接口如下：<br> (1) 通过信息构造返回该数据结构的 buffer。注意字节对齐。<br> (2) 通过 buffer 复现该 buffer。<br> (3) 返回本结构体结果的长度。<br>问题是该类在之后会不会使用到 DBDescript 类作为信息类???。</li>
+</ol>
+<p>通信协议类将数据信息类作为有效载荷 palyload。</p>
+<p>定义一个数据信息管理类，泛指所有的数据类型，使用 void* data 指向 数据信息类变量， 使用 short data_type 判断数据的类型。再使用筛选器定位到数据信息类型，并且封装相关的回调函数，以对数据进行操作。</p>
+<p>例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TzdbNet</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">short</span> <span class="title">read</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="type">short</span> <span class="title">write</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="网络模型"><a href="#网络模型" class="headerlink" title="网络模型"></a>网络模型</h3><p>首先要明确的 I&#x2F;O 模型。<br>如果是在 windows 上，那么是比较好操作，但是如果在 天脉或者锐华 上，没有相关的接口，那么只能通过适配的方式重新编写相关的函数。</p>
+<p>连接池其实就是实现多连接，目前数据库已经有多连接的功能。<br>线程池主要是需要执行相关任务。目前阶段只需要能够分配线程并且在线程中执行相关的任务即可。</p>
+<p>多线程的测试用例。<br>F:\git\testcases\Windows\eXtremeWrap\examples\MutliThreads_CRUD</p>
+<p>考虑两种情况：</p>
+<ol>
+<li><p>使用连接池和线程池：<br>线程池分配监听线程。<br>监听到连接之后，由信号量机制进行通知。<br>(1) 如果 I\O 模型可以接收 FD_READ 的信息，也就是管道里有消息也会收到通知，那么：<br>监听到连接后进行 accetp ，并且将该 socket 添加到 I\O 模型。<br>之后收到消息，将数据解析，并且在连接队列中取出连接信息，发送到线程池进行执行任务。<br>(2) 如果 I\O 模型没有接收 FD_READ 信息的功能。那么：<br>监听到连接之后，进行 accept， 信号量通知线程分配线程将线程池中的新连接进行分配专门的处理线程进行处理。</p>
+</li>
+<li><p>不使用连接池和线程池：<br>首先要明确连接池不是必须的，线程池是可以有的，如果不采用线程池，那么：<br>分配一个线程&lt;Thread1,监听&gt;，一个线程&lt;Thread2,New&gt;新建线程并且管理。<br>监听到连接信息之后由信号量机制进行通知 Thread2, 新建一个线程专门处理该连接。</p>
+</li>
+</ol>
+<p>在专门处理连接的方法中，对数据进行直接的接收。并且将接收到的数据进行处理。</p>
+<h4 id="Server-接口确定"><a href="#Server-接口确定" class="headerlink" title="Server 接口确定"></a>Server 接口确定</h4><ol>
+<li><p>连接管理函数：对于已经连接的 socket 进行管理和侦听。</p>
+</li>
+<li><p>线程创建函数：信号量通知从而创建线程。或者任务</p>
+</li>
+<li><p>监听线程：专门负责监听新的连接。该部分可以用 I\O 模型完成一个，普通情况下用轮询完成，心跳包机制</p>
+</li>
+</ol>
+<h3 id="结果集格式"><a href="#结果集格式" class="headerlink" title="结果集格式"></a>结果集格式</h3><p>关于结果集的格式：</p>
+<ol>
+<li>结果集格式是否需要确定一个额外的结果集格式呢？数据库内置存在 DBdescript 描述表的 Metadata，也有结果集格式。但是目前与其说是结果集格式，不如说就是表的表数据的格式。对于任何 select 语句，都将数据完全查出。我希望的是在 发送数据时不需要发送所有数据。</li>
+<li>直接使用原来的内存分配方式.</li>
+</ol>
+<h3 id="层次关系"><a href="#层次关系" class="headerlink" title="层次关系"></a>层次关系</h3><p>首先是在开发层，tzdb_() 接口和 mco_() 接口层之间的关系。<br>tzdb_() 和 SQL_() 层又有一个关系。</p>
+<p>首先 tzdb_() 层次存在的必要性，tzdb_() 作为一个对标 SQL_() 的 C++ 接口层，其实使用 mco_() 层就可以，所以 tzbd_() 层次意义不大。<br>在之前的体系中，tzdb 层次主要是进行数据的发送，而 SQL 层次调用 tzbd 层次，达到相同的效果。<br>在客户看来，tzdb 和 SQL 层都是可见的。<br>而对于整个程序来看，实际上 tzdb 和 SQL 都是对于客户端的接口，服务端只对协议进行解析并且判断数据包信息并且解释执行。</p>
+<p>但是这样一来 tzdb 和 SQL 层就没有办法在本地使用了。<br>针对这一点，我们是否可以使用上层的方式只是针对接口进行数据传输呢。<br>相当于，在 mco 层次上封装一个工具，接收信息并且定位到接口。然后返回接口应该返回的信息。<br>不过这个过程也就相当于 tzdb 接口的存在必要性。</p>
+<p>所以这样看来矛盾就转移到：</p>
+<ol>
+<li>tzdb 层次是否存在其唯一性和特殊性。如果让 SQL 直接调用 mco 层次不好吗？首先 SQL 层次和 mco 层次是一定有空间内容的。而 tzdb 和 mco 层其实空间层次比较少，更多的是起到一个数据传输，在客户端进行数据的通信的作用。<br>那么这个问题就演变成了 tzdb 层是否可以用 信息传输组件代替？或者说两者是否是同样的效果？？</li>
+</ol>
+<p>我们在数据传输的过程中应该在那一层进行传输数据？？？</p>
+<p>仍然保留现有的东西。只是需要考虑在 tzdb 和 数据库内部 层次之间的高耦合度。<br>服务端采取一个架构，对数据进行解析，执行的过程使用 mco 层接口。<br>客户端使用的 接口 只是定位到数据库。</p>
+<h3 id="指令系统"><a href="#指令系统" class="headerlink" title="指令系统"></a>指令系统</h3><p>该部分系统直接和数据库进行对接，两者高内聚。</p>
+<ol start="2">
+<li>构造若干个数据结构存储以上数据的数据信息类。需要有基本接口如下：<br> (1) 通过信息构造返回该数据结构的 buffer。注意字节对齐。<br> (2) 通过 buffer 复现该 buffer。<br> (3) 返回本结构体结果的长度。</li>
+</ol>
+<p>选择器，定位到数据类型。<br>并且针对数据类型内容执行相关操作。</p>
+<p>所以有：<br>定义一个数据信息类，标志一个内容指令。<br>该数据类型有如下接口：</p>
+<ol>
+<li>标志数据类型体现的执行方法。</li>
+<li>数据类型的处理接口</li>
+</ol>
+<p>数据类型也有几大类，和数据库有关联的，和数据库无关联的。<br>目前和数据库有关联的使用 mco 层接口。后续可以改成和内部相融合。<br>目前还没有 SQL 引擎，暂且使用一个代替的方式。</p>
+<h3 id="思考1"><a href="#思考1" class="headerlink" title="思考1"></a>思考1</h3><p>为什么说连接池是在客户端的，一个解释是，服务端直接对数据库进行交互和管理，所以不需要连接池。</p>
+<h3 id="思考2"><a href="#思考2" class="headerlink" title="思考2"></a>思考2</h3><p>[1.27]<br>经过多天的思考，得出结论。<br>在本系统中对于指令的处理方式有两种：</p>
+<ol>
+<li>根据每个数据包进行归类。首先有一个数据包的模板类，然后每有一种传输的数据包，就继承该类，并重写该类对标的执行方法。<br>接收到数据包之后，将调用该类的执行方法，从而执行。执行方法参数应该为 (serverStruct,package) 。</li>
+<li>编写执行方法。构建一张表，里面含有回调指针，指向执行方法。数据包类只需要一个类，该类中包括回调指针，和参数列表。通过该类去执行函数。</li>
+</ol>
+<p>细节上无法得知。但是两边一定会有等价接口。并且这两边的接口所依赖的数据类型都可以用主要数据类型来代替。</p>
+<h3 id="思考3"><a href="#思考3" class="headerlink" title="思考3"></a>思考3</h3><p>[2.14]<br>还有一种说法就是，只对十分必要的操作在服务端进行执行。<br>体现为，在远程执行 mco 层函数接口。<br>但是， mco 层函数执行之后，很多数据的实体仍然是存在于服务端的。<br>所以仍然按照原定的方案进行。</p>
+<p>[2.15]<br>其实还有一种说法，就是使得 sqltool 可以远程执行。并且获取数据。<br>这里考虑到的时， ODBC 层体系的问题。<br>但是 sqltool 也没有任何的可以直接执行的东西。</p>
+<h2 id="开发日志"><a href="#开发日志" class="headerlink" title="开发日志"></a>开发日志</h2><p>[1.20]<br>目前就两件事，一个是通信协议。<br>一个是网络架构。<br>[1.25]<br>其实目前的问题是，体系不太完善，并且通信协议中不知道传递的是什么内容。<br>可以先绕过传递的内容，在之后的可扩展中添加信息，而目前先确定网络体系并且发送数据。<br>感觉原有体系很不明确,当时照抄 msyql 的逻辑,变成了四不像。<br>[1.26]<br>每天都感觉这个架构有问题，但是又思考不出来，需要一个好的体系。</p>
+<p>先定义四个主要句柄的 成员函数，在服务端上调用。</p>
+<p>每个成员函数一个支撑接口。</p>
+<p>每个成员函数附属一个类，类指向调用成员函数的支撑接口。</p>
+<p>每个成员函数一个专门的发送接口，和类绑定。</p>
+<p>客户端接口调用发送接口。</p>
+<p>在 python 和 java 中，只需要复刻每个成员函数的发送接口和通信模块即可。</p>
+<p>[2.14]<br>首先明确架构需求。</p>
+<ol>
+<li>通信协议。</li>
+<li>数据结构识别模块 – 指令识别。</li>
+<li>主要接口的编写。</li>
+</ol>
+<p>各个方面都很明确了，但是关于接口一块有些模糊。<br>主要就是接口的类型有很多种。</p>
+<p>首先我们知道的是实现主要的功能是通过四个主要的类进行实现的。<br>主要的较为复杂的功能接口有：</p>
+<ol>
+<li>服务端中不直接和客户端接轨的接口。包括执行数据库相关操作等。</li>
+<li>服务端中直接和客户端接轨的接口。包括连接函数等。</li>
+<li>客户端中和服务端的通信接口。该部分核心都是对服务端的函数进行执行。</li>
+</ol>
+<p>其中主要的概念就是传递数据结构。一种数据结构具象化代表执行一个方法类型。</p>
+<p>原则上：</p>
+<ol>
+<li>所有与数据库进行交互的接口，封装为 mco 层接口。相当于添加功能。</li>
+<li>所有接口对标到 四个主类 中，使其成员函数调用 mco 层接口。</li>
+<li>针对主类中的功能性成员函数，都建立一个 DataInfoFormat 的派生类，指向该功能函数。在后续识别出是该函数时，进行直接的执行。</li>
+</ol>
+<p>整个体系，到此，构建完毕，剩下的就是机械的编写了，不需要思考。</p>
+<p>按理来说，我们在服务端进行分配时，分配了一个对于数据库连接的处理线程 connectFunction， 而此时，针对于该 ip 的连接， 我们默认只有一个数据库。</p>
+<p>但是单一的应用程序，是有可能有多个数据库连接的。<br>如果该连接依附于已经创建的 dev ，我们仍然为其创建一个处理线程？？</p>
+<p>[2.15]<br>目前的体系就很好。而且可扩展性也很好。</p>
+<p>又涉及到一个问题。如果我们服务端处理完成了 SQL 语句，那么 SQL 语句的结果是应该体现为一个可以发送给客户端的字符串。</p>
+<p>每次执行函数之后，有两个选择，如果是本地，那么就将数据记录到 四个主类；如果不是本地，那么就将数据打包发给客户端，客户端再执行记录操作。</p>
+<p>[2.16]<br>仔细回想一下问题。目前就是处理输出。<br>如果可以直接获取表中的描述句柄，是优解。</p>
+<p>接下来就是两个方向，一个是判断 DBFieldDescriptor 是否可以作为描述符句柄；另一个是直接重新构造一个数据方式。我们选择第二个。</p>
+<p>事实是，描述符句柄和 结果集没有太大关系。<br>描述符句柄表示的是表的格式，而结果集则是表的实体或者表在内存中的映射。<br>在我们的数据库中，描述符句柄是 DBTableDescriptor ，结果集是 DBTable ，结果集表现为表的内存映射。通过两者则可以取出相应的数据。</p>
+<p>那么，远程访问服务中仍然延用旧版的结果集方式，以静态链表的形式。<br>未来优解：将 DBTable 作为结果集改版，但是取决于 内部执行 SQL 语句的接口。</p>
+<p>[2.17]</p>
+<ol>
+<li>客户端的完善</li>
+<li>服务端指令处理转换</li>
+<li>通信协议接口。</li>
+<li>转 JAVA 和 python。</li>
+</ol>
+<p>ODBC 体系函数扩展，是之后的事。</p>
+<p>关于通信协议：<br>QueueBuffer 的最大值也是有限的， 如果发送了一个比较大的包，那么将会出现前面部分被截断丢弃的问题。</p>
+<p>假设，我们做一个动态的内存，那么当发送端发送了一个十分长的数据也是会出现错误的。</p>
+<p>所以我们通过通信协议，对 buffer 进行控制，每次发的包长度设定最大值。</p>
+<p>关键看需求，试想一下，我们在查询到数据之后，对数据进行预先发送。<br>当客户端调用更多数据时，我们再次发送部分数据。<br>那么我们也相当于控制了数据的大小。</p>
+<p>所以，分包其实需求不大。</p>
+<p>紧急策略，所有内容按照最简的方式处理，按照原先的模型代码进行处理。</p>
+<p>目前的问题是，什么时候将数据往外发送。而且结果集或者是内容定义又如何操作呢。</p>
+<p>系统架构中，关键要明确模板中的对应关系，体系本身是有限的。</p>
+<p>在类中的每个关键功能接口，绑定一个操作，返回结果集。</p>
+<p>[2.21]<br>至此，服务端模型处理完成。<br>之后添加识别的额外指令只需要：</p>
+<ol>
+<li>在四个主类中定义该函数。</li>
+<li>继承 DataInfoFormat 。编写该函数对标的</li>
+<li>在函数 stringToStruct 中的 switch 中添加相关内容。</li>
+</ol>
+<p>客户端结构完成:</p>
+<ol>
+<li>围绕主类中的主功能函数,定义一个姊妹函数:以传递的参数为记录结果.达到输入数据和主功能类起到相同方式的功能.</li>
+<li>在标志该主功能函数的 DataInfoFormat 派生类中定义 recode 函数,将接收到的 struct 进行输入到 1 中的姊妹函数中,达到记录功能.</li>
+</ol>
+<p>[3.7]<br>其实还是有很多地方可以进行完善的。<br>但是还是自顶向下进行开发。</p>
+<ol>
+<li>至少实现，连接。在整个体系中可能完善。</li>
+</ol>
+<p>[3.14]<br>现在的问题是在执行 SQLExecDirect 的时候会报错。</p>
+<pre><code>0x7AD10391 (odbc32.dll)处(位于 ODBC_test.exe 中)引发的异常: 0xC0000005: 读取位置 0x00000080 时发生访问冲突。
+</code></pre>
+<p>该部分并没有调用到我的接口函数。而是先行调用了4次接口 SQLGetStmtAttr 。<br>之后的报错内容原因是什么?</p>
+<ol>
+<li>该报错有可能是访问越界，内存未释放，访问了空指针。<br> 但是我们进行了直接使用接口的测试用例，并未出现错误。</li>
+<li>SQLExecDirect 的第一句就是输出调试信息，但是调试 LOG_DEBUG 经过测试是没有问题的。<br> 所以该函数并没有被执行。</li>
+<li>会不会是 SQLGetStmtAttr 的问题呢。不太可能。</li>
+</ol>
+<p>驱动管理程序，总是会自主调用非客户端指定的一些接口。</p>
+<p>注意到调用 SQLGetStmtAttr 时， 有一些参数是对 DESC 句柄的调用。而恰好该句柄返回的是 NULL。 尝试非 NULL 值返回，成功执行。</p>
+<p>[3.24]<br>python 体系跑通。<br>从 2021年8月16日调研正式结束开始，到 10月24日左右初版模型。<br>到现在基本版模型。</p>
+<p>[4.1]<br>首先看现在的场景： 默认为单表</p>
+<ol>
+<li>多用户各自不同表。</li>
+<li>单用户多表循环。</li>
+<li>多用户多表交叉。</li>
+</ol>
+<p>最基本的第一个还会有错误。<br>我觉得我得搭建一个直接在本地测试的方法。<br>先把这个方法跑通，然后再考虑加上通信访问。</p>
+<p>暂定策略，在客户端进行维护一个链表，标志单个数据库的 handle。</p>
+<p>经过今天一晚上的调试，已经支持，多表各自不同表，单用户多表循环。</p>
+<p>[4.2]<br>讨论一下暂定策略，在客户端维护 handle 这件事。<br>首先我们在打开数据库之后，进行 connect ，此时会有一个 handle。</p>
+<p>一般来说，我们希望的是，连接+数据库，唯一标志一个数据库的操作。<br>但是目前，体系中，在客户端连接数据库 ABA 形式中，A数据库的句柄量为两个，<br>所以数据库会生成两个 session， 相当于 connect 连接了两次。</p>
+<p>为了避免这种情况，我们在 dbrConnect 中增加 handMap&lt;handle , dbName&gt; 这样类 map 的形式。<br>在客户端第二次 连接 A 数据库时， 我们打开数据库之后，将搜索 handMap ，取出 handle 进行连接操作？？？</p>
+<p>首先， 对于数据库的操作流程应该是: </p>
+<pre><code>打开、连接、断开连接、连接、操作、断开连接、关闭数据库
+</code></pre>
+<p>内存模式下目前关闭数据库相当于销毁操作。</p>
+<p>所以我们需要构建的逻辑是，在用户执行 sql:open 语句的时候，将查询是否存在该数据库，如果存在，则直接连接，并且返回 handle；如果不存在，则先打开数据库，然后连接数据库。</p>
+<p>可以构造一个这样的场景，一个用户，在建库建表之后，一直执行 open 操作，并且插入数据和搜索数据， 重复此操作。</p>
+<p>首先要明确  handMap 维护在什么地方。<br>确定在 客户端 进行维护。</p>
+<p>之后需要做的事：</p>
+<ol>
+<li>通信协议，完善。</li>
+<li>数据类型完善。</li>
+</ol>
+<p>有这么几种情况：</p>
+<ol>
+<li>不是 open 语句， 使用内存中的 session id 进行执行 sql 语句。</li>
+<li>是 open 语句， 内存中没有该数据库， open， connect， 记录 session id。</li>
+<li>是 open 语句， 内存中存在， 通过数据库名进行连接 connect ，记录 session id。</li>
+</ol>
+<p>翻译到接口，体现为客户端的行动方式：</p>
+<ol>
+<li>新的连接，dbhandle 为 null， 则 open 并且 connect ，记录 handle。</li>
+<li>客户端拿了 dbhandle ，并且不是 open ， 则使用 dbhandle 进行执行。</li>
+<li>客户端拿了 dbhandle ， 并且是 open ，则直接返回数据库到 sql 引擎。</li>
+</ol>
+<p>如果 disConnect ，那么这个 session 是无法使用的。</p>
+<p>策略方式：</p>
+<ol>
+<li>单个连接中，切换数据库的时候进行 disConnect，连接数据库记录目前的 handle。</li>
+<li>单个连接中，最后的时候在一起 disConnect ，切数据库时不 disConnect。客户端每次都进行查表，将 handle 查出并且发送给服务端。服务端通过该 handle ，对 sql 引擎中的 db 进行赋值。</li>
+</ol>
+<p>客户端与服务端操作：</p>
+<ol>
+<li>在执行 sql 语句的时候先判断是否为 open 语句，如果是，则查表生成 dbhandle 字段。该字段随 PackSQLExDrite 一同发送到服务端。</li>
+<li>服务端解析到 PackSQLExDrite 之后会进行执行，如果是 select 语句 ，有结果会返回结果集数据结构 SqlResult；如果不是 select 语句，会返回通用指令类 GenerallyCode。我们在 GenerallyCode 里面加上该段信息。</li>
+<li>在客户端收到 GenerallyCode 之后，将信息记录到目标点。</li>
+</ol>
+<p>[4.7]<br>内存还需要整改和修葺。包括各种初始化的问题。</p>
+<p>[4.11]<br>各方进度：</p>
+<ol>
+<li>ODBC 安装。<br> 正在处理 SQL 方面适配。</li>
+<li>CSV 导入导出。</li>
+<li>SQL 语句支持。<br>基本关键字都可以解；但是 NOT NULL 和 primer key 只能使用，但未做解释处理，相当于空壳；<br>between 完成支持；<br>replace 还未支持。</li>
+<li>BLOB 数据类型。<br> 对于 CLOB 类型，使用 BLOB 类型就可以。</li>
+</ol>
+<p>后期雷达 QT 需求：<br>m_query[tname]-&gt;lastInsertId()<br>m_query[tname]-&gt;clear();<br>    m_query[tname]-&gt;finish();<br>m_query[tname]-&gt;lastError()<br>m_query[tname]-&gt;next();<br>m_query[tname]-&gt;prepare(sql);<br>m_db[tname].commit();<br>[4.13]<br>recode 是否可以改成静态函数.<br>getSize 也可以改成静态函数.<br>每一个 recode 应该都适用 dbrConnect ,不应该依赖于服务层对 stmt 句柄进行筛选.</p>
+<p>我们默认为存在 offset 参数的接口,可以对内存进行删除操作.但是没有必要传入 buffer 地址。<br>offset 的意义是：标志函数处理从该游标开始<br>offest 考虑为 负数 的情况. - 解决</p>
+<p>测试超长 sql 语句。<br>&#x2F;&#x2F;toolEngine::destroy_res(*input);&#x2F;&#x2F;TODO&#x2F;&#x2F;存在隐患,删除自己??<br>最大长度失真情况。-解决<br>[4.18]</p>
+<pre><code>if (Token::TK_SELECT != tkn_) &#123;//TODO//限制 select 提交(如果提交会 清空 cursor)
+</code></pre>
+<p>必须要 fetch_row 之后才能提交 select 的锁，它直接就导致了我们。</p>
+<p>还有一件事就是， tzdb_ 接口大部分可以直接使用 dbrSTMT 进行操作,接口集合职能不明确。<br>[4.19]<br>修改服务关闭数据库方式为统一关闭.而断开连接时只 disconnected. 后续优化为连接池,维护众多连接动态关闭.<br>在多线程关闭数据库时会出现访问冲突,暂时策略为加锁.<br>    - [ ] 完成</p>
+<p>完善日志锚点:目前的日志无法准确定位到出错位置或者程序进行状态.<br>[4.21]<br>先完成 JAVA 的构建和升级。</p>
+<p>更新对于 db_handle 的替换。原先的逻辑是，无论是什么 sql 语句，只要携带了 db_handle 就进行替换，显然是不科学的。应该是使用 db_handle 去获取 sesion ，如果获取成功说明是有效的，进行替换更新。<br>现暂时更改方式为，只有 open 的时候才会更新 db_handle。<br>目前需要完善的是， 应对一个客户端 ABA 的切换数据库方式。</p>
+<p>QT 方面需求：<br>1.命名下划线<br>2.批命令操作 transaction  commit<br>3.自增长ID，PrimaryID INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL<br>4.BOOLEAN替代BOOL</p>
+<p>[4.22]</p>
+<ol>
+<li>扩展需求</li>
+<li>自测</li>
+<li>联合测试</li>
+</ol>
+<p>INSERT INTO AISData VALUES (3, 18, -1, 413523670, -265.672375, -5125.33642578125, 39, 10940320, 65704023, 0, 0, 0, -180, -1, -1, -1, -1, -1, -1, -299288532, ‘next2’, -1, -1, -1, -1, 1641893381);</p>
+<ol>
+<li>transaction  commit   &#x2F;&#x2F; 可行</li>
+<li>bind 参数               &#x2F;&#x2F; </li>
+<li>BLOB                &#x2F;&#x2F; 后期</li>
+<li>通过命名检索数据         &#x2F;&#x2F;优先级最高</li>
+</ol>
+<p>CREATE TABLE TrackPacket (PrimaryID INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,id INT NOT NULL,aisFusionMmsi INT NOT NULL,createTime INT NOT NULL,rangeMetres FLOAT NOT NULL,azimuthDegrees FLOAT NOT NULL,speedMps FLOAT NOT NULL,courseDegrees FLOAT NOT NULL,sizeMetres FLOAT NOT NULL,sizeDegrees FLOAT NOT NULL,time INT NOT NULL,detectionTime INT NOT NULL,circleNum INT NOT NULL,radarMmsi INT NOT NULL,radarCreateTime INT NOT NULL,radarName String NOT NULL,lon DOUBLE NOT NULL,lat DOUBLE NOT NULL);</p>
+<p>insert into TrackPacket(id,aisFusionMmsi,createTime,rangeMetres,azimuthDegrees,speedMps,courseDegrees,sizeMetres,sizeDegrees,time,detectionTime,circleNum,radarMmsi,radarCreateTime,radarName,lon,lat) values (0,0,0,0,0,0,0,0,0,1650614541,0,0,0,0,’radar1’,-190,-190);</p>
+<p>insert into TrackPacket(id,aisFusionMmsi,createTime,rangeMetres,azimuthDegrees,speedMps,courseDegrees,sizeMetres,sizeDegrees,time,detectionTime,circleNum,radarMmsi,radarCreateTime,radarName,lon,lat) values (240,0,4134021888,5772.78,165.315,2.23801,255.689,70.4463,3.60352,1650611152,1616557684,90,123456789,1614249615,’San ‘,109.489,18.1592);</p>
+<p>select * from TrackPacket WHERE time &gt; 1648742400 AND time &lt; 1651334400  order by time desc;</p>
+<pre><code>[202202010942][INFO]dbrSTMT::execDirect:sql_str:insert into TrackPacket(id,aisFusionMmsi,createTime,rangeMetres,azimuthDegrees,speedMps,courseDegrees,sizeMetres,sizeDegrees,time,detectionTime,circleNum,radarMmsi,radarCreateTime,radarName,lon,lat) values (785,0,4116798816,4441.95,189.865,0.257328,54.8602,76.4414,4.48242,1650619345,1616557684,90,123456789,1614249615,&#39;San &#39;,109.467,18.1706);
+</code></pre>
+<p>out of memory, total usage 1265832 bytes<br>insert error</p>
+<p>[4.24]<br>终于可以成功使用 QT 了。<br>之前在使用 5.12.0 的时候并没有提示任何错误信息，只知道 qmake 崩溃。<br>使用 5.12.12 时，显示 retrieve MSVC 相关失败， 似乎是缺少 System32&#x2F;cmd.exe 。<br>我的电脑之前由于未知原因造成没有，于是将 SYSWO64 下的 cmd.exe 复制。于是成功编译。</p>
+<p>[4.25]<br>首先收集特征语句。<br>QSqlQuery::value: unknown field name ‘szShipname’<br>QSqlQuery::value: unknown field name ‘nState’<br>QSqlQuery::value: unknown field name ‘nImo’<br>1024 0 0 “”</p>
+<p>说明第一个是找到了，之后的没有找到。<br>调用的接口大部分是 SQLDescribeCol 。<br>所以我们直接在直接测试用例中使用该方式获取列名称并且输出。<br>在每次 fetch 之后都输出一次表名称。</p>
+<p>发现该接口中存在实现错误，修正后能够查找到。</p>
+<p>**</p>
+<p>QT 中报错 “qMakeField: Unable to get column attributes for column 0” 	Error: “”</p>
+<p>暂时不需要理它。<br>接下来主要事项为：</p>
+<ol>
+<li>transaction  commit   &#x2F;&#x2F; 可行</li>
+<li>bind 参数             &#x2F;&#x2F; </li>
+<li>BLOB                  &#x2F;&#x2F; 后期</li>
+</ol>
+<p>首先看事务。<br>commit 的调用特征是 SQLEndTran 毫无疑问。<br>transaction 的调用特征是</p>
+<pre><code>[202204251518][INFO]SQLGetInfo
+[202204251518][INFO]SQLSetConnectAttr
+</code></pre>
+<p>通过设置连接属性控制是否自动提交事务。</p>
+<p>现存问题：</p>
+<ol>
+<li>客户端判断指令是否执行成功的方式太过于单一<br>解决一：将 record 作为服务端是否成功运行的标志。</li>
+<li>传输指令的代码不够模板化。</li>
+</ol>
+<p>[4.26]<br>传输的指令可设计如下：<br>参数个数 |<br>第一个参数长度 | 第一个参数数据内容 |<br>返回值长度 | 返回值内容 |</p>
+<p>还有一个非常不合理的地方是，服务端如果执行错误，那么不会返回任何的错误包。很不合理。</p>
+<p>查询过程中，服务端断开连接，导致客户端无限循环。</p>
+<p>[4.27]<br>如果过程中产生错误，那么服务端和客户端应该如何应对？？</p>
+<p>重新梳理一下整个系统：<br>需求方面：</p>
+<ol>
+<li>transaction  commit   &#x2F;&#x2F; 可行<ul>
+<li><input checked="" disabled="" type="checkbox"> 完成</li>
+</ul>
+</li>
+<li>bind 参数               &#x2F;&#x2F; </li>
+<li>BLOB                &#x2F;&#x2F; 后期</li>
+<li>通过命名检索数据         &#x2F;&#x2F;优先级最高<ul>
+<li><input checked="" disabled="" type="checkbox"> 完成</li>
+</ul>
+</li>
+</ol>
+<p>所以需求只剩下：</p>
+<ol>
+<li>bind 参数   &#x2F;&#x2F; </li>
+<li>BLOB        &#x2F;&#x2F; 后期<br>隐患：</li>
+<li>服务端的接收和响应并不是一一对应的，客户端有可能会出现没有接收到包的情况而阻塞。</li>
+<li>语句句柄 和 连接句柄 的对应关系不明确。</li>
+<li>性能速度堪忧。</li>
+<li>各项测试还没有进行完毕。</li>
+</ol>
+<p>然后就是文档补足：</p>
+<ol>
+<li>软件安装与部署。</li>
+<li>接口详细文档。</li>
+<li>系统关键字表。</li>
+<li>测试文档。</li>
+<li>程序的使用以及反馈。</li>
+</ol>
+<p>[4.28]<br>优化网络组件建议:</p>
+<ol>
+<li>网络组件的内部结构.</li>
+<li>原来是帧尾识别。如果要改成帧头识别，那么怎么确定要读取的长度？如果是等待下一个数据到来再进行判断则存在延时。除非数据包前序提供了数据长度。<br>或者说还有一种处理机制，每次读尽量多的数据，如果检测到只有一个帧头，则判定为一份数据，如果有多个帧头则再进行处理。之前的帧尾方式的弊端就是，如果没有帧尾那么数据将一直会粘住。</li>
+</ol>
+<p>优化 buffer 的过程中。</p>
+<p>[5.7]<br>希望适配一下 linux 。<br>这部分就很迷。<br>我原以为是 dll 直接移过去就好了，加上适配的时间，差不多一天。<br>但是 ODBC 体系比较难走通，并且还要了解 linux 上的各种操作。<br>感觉有点分身乏术。</p>
+<p>尝试了一下 linux 安装 ODBC 。<br>接下来就是使用 C++。</p>
+<p>[5.8]<br>目前需要妥善协调一下了。<br>首先关于 linux 的适配，如果明天还没有调查出结果，则使用原生的 C++ 接口。<br>然后进行后续的配合性开发。<br>将接口测试内容分配一下。</p>
+<p>[5.9]<br>ODBC 具体完善：</p>
+<ol>
+<li>close 。</li>
+<li>数据库服务端整体关闭。</li>
+<li>接收反馈方式单一。</li>
+</ol>
+<p>健壮性 - 依赖测试，完善。</p>
+<p>[5.11]<br>QT 测试：</p>
+<ol>
+<li><p>测试 , 插入 1000 条数据<br>查询数据 : 正确<br>日志系统 : 开启<br>体感速度 : 插入速度比较慢 , 但是查询速度正常.</p>
+</li>
+<li><p>测试 , 插入 10000 条数据<br>查询数据 : 正确<br>日志系统 : 开启<br>体感速度 : 插入速度比较慢 , 但是查询速度正常.</p>
+</li>
+<li><p>测试 , 插入 10000 条数据<br>查询数据 : 正确<br>日志系统 : 双端关闭<br>体感速度 : 插入速度比较慢,对比测试 2 差别不大 , 但是查询速度正常.</p>
+</li>
+</ol>
+<p>初步判断：<br>每次执行的时候都需要调用一次以下接口函数：</p>
+<pre><code>[202205111601][INFO]SQLAllocHandle
+[202205111601][INFO]SQLAllocStmt
+[202205111601][INFO]SQLGetStmtAttr:10010
+[202205111601][INFO]SQLGetStmtAttr:10011
+[202205111601][INFO]SQLGetStmtAttr:10012
+[202205111601][INFO]SQLGetStmtAttr:10013
+[202205111601][INFO]SQLSetStmtAttr
+[202205111601][INFO]SQLExecDirect
+[202205111601][INFO]SQLExecDirect:SUCCESS
+[202205111601][INFO]SQLGetStmtAttr:-1
+[202205111601][INFO]SQLNumResultCols
+[202205111601][INFO]SQLFreeHandle
+</code></pre>
+<p>导致插入时的代偿比较大</p>
+<p>但是这几个函数按理来说都没有进行实际的操作。<br>所以猜测是 SQLGetDiagRec SQLGetDiagField  函数的问题。<br>但是经过测试，这两个函数已经不像之前一样一直回调</p>
+<ol start="4">
+<li><p>测试 , 插入 100000 条数据 python<br>查询数据 : 正确<br>日志系统 : 双端关闭<br>体感速度 : 插入数据和查询数据都正常</p>
+</li>
+<li><p>测试 , 插入 100000 条数据 python 对比 测试4 使用更简单的表结构.<br>查询数据 : 正确<br>日志系统 : 双端关闭<br>体感速度 : 插入数据和查询数据都正常, 插入数据对比 测试4 更快.</p>
+</li>
+</ol>
+<p>[5.16]<br>部分接口 size_t 替换 int 里类型建议。</p>
+<p>发现 bug 。</p>
+<ol>
+<li>getData 没有对传入的数据长度进行判断容错。</li>
+<li>close 时是一个单行道。</li>
+</ol>
+<p>[5.31]<br>完善并测试通信组件。<br>关于这部分的测试和完善，统一收录到 主仓库中，并且以主仓库作为基本进行完善。之后更新到项目的其他地方。</p>
+<p>[6.1]<br>运行错误:<br>testcase_EDB_JK_ODBC_DATA       1</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**@brief 销毁函数</span></span><br><span class="line"><span class="comment">* 1 used链表初始化到原始状态</span></span><br><span class="line"><span class="comment">* 2 free链表初始化为原始状态</span></span><br><span class="line"><span class="comment">* 3 关闭使用到的信号量</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">dbTransScheduler::disdroy</span><span class="params">(<span class="type">void</span>)</span><span class="comment">//GJB 8114</span></span></span><br></pre></td></tr></table></figure>
+
+<p>目前遇到的主要问题:</p>
+<ol>
+<li>发送了关闭指令之后,客户端不阻塞并且打开上一个数据库;此时如果服务端有一个时间片内数据库仍然未关闭.发生 File size is not matched 。</li>
+<li>打开一个已经打开的数据库，该语句被判断为执行错误，如果再执行其他 SQL 语句 ，将在 dbDatabase::beginReadWriteTrans( 分配事务时一直阻塞等待。</li>
+</ol>
+<p>解决方式：</p>
+<ol>
+<li>服务端标志数据库是否 open ，如果没有 open ，就不进行下一步的操作。<br>但这没有从根本上解决问题。<br>尝试这样的一个测试用例，打开数据库，然后使用其他句柄打开数据库，之后开启事务。<br>但是这个做法是错误的,因为数据库部分内容是和线程 TLS 索引 进行绑定，从而实现可以使用多线程进行访问。如果在同一个线程进行 edb_db_connect ，得到的数据库连接是一致的。<br>再尝试这样的一个测试用例：<br>使用 ODBC 的远程解耦，然后对数据库进行连接，但是没有进行 disconnect。此时如果 执行 open 该数据库，那么就会产生此类错误。<br>实际的测试效果是，数据库实体打开失败，之后就不会出现该类型的错误。<br>所以该错误仍然没有找到。那么该问题的出现时间是什么样的。</li>
+</ol>
+<p>还是选择了较为底层的修正方法。<br>该问题的产生其实是 在 close 的时候，由于是先将内存中的 db_list 寻址，然后注销该节点，再去 close。<br>如果再 寻址完成 但是没有 close 的时候，其他线程需要打开该数据库，判定为没有该数据库，去打开该数据库文件，但是该文件已经被占用，产生了读取文件大小的错误。<br>修改其顺序，变更为 先 close ，再 寻址注销节点记录。<br>该顺序会引发的错误是，如果 close 之后，还没有注销。此时有线程访问，认为该数据库仍然存在，进行 dbConnect， 但是此时会话 session 已经被销毁，所以访问不到 seeion.id 。<br>此部分在上层已经进行了容错。</p>
+<p>[6.2]<br>RAS 增加关闭指令的即时执行方式，用以确保测试用例中的执行原子性。<br>但是该操作对底层仍然存在隐患。<br>未同步到主仓库&lt;!!!&gt;。</p>
+<p>问题</p>
+<ol>
+<li>关闭数据库在服务端不进行 close，而是程序退出时进行 close。</li>
+<li>同个连接切换过多个数据库，存在有些数据库未释放的风险。</li>
+<li>怀疑客户端有内存泄漏问题。</li>
+<li>服务端 锐华上存在 内存增长问题。</li>
+</ol>
+<p>[6.6]<br>所以目前的情况就是还是存在 bug 。先测试 sqltool。<br>sqltool 没有问题。但是一直显示内存分配异常的问题。超过 1MB 之后就出现了该种问题。<br>待会先进行一个内存的循环测试，然后再测试是否因为内存管理不当而导致了内存溢出。</p>
+<p>天脉上仍然存在栈溢出问题。已经解决，确实是栈溢出的问题，因为线程的栈再天脉上是另一个设置方式，而我们扩大的一直是进程的栈。而 update 函数中占用了栈 1k ，栈总共大小为 17k， 所以呈现的是稳定复现。</p>
+<p>[6.7]<br>更新线程管理方式。</p>
+<p>[7.5]出差时间，该处记录修改的内容。<br>sql 引擎 string 处理方式， </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> len_tmp = <span class="built_in">strlen</span>(resField2-&gt;val.strValue);</span><br><span class="line"><span class="built_in">memset</span>(resField2-&gt;val.strValue, <span class="number">0</span>, <span class="built_in">strlen</span>(resField2-&gt;val.strValue) + <span class="number">1</span>); <span class="comment">//GJB-8114</span></span><br><span class="line"><span class="built_in">strncpy</span>(resField2-&gt;val.strValue, (tzchar*)rec + ((DbVarying*)(rec + fd-&gt;m_i_dbs_offs_))-&gt;offs, len_tmp + <span class="number">1</span>); <span class="comment">//GJB-8114</span></span><br></pre></td></tr></table></figure>
+
+<p>目前数据库如果有人在写同一个数据库，没有提交事务，会出现访问卡死的情况。<br>存在访问冲突隐患。</p>
+<p>[7.7]<br>简单来说就是，发生读写冲突的时候应该提示，而不是一直卡死。这部分可以网络端执行，但是优先级比较低。</p>
+<p>首先远程可以做的：</p>
+<ol>
+<li>日志优化。进行分级并且做出区分。</li>
+<li>关闭优化。让数据库存在于内存，而不是反复开关。可以考虑连接池。</li>
+<li>线程有限性。编写线程池，让线程更加完善。</li>
+<li>网络优化，使用 select 模型。或者类似的模型方式，进行轮询。在此基础上，整个远程访问服务应该以任务为基础，而不是以线程为主导。</li>
+</ol>
+<p>支线：</p>
+<ol>
+<li>适配接口使得可以使用软件进行查看数据库。</li>
+</ol>
+<p>首先进行日志优化。</p>
+<pre><code>LOG_LEVEL_ERROR,     // error
+LOG_LEVEL_WARNING,   // warning
+LOG_LEVEL_DEBUG,     // debug
+LOG_LEVEL_INFO,      // info	
+</code></pre>
+<p>总共分为四个等级</p>
+<p>LOG_LEVEL_ERROR - 无论 debug 还是 release 都保存到文件<br>错误等级最高的，只有关键的可查错误会出现。对于异常处理，也采用该种级别。<br>比如，SQL 语句错误执行了，关闭数据库失败了，或者是网络错误，对象解析错误。</p>
+<p>LOG_LEVEL_WARNING - 无论 debug 还是 release 都保存到文件<br>一般的警告信息。感觉警告就是，不会造成程序崩溃，但是会影响后续的部分内容，在容错的可控范围之内。<br>比如， 这部分都已经作为 ERROR 进行处理了。</p>
+<p>LOG_LEVEL_DEBUG - debug 可写入，但 release 不会保存到文件<br>级别最低的轻量级输出。服务端在开发者调试情况下会保留该输出，但是对于 release 来说，这些所谓的关键分析信息会演变成无用的调试信息。所以 release 不保留。<br>相当于全程播报整个系统的运行状态。<br>比如，服务端程序执行到哪一个步骤了。对于 ODBC 客户端来说就是，程序执行了那些函数。</p>
+<p>LOG_LEVEL_INFO - 无论 debug 还是 release 都会保存到文件<br>关键的分析信息。多数是信息性提示，将辅助分析的信息输出。<br>比如，起始时刻读取了配置文件的内容是什么。这个部分还是空缺的可以边进行查阅。</p>
+<p>第五种情况 - 无论 debug 还是 release 都不会保存到文件<br>各个组件的调试状态则直接使用 printf， 用宏开关进行控制。可以是分析非常细小的数据和内存情况。<br>一般使用两个宏开关，一个指定域(组件文件)宏开关控制，一个是项目配置文件控制。</p>
+<p>日志文件，基本完成。</p>
+<p>接下来进行，数据库不进行关闭，而只是进行 disconnect。<br>起始这部分很好实现，只需要不关闭数据库就可以了，每次只是断开连接，来的时候以来开数据库时的容错，只进行 connect 有效。<br>然后编写一个线程，定时清理就行了。这部分先不编写。看看线程池怎么说。</p>
+<p>内存关闭，基本完成。</p>
+<p>接下来其实我更想弄个东西，能够查看数据库中的内容。</p>
+<p>确定一下有什么样的工具。<br>还是老方法，使用 Power BI Desktop 版本。<br>首先探测一下其使用了那些方法。<br>配置一个 release 版的 dll。</p>
+<p>[7.10]<br>必须先进行版本更新，改更新操作，先同步到笔记本的 TZDB 项目。并且保证其纯度。</p>
+<p>[7.11]<br>还面临的问题是:</p>
+<ol>
+<li>open 多次。</li>
+<li>客户端不主动调用关闭连接接口时，出现由于数据库没有 disconnect 导致数据库未关闭。后续数据库能正常访问，但是仍然存在内存中没有 close。</li>
+<li>客户端有阻塞的风险。</li>
+</ol>
+<p>首先需要明确的是，线程管理释放的过程。<br>我们设计一个锁，用于控制线程的访问。</p>
+<p>管理线程每隔 x 个时间单位将会释放该控制线程的访问权限。称其为高级锁。<br>例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">thread_mange_.<span class="built_in">unlock</span>();</span><br><span class="line">...</span><br><span class="line">thread_mange_.<span class="built_in">lock</span>();</span><br><span class="line"><span class="built_in">sleep</span>(x);</span><br></pre></td></tr></table></figure>
+<p>释放时，其他的被管理线程将可以能够抢占该线程的访问权限。<br>一旦抢占成功，就开始抢占次级锁。<br>此时，次级锁仍然存在于管理线程中。<br>必须确保，如果有一个线程抢占了高级锁，该线程对于次级锁的抢占是唯一的。<br>线程抢占了高级锁之后，修改共享内存的值，此时，其他线程无法抢占高级锁，包括管理线程。<br>但是会出现一个情况，就是有可能被管理线程释放高级锁时，被其他的非管理线程抢占，就会出现该段内存被其他方面访问，然后一直没有关闭的情况。</p>
+<p>所以设计次级锁，保证线程的控制权一定会回到管理线程。<br>也就是说，保证管理线程至少会持有一个锁。<br>管理线程，释放 A 锁，非线程抢占了 A 锁。修改变量，释放 B 锁…<br>可是这样就是无限套娃。<br>没有办法通过两个锁进行设计。<br>等一下，如果每个线程都有一个自己的锁呢。假设为 x 系列锁。<br>每个线程开始的时候，上 x 锁。<br>共享内存中有指针变量 w_p 提供给线程写入 x 锁，称 w_x 锁。<br>需要通知时，子线程抢占 w_x 锁， 抢占成功后，写入 w_p,, 抢占高级锁。<br>管理线程释放高级锁。其他线程由于 没有抢占到 w_x 锁， 无法进行抢占高级锁。<br>管理线程释放高级锁后，尝试抢占 w_x 锁，不成功。<br>子线程抢占成功高级锁， 释放 w_x 锁，有可能会被其他子线程抢占从而造成复写。</p>
+<p>不用那么麻烦，只要保证所有被管理线程只有一个在执行即可。<br>设置 D 锁，保证所有子线程只有一个能执行。<br>首先子线程抢占 D 锁。有一个抢占成功。开始抢占 w_x 锁。<br><code>管理线程 释放 w_x 锁。释放高级锁，*间歇*，抢占 w_x 锁，抢占 高级锁。</code><br>子线程抢占 w_x 锁成功。写入数据。释放 w_x 锁。抢占高级锁。<br>管理线程释放高级锁，抢占 w_x 锁。成功抢占，并且抢占了高级锁。释放 w_x 锁。释放高级锁。间歇。<br>子线程抢占高级锁成功。开始抢占写共享内存的次级锁。抢占 B 锁成功，开始写入需要释放的结构体。释放 B 锁。<br>管理线程抢占 W_x 锁，等待高级锁，阻塞。<br>管理线程维护两个 while 循环。关键是时间的问题。sleep 时间期间用于缓冲。<br>管理线程释放高级锁。此时只有一个线程在抢占高级锁。</p>
+<p>重新梳理一下。<br>使用了以下锁：</p>
+<ol>
+<li>D 锁。保证只有一个子线程在执行通知代码。</li>
+<li>A 锁。高级锁。只有持有该锁才能写入关键数据。</li>
+<li>X 系列锁。每个线程的一个独立锁。用于通知和持有。</li>
+<li>W_X 锁。只有持有该锁才能进行对暂存区的通知锁进行写入。</li>
+</ol>
+<p>所以逻辑是：<br>子线程，抢占 D 锁，成功后，开始抢占 w_x 锁。<br><code>管理线程 释放 w_x 锁。释放高级锁，*间歇*，抢占 w_x 锁，抢占 高级锁。</code><br>子线程抢占 w_x 锁成功，写入数据。<br>管理线程释放高级锁，抢占 w_x 锁。阻塞。<br>子线程释放 w_x 锁。开始抢占高级锁。<br>如果未成功，则等待下一次间歇后释放。<br>子线程抢占高级锁成功。写入关键数据。释放本线程的 X1 锁。<br>管理线程，走完一轮，抢占完 W_x 锁后，判断该值(x 锁，此时为 X1)为 非 NULL。 则开始抢占 X1 锁。确保子线程写入完成关键数据。抢占 X1 锁成功。直接释放 X1 锁。修改 X 锁值为 NULL。并且进行管理共享内存操作，开始抢占高级锁。<br>子线程释放高级锁，释放 D 锁。完成整个结构体系。</p>
+<p>对该算法进行校验，主要从其它子线程的干扰上进行分析。<br>A 锁的初始意义是作为锁定管理线程的资源。<br>其实，只要让子线程群先进行竞争，留下一个，然后竞争成功后锁定 W_X 锁，执行所有写入锁和写入共享内存的操作。<br>此时管理线程阻塞在等待 W_X 锁。<br>等子线程写完之后， 释放 X 系列锁。释放所有锁。别的子线程如果比管理线程先抢占到 W_X 锁。就会造成复写。<br>所以， A 锁作为高级锁，也是备用锁，就成为了避免此种情况的方法。<br>当子线程抢占了 D 锁时，其他子线程将无法进入。<br>临界点就是，子线程释放 D 锁之前的非等待情况。<br>也就是子线程等待抢占 A 锁，释放 X 锁的情况。<br>在子线程抢占 A 锁之前，子线程持有 D 锁，持有 W_X 锁。<br>管理线程无持有锁，应持有 A 锁，等待抢占 W_X 锁。<br>子线程释放 W_X 锁，应释放 X 锁，阻塞等待 A 锁。<br>管理线程抢占 W_X 锁。判断到 X 系列锁有内容。释放 A 锁，等待抢占 X 锁。</p>
+<p>关键点就是，子线程执行完所有操作之后，等待关键的资源回到管理线程中，从而保证通知的唯一性。</p>
+<p>首先子线程抢占 D 锁。保证了唯一性。<br>子线程抢占 W_X 锁。写入完成数据。<br>子线程释放 D 锁之前，要确保，管理线程已经在等待执行关键代码。并且之后在等待 X 系列线程。<br><code>所以最终模型为：</code></p>
+<ol>
+<li>使用 D 锁降低竞争关系层次。依赖原理，两个线程之间的通信只需要两个锁。<br>原理：利用 D 锁，将多个线程的竞争关系变成，一个线程和管理线程的竞争关系。<br>子线程竞争完 D 锁之后，竞争 W_X 锁，写完数据后释放 W_X 锁，此时，其他子线程再竞争 D 锁。不会和管理线程竞争 W_X 锁。<br>子线程再竞争 A 锁。<br>此时，管理线程竞争 W_X 锁，成功后释放 A 锁。子线程释放所有的持有锁。<br>其他子线程竞争 D 锁成功，但是无法竞争 W_X 锁。因为此时 管理线程持有 W_X 锁。<br>管理线程执行相关操作，抢占 A 锁，再释放 W_X 锁。<br>此时没有线程与管理线程竞争 A 锁。管理线程释放 W_X 锁后，间歇，其他子线程可以在这段时间抢占 W_X 锁。<br>缺点：<br>a. 依赖间歇。如果没有间歇，会出现管理线程无限抢占 W_X 锁的情况。</li>
+<li>使用线程的 X 系列锁<br>原理：利用 X 锁。<br>子线程竞争了 W_X 锁，之后，写入 X 系列锁。<br><del>该方法没有意义。</del><br><del>如果所有线程都会竞争同一个锁，那根本无法保证其准确的流向。</del><br>其实该方法时有可行性的。<br>X 系列锁主要思想是，让子线程有一个权重。管理线程在阻塞等待 X 系列锁。<br>也就是两个锁之间的通信扩大了，让子线程提前持有 A 锁。<br>但是由于 X 系列锁不能唯一，所以，需要将 X 系列锁扩展成信号量机制。<br>让管理线程可以根据信号量提供的变量数据，动态定位到目标锁。进而定位。<br><del>这段描述真的是厉害，我估计过几天我自己都看不懂了</del></li>
+</ol>
+<p>算法如下：<br>公共资源：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//算法 D 锁，降次锁</span></span><br><span class="line">DBMutex* D_mutex = <span class="keyword">new</span> <span class="built_in">DBMutex</span>();</span><br><span class="line"><span class="comment">//A 锁，通知锁</span></span><br><span class="line">DBMutex* A_mutex = <span class="keyword">new</span> <span class="built_in">DBMutex</span>();</span><br><span class="line"><span class="comment">//W_X 锁，写锁</span></span><br><span class="line">DBMutex* WX_mutex = <span class="keyword">new</span> <span class="built_in">DBMutex</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">//弃置线程暂留位</span></span><br><span class="line">DBThread* drop_thread_in = TZNULL;</span><br></pre></td></tr></table></figure>
+
+<p>管理线程：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//轮询判断进行释放</span></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">    WX_mutex-&gt;<span class="built_in">lock</span>();</span><br><span class="line">    A_mutex-&gt;<span class="built_in">unlock</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (TZNULL != drop_thread_in) &#123;</span><br><span class="line">        <span class="built_in">LOG_IN_INFO</span>(<span class="string">&quot;threadManage free,%s&quot;</span>, <span class="string">&quot;管理线程等待线程结束&quot;</span>);</span><br><span class="line">        drop_thread_in-&gt;<span class="built_in">join</span>();</span><br><span class="line">        <span class="built_in">DELETE</span>(drop_thread_in);</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> DEBUG_THREAD_FREE</span></span><br><span class="line">        thread_free_num++;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;[Thread say]: %d , free %d\n&quot;</span>, thread_num_gol, thread_free_num);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">// DEBUG_THREAD_FREE</span></span></span><br><span class="line">        <span class="built_in">LOG_IN_INFO</span>(<span class="string">&quot;threadManage free end,%s&quot;</span>, <span class="string">&quot;管理线程释放线程&quot;</span>);</span><br><span class="line">        <span class="built_in">assert</span>(TZNULL == drop_thread_in);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    A_mutex-&gt;<span class="built_in">lock</span>();</span><br><span class="line">    WX_mutex-&gt;<span class="built_in">unlock</span>();</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> ACORE_OS</span></span><br><span class="line">    DBThread::<span class="built_in">sleep</span>(<span class="number">1</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">elif</span> _WIN32</span></span><br><span class="line">    <span class="built_in">Sleep</span>(<span class="number">1</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">// ACORE_OS</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>子线程通知部分</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">D_mutex-&gt;<span class="built_in">lock</span>();</span><br><span class="line">WX_mutex-&gt;<span class="built_in">lock</span>();</span><br><span class="line"></span><br><span class="line">drop_thread_in = db_con-&gt;thread_t_;</span><br><span class="line"></span><br><span class="line">WX_mutex-&gt;<span class="built_in">unlock</span>();</span><br><span class="line">A_mutex-&gt;<span class="built_in">lock</span>();</span><br><span class="line">A_mutex-&gt;<span class="built_in">unlock</span>();</span><br><span class="line">D_mutex-&gt;<span class="built_in">unlock</span>();</span><br></pre></td></tr></table></figure>
+
+<p>emmm，这次分析没有抓住问题的关键所在。</p>
+<p>[7.12]</p>
+<ol>
+<li>open 多次。</li>
+<li>客户端不主动调用关闭连接接口时，出现由于数据库没有 disconnect 导致数据库未关闭。后续数据库能正常访问，但是仍然存在内存中没有 close。</li>
+<li>客户端有阻塞的风险。</li>
+<li>关闭优化。让数据库存在于内存，而不是反复开关。可以考虑连接池。</li>
+<li>线程有限性。编写线程池，让线程更加完善。</li>
+<li>网络优化，使用 select 模型。或者类似的模型方式，进行轮询。在此基础上，整个远程访问服务应该以任务为基础，而不是以线程为主导。</li>
+</ol>
+<p>支线：</p>
+<ol>
+<li>适配接口使得可以使用软件进行查看数据库。</li>
+</ol>
+<p>接下来解决 open 多次的问题。<br>这个是因为查表的时候的问题。search 表的过程。造成了这样停止的 bug。<br>先模拟一下真实的环境。<br>主要监视查表的过程是否正确。<br>该问题主要是在open语句之后，录入表格的时候库名为NULL，导致查表的时候出现 strcmp 判断NULL导致客户端异常的问题。但是 python 也应该是抛出异常而不是直接终止了。<br>目前 open 多个数据库是可行的，但是对于其释放却是不友好的。</p>
+<p>有以下策略：</p>
+<ol>
+<li>客户端根据目前的队列。依次关闭数据库。</li>
+<li>服务端同客户端使连接句柄维护一个队列。依次关闭。</li>
+<li>服务端环境句柄统一维护一个队列。定时对内存中的数据库进行依次关闭。</li>
+</ol>
+<p>方法1很依赖执行关闭方法。如果客户端不执行关闭方法，那么数据库将存留。<br>方法2对比方法3主要是将关闭的域做了管理划分。<br>方法3，统一管理的优势是，可以不用主动关闭数据库了。<br>方法2的解决措施是正常的。但是方法3可以解决很多问题。并且可以解决关闭优化的问题。<br>但换种思路想，仍然需要对数据库进行 disconnect ，所以，方法 1 仍然是必不可少的哇。<br>但是要关闭，肯定不能只关闭一个数据库就算结束，所以方法 2 中添加队列，判断是否还有残留的数据，以防止其破坏循环，导致程序退出。</p>
+<p>首先明确资源，每次 connect 都会产生一个连接句柄，由唯一的标志 session id 表示。<br>于是乎，我们存储 &lt;表名,session id&gt;。</p>
+<p>[7.13]<br>依此法，方法3是必须采用的，包括后期的关闭优化和多样选择。<br>所以，采用方法3。环境句柄维护队列，存储连接的 session id 。<br>每过一段时间，就尝试 close 队列中的数据。<br>也需要采用方法 2，当连接关闭时，遍历维护的 connect 队列，依次 disconnect。<br>方法1 不采用，仅是保留当前的查表连接机制。再次 open 是校验过程。</p>
+<p>而方法3， 是可以通过数据库内核中的 db_list 进行维护和操作的。但是 db_list 无法进行使用。是不对外界开放的内容。<br>所以仍然需要在远程访问服务这块进行约束和记录。<br>目前在环境句柄增加表级进行记录。记录所有开的数据库。格式为&lt;表名,&gt;。<br>而连接句柄中则增加原有的 &lt;表名,session id&gt;。<br>在 dbr-&gt;close 中添加遍历表并且 disconnect 的操作。</p>
+<p>在入表时，先进行判断，内存持有的数据库是否超出阈值 ，如果超出，尝试关闭，当然会有关闭失败的情况，关闭完成一轮之后，修改阈值上限。<br>而阈值默认保持为目前线程数量相等的值。</p>
+<p>首先目前，不 close 会出现错误的问题还没有找到，其次还有问题是，主动提交事务时出现问题。<br>数据校验也没有进行，CSV 对接也没有完成。<br>替换 map 使用方法。</p>
+<p>[7.14]<br>仍然是重写一下关闭和开启的逻辑点。</p>
+<p>[7.16]<br>完成万次测试，数据准确性校验，数据内存量校验。<br>复杂情况测试等等。</p>
+<p>[7.17]<br>我要直接持有 dbDatabase 句柄。<br>可以使用 getDBList 拿到全局的句柄。<br>然后我将会在单个连接中维护另外一个。</p>
+<p>[7.18]<br>如何判断数据库是否已经关闭了。</p>
+<p>[7.19]<br>还是那句话，先把数据库的持有方式改变了，这部分我其实不太想动，<br>因为我就是不想干活哈哈哈哈。<br>好吧，其实是因为我不知道整个过程中对数据库的操作。<br>数据库是否可以多次 open ，如果我们是用 sql 引擎的打开方式是肯定没有问题的。<br>可以主动识别是否存在数据库，然后如果存在将不会重复打开。<br>那么正常 connect 和 disconnect 即可。<br>然后我们在维护队列的时候，将 map 改变为使用特定的结构体即可。<br>dbrConnect 维护的是含有 session_id 为唯一标志符的队列，是否可以使用 session_desc 来作为队列呢。<br>如果要的话，需要有对外的接口，直接传入 session_desc 来关闭。初步寻找，没有找到。尴尬啦。<br>所以只能使用 session id 作为关闭的方式，所以只能这样做。<br>dbrENV 维护的是数据库连接，该部分直接使用 db_list。</p>
+<p>接下来就是关闭的时机，如果关闭的话需要根据使用频率进行关闭。就是权值。<br>权值算法：<br>我们将一个连接的初始权值定为 1.当权值到 0 的时候就进行关闭。<br>每次连接，权值 + 1，当权值大于 x 的时候，不关闭，但是权值仍然会增加。<br>当权值增加到 y 的时候，对小于 x 的值内容进行降次 z 个级别 ，最低的频次降低到 0。其他降次为 x。<br>其中， y 为 x 的倍数。<br>降次的过程中对结果权值为 0 的进行关闭。如果关闭成功，则踢出队列。</p>
+<p>[7.23]<br>版本管理一定要弄好。手上有两个版本，稳定版和开发版，作为两个备用路线。</p>
+<p>接上一次数据库的关闭降次策略，将数据库进行降次。<br>该方式发生在数据库每次关闭的时期。<br>每次 connect 的时候将权值增加一位，当关闭目前的数据库时，对整个 list 进行降次处理。</p>
+<p>开发库，版本库，产品库</p>
+<p>[7.26]<br>结构变得很复杂，因为数据库的持有方式变化。导致 dbrENV 和 dbrConnect 两者对数据的持有都成了复杂的逻辑结构。<br>dbrENV 中需要有记录、查找、删除、清空的句柄规则。而 dbrConnect 也需要有该类规则去应对。<br>因为数据库关闭和断开连接的不统一而造成。<br>所以拟采用连接池的方式，将此类资源统一进行管理。</p>
+<p>连接池实现方案：</p>
+<p>首先明确需求，对于资源的划分为，数据库实体(open)，数据库连接(connect)，两种。<br>这两个的分级一定要明确。<br>首先连接池维护一个主要队列。其主要成员和 db_list_ 的主要成员一致。<br>但连接池主要元素还保存了连接(connect)队列。</p>
+<p>该连接池维护在 dbrENV 中，只对服务端有效。<br>是否可以也针对客户端有效呢？客户端也存在环境句柄这回事，那么我们也能够使得客户端也能够使用连接池？<br>那么我们要明确的是，环境句柄和连接句柄的关联性是使用 addConnectHandle 来维护的。也就是说，其实是由 std::list&lt;dbrConnect*&gt; conn_list_ 进行维护。<br>那么 连接句柄 添加到 环境句柄的队列之后，我们知道会有一个线程管理类，使用通知机制让 线程资源进行释放。</p>
+<p>连接池的功能切割很重要。<br>首先 dbrENV 持有自己的 db_list 内元素和 value_ 对应。<br>dbrConnect 并不和其相互冲突，允许 dbrConnect 持有多个数据库连接对应的是不同的数据库。</p>
+<p>当数据库开始连接时， dbrConnect 执行的过程为：<br>调用 dbrENV::search 进行查表，如果找到，就调用自身的 connect 接口，如果没有找到就调用自身的 open 接口，并且在连接池中添加一个新的连接句柄。</p>
+<p>关闭时，先执行 disconnect ，之后调用 dbrENV::权值处理 接口，对句柄的 value 进行权值增加，并且对权值进行规划，然后进行判断是否需要进行 close。</p>
+<p>第一个首要问题，数据库连接的权值是使用 连接次数好还是使用 关闭次数好？<br>如果按照之前的约定权值是最简单的，但同时也很难满足一些条件。<br>记录关闭的权值，等到一定频次之后就对关闭频次较低的数据库进行关闭。<br>出现第一个高权值的连接之后再进行关闭。如果此时数据库仍然具备连接做如何处理。不进行处理。</p>
+<p>权值并不是一个概括性的东西，是一个需求性的指标，比如，数据库保持长连接的时间是否可以作为权值，有些数据库长期持有，但是关闭频率比较低，这样作何处理？<br>采用关闭比开启优异，因为开启可能是多个客户端持有，如果是长持有那么关闭意义便不算很大。采用关闭，可以很好解决该类问题，关闭反复，表明“不持有”的频率较高，某种意义上覆盖了关闭的操作。</p>
+<p>[8.18]<br>还是连接池：<br>首先数据库，是否要更改。<br>那么就取决于如何切换数据库，换言之，服务端的 dbrConnect 到底是什么职能。<br>是表明单个连接，那么就要承担维护本次连接的数据库连接，建立队列。<br>如果是单个数据库连接，那么客户端又怎么操作？如果我们知道了客户端连接池是在维护什么，那么这部分能操作的空间将会大大减少。但是我们不可能说现在去调研，因为时间限制，这周要完成版本固化。<br>那么很明显，我们现在需要的就是单个连接承担本次连接的数据库连接。</p>
+<p>那么我们如何操作，主要是客户端和服务端。<br>客户端维护一个队列，通过 dbname 和 sessionid 去执行，其实根本就不需要，因为 open 语句会完成切换数据库的工作。<br>那么我们就将客户端极简化，只对整个结构进行传输和发送，并且关闭网络即可。<br>而服务端，dbrENV 维护一个总的链表，和 db_list 内元素同等。<br>dbrConnect 维护一个 dbSession 链表。每次切换数据库就向内部插入一个。</p>
+<p>开启的时候，dbrConnect 正常保持队列。<br>如果 dbrConnect 进行连接操作，那么就调用 dbrENV 查表，如果是新的就插入。<br>然后进行连接 connect。<br>关闭的时候，dbrConnect 遍历关闭，并且调用 dbrENV 进行判断权值整理关闭。</p>
+<p>建立连接池，自顶向下，进行需求覆盖。</p>
+<p>[8.19]<br>客户端如何持有，客户端不需要持有任何数据库 session list 。<br>只需要通过其进行切换即可。也不需要将 db_handle 有效化。</p>
+<p>接口对标。</p>
+<p>[8.27]<br>只要是 open 语句，都应该进行先查表</p>
+<p>[9.05]<br>数据入库的关键时刻。<br>首先和十所对接，目前有一些语句无法使用得当。</p>
+<p>open ‘Test_WXD’;<br>select * from GL_JK_CDBSBJK;</p>
+<p>[9.6]<br>经过测试，首先是 sqltool 的长度，该长度可以调整。<br>然后是 log 的缓存长度，该长度的长度值原先只有 1024， 会造成访问冲突。<br>其次是出现这样的情况：如果 INCRE_SIZE_MIN 长度只有 1024， 读取数据的时候，需要读取两次，但是算法 keyTailLocation 是从头开始，那么会出现末尾的数据没有被识别，从而导致部分数据没有判断。<br>故而导致识别不了。<br>应该改其为从本次读取的长度开始判断。暂时策略为扩展识别为所有的长度。</p>
+<p>[9.7]<br>数据库这边主要是对标测试。</p>
+<p>[9.11]<br>有时候会出现停止的情况，还是需要开发进行非阻塞行驶。</p>
+<p>[9.12]<br>着实有点杂乱，没有办法保证稳定性。没有收集并且编写错误的测试用例，哪怕是使用 sql 文件存储起来也好。<br>而且目前希望能够在回去之前开发好状态发送内容，并且测试。<br>数据库目前，存储 \ 也不行，也没有看到 \ 对后续的字符进行了转义，而是直接忽略了。<br>uint 的边界问题需要测试，超出内存之后会出现访问冲突的问题。</p>
+<p>[9.21]<br>尝试提供判断是否断开连接的方法。<br>首先提取出 Qsql 中的代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">QSqlError sqlError = m_pDatabase-&gt;<span class="built_in">exec</span>(<span class="string">&quot;Select null from dual&quot;</span>).<span class="built_in">lastError</span>();</span><br><span class="line"><span class="keyword">if</span>(sqlError.<span class="built_in">type</span>() != QSqlError::NoError &amp;&amp; <span class="built_in">QString</span>(<span class="string">&quot;3114&quot;</span>) == sqlError.<span class="built_in">nativeErrorCode</span>())&#123;</span><br><span class="line">    <span class="comment">//重连机制</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过查阅，SQLGetDiagRec 和 SQLGetDiagField ， 是负责诊断信息的。但是代码中的 3114 却是在 ORA 或者 sqlserver 中查看到的。<br>这两者不隶属于同一内容。</p>
+<p>于是，我们仍然判定，需要使用原生的这两个接口进行实现各种操作。</p>
+<p>[9.27]<br>晓来春晚霁雪寒</p>
+<p>这项目文件系统就是烂，cmake 都编不过的东西。以后我将不会再碰这个项目的架构，每个人的习惯和规则都以及被定义好了，根本改变不了。只有自己受气。</p>
+<p>不依赖于其他项目维护测试用例，基本的测试用例应该在船舶项目中也维护一份。</p>
+<p>[9.28]<br>测试 bug 。<br>但是感觉没有什么 bug 了。</p>
+<p>目前的想法是，把数据库保持连接的东西给用上，但是目前，我们并没有任何的办法看到关键的步骤信息。<br>这一部分不透明的话，造成我们维护整个系统的难度会非常大，而且也没有办法对其进行比较优秀的构造。<br>所以希望有一个比较完备的状态监控日志体系。<br>监控如下内容：</p>
+<ol>
+<li>被连接的数据库。</li>
+<li>被连接数据库的连接数量，客户端的 ip 、port 。</li>
+<li>执行的语句数量。根据执行的 sql 语句的类型进行分类，每次执行一个 sql 语句，就让对应的类型 +1，并且更新一下最后的时间，如果是 CREATE 和 Open 语句则记录到文件中。如果执行 sql 语句错误，那么我们也应该记录下来，并且将返回值一同配备。</li>
+<li>监控一下执行某个关键操作的时间。例如执行 sql 语句的时间。</li>
+<li>监控线程是否存活。</li>
+<li>监控系统应该可用负载其他组件的记录需求。<br>比较好的情况是，按照每个数据进行分类，对数据进行记录。</li>
+</ol>
+<p>以前的时候没有想到。<br>对于项目的监控是十分关键的，可以对程序的稳定性提供非常大的便利。监控程序不仅可用作为调试程序的辅助，也可以作为验证功能的工具。<br>能够对旧的功能进行监控，对新的功能进行辅助开发以及验证。<br>是比测试用例更加贴近程序本身的验证机制。</p>
+<p>时间比较紧迫。需要先开发一个雏形。简单的雏形，不影响内部的使用。<br>但是还有测试用例需要编写。<br>我还是更加倾向于先把日志给定个初稿。然后有思路之后再开发测试用例。</p>
+<p>[9.29]<br>open ‘PlanBriefDB’;<br>select * from PlanBriefDB;</p>
+<p>[9.30]<br>开始思考，如何在系统中负载日志系统。<br>我们的想法是在最上层是没有错的，就负载在主要的系统程序 ENV 中。<br>这样客户端和服务端都可以使用。<br>可是 ENV 的职能够吗，权限够用吗？<br>首先 ENV 是能够进行添加的新的连接的，并且的可以管理有多少个线程。<br>但是没有办法直接获取连接的断开信息。连接的断开信息由连接池进行直接权限管理，委托其进行计算权值关闭。<br>所以，我们可以通过增加连接池和线程池(准确来说是线程管理)来对必要数据进行嵌套和检测。<br>然后 ENV 负责统筹和记录。<br>可以标榜出连接句柄，但是如何标榜出连接的会话？<br>毕竟会话只有在 dbrConnect 中才由相应的队列进行维护。<br>所以，该方向，必要的就是 ENV 将数据收集模块下发到各个主类模块，依靠其它模块进行提供相应的信息。<br>该类型的模型支撑，为了满足权限，将其他主类中的信息获取函数定义为 private 。</p>
+<p>分配如下：</p>
+<ol>
+<li>[DBConnectPool]被连接的数据库。</li>
+<li>[dbrConnect]被连接数据库的连接数量，客户端的 ip 、port 。</li>
+<li>[dbrConnect]执行的语句数量。根据执行的 sql 语句的类型进行分类，每次执行一个 sql 语句，就让对应的类型 +1，并且更新一下最后的时间，如果是 CREATE 和 Open 语句则记录到文件中。如果执行 sql 语句错误，那么我们也应该记录下来，并且将返回值一同配备。</li>
+<li>[dbrConnect]监控一下执行某个关键操作的时间。例如执行 sql 语句的时间。</li>
+<li>[DBThreadManage]监控线程是否存活。</li>
+<li>监控系统应该可用负载其他组件的记录需求。</li>
+</ol>
+<p>那我应该也是需要多少秒输出一次。<br>日志系统，负载重启程序，达到多少条记录就重启一下。<br>暂时不考虑说根据不同的数据库分开多个日志文件，这个涉及到日志系统允许别的组件去负载并且进行日志的记录。</p>
+<p>输出好乱。<br>什么时候输出，需不需要弄一个定时器？有一个线程管理程序，但是它是内部循环。可是让它输出，权限不够。<br>那么暂时扩宽权限。<br>目前的尴尬是，dbrConnect 并没有 list 存储，即使是被拿到了，也没有办法去处理。<br>如果我今天晚上开发的话，时间紧，说不定会出错误。<br>不如就这样好了。<br>那么只能依赖于 dbrConnect 中维护的循环去做这件事情了。</p>
+<p>[10.5]<br>有两个错误：<br>第一个：</p>
+<p>open ‘MergeMes’;<br>CREATE TABLE MergeMes (PrimaryID INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,Time INT,Radar_Lon FLOAT,Radar_Lat FLOAT,Radar_Type INT,Radar_TrackID INT,Radar_valid INT,Elec_Type INT,Elec_ID INT,Elec_Lon FLOAT,Elec_Lat FLOAT,Elec_time INT,Elec_fps BIGINT,Elec_azi INT,Elec_valid INT,Sonar_Azi FLOAT,Sonar_Type INT,Sonar_SignalType INT,Sonar_ID INT,Sonar_ImageLat FLOAT,Sonar_ImageLon FLOAT,Sonar_ImageType INT,Sonar_ImageID INT,Sonar_valid INT);<br>insert into MergeMes(Time,Radar_Lon,Radar_Lat,Radar_Type,Radar_TrackID,Radar_valid,Elec_Type,Elec_ID,Elec_Lon,Elec_Lat,Elec_time,Elec_fps,Elec_azi,Elec_valid,Sonar_Azi,Sonar_Type,Sonar_SignalType,Sonar_ID,Sonar_ImageLat,Sonar_ImageLon,Sonar_ImageType,Sonar_ImageID,Sonar_valid) values (1664932896,109.443,18.233,2,18,1,210,149260,nan,3.57331e-43,256,10886919935540330496,91,0,89.9166,3,8,109775,145.646,89.8281,0,0,0);</p>
+<p>暂时策略，加上了。</p>
+<p>第二个：<br>未找到原因。</p>
+<p>以后项目中如果有时间标注，必须以每周一的时间作为标注，而非当天的时间作为标注。</p>
+<p>[10.21]<br>发现部分隐患问题：</p>
+<ol>
+<li>日志系统存在有时候只写入了一两条的情况</li>
+<li>现在雷达入库一打开就会崩溃</li>
+</ol>
+<p>先看为什么一打开就会崩溃，<br>我怀疑这多半是因为一些sql语句又不合法了，从而导致的。最快的方法就是布置程序现场调试。</p>
+<p>[10.24]<br>Rust 还做不做了。<br>数据库目前：</p>
+<ol>
+<li>windows 下很难编译通过。十分难受</li>
+<li>日志系统在客户端为什么还会显示输出</li>
+<li>日志系统要把日志的范围确定</li>
+<li>日志系统要优化</li>
+<li>界面，那里来的界面？？<br>问题：</li>
+<li>日志系统存在有时候只写入了一两条的情况</li>
+<li>现在雷达入库一打开就会崩溃</li>
+</ol>
+<p>先解决问题：<br>首先看雷达为什么一入库就会崩溃，经过实际测试发现，这是因为数据库 recover 的时候出现的问题。<br>但是这个问题我能解决吗，估计挺玄乎。</p>
+<p>[11.1]<br>问题还没有完全解决，但是分发系统已经整改完毕。<br>而目前的测试端，应该融合成app形式，与分发系统一致。这一点是有利于前后端分离的。<br>但是是否要在 TZDB—Server-APP 中嵌入测试代码呢。因为现在测试代码是分离的（但在SHIP-APP中试融合）。</p>
+<p>[11.7]<br>大部分问题已经解决。<br>目前，sql引擎也维护了一个链表，存储所有的数据库基本信息。感觉这些组件都已经冗余了。<br>包括关于 dbTrack 、各种链表的等级、日志系统、socket 网络底层封装，这些都是可复用的组件，但是作为应用层开发，这些一概都不清楚，造成了代码的冗余。</p>
+<p>融合错误码，作为开发项目而进行。<br>因为需要把中文部分替换成英文，我想的是，是否可以根据一个标志码，输出错误信息呢？<br>这部分可以结合 ODBC 本身的错误码进行。</p>
+<p>ODBC 文档：<br>当 SQLConnect 返回SQL_ERROR或SQL_SUCCESS_WITH_INFO时，可以通过调用具有 <code>SQL_HANDLE_DBC</code> HandleType 和 ConnectionHandle句柄的 HandleType 来获取关联的 SQLSTATE 值。 下表列出了 SQLConnect 通常返回的 SQLSTATE 值，并解释此函数上下文中的每个值：表示法“ (DM) ”位于驱动程序管理器返回的 SQLSTATE 的说明之前。 与每个 SQLSTATE 值关联的返回代码SQL_ERROR，除非另有说明。</p>
+<p>SQL_HANDLE_DBC 看来是比较关键的。<br>这个地方先存疑吧，后续再改进，这两天需要看 mysql 源码和数据库源码。</p>
+<p>[11.25]<br>接下来，我们先把网络整理一下。<br>目前经过处理，主仓库 tzdb-win 和 ras 仓库的区别只有内核的代码有所区别了，也就是内存引擎。<br>接下来的一段时间我如果要碰存储引擎，就必须和内核代码进行注释、阅读和进行整理，那么用哪一套代码呢。</p>
+<p>写入，并且在之后进行合并的操作过程中，会产生相应的部分体系。<br>但是我们没有记录最原始的内核代码，衍生出含有原来内存体系的代码。<br>似乎没有办法，但是如果考虑到之后的存储引擎可能会进行合并的情况。<br>可以在 win 仓库上进行修改，之后也在这里修改，可以将原有的体系直接替换。</p>
+<p>但是太麻烦了，还是选择直接在 ras 仓库进行修改和阅读，万一不稳定之后的操作会更复杂。<br>不如在 ras 中修改，修改完成就算可行。<br>阅读源码，没有把层次抽离出来。稍显遗憾。</p>
+<p>[11.28]<br>提出了一个问题，如果多个线程用同一个句柄，确实可能会出现通信信道串的情况，但是如果加了锁，应该是不会出现该问题的。<br>目前解决方案如下：</p>
+<ol>
+<li>内部加锁，最简单;</li>
+<li>建立任务队列，多个客户端在不断发送任务，服务端不断在读取任务队列，读取完成后，将任务执行完成后发送到相对应的客户端通信信道。客户端也维护一个任务队列，不断接收服务端响应的任务。<br> 在阻塞模式下，从等待网络改为等待相应的任务回应；<br> 对于非阻塞模式，返回正在执行，但是后续如何获取到相关的信息呢？是否是 insert 可以如此，但是 select 等需要明确结果的是不允许如此的？可以和任务生命周期相关联。</li>
+</ol>
+<p>还是需要搭建一个测试体系。但是涉及到多线程，希望用线程池实现。这里需要明确的是，是线程池，还是多任务机制？<br>那还得看一下线程池，可能要涉及对内核进行测试。<br>直接加个锁完事了。</p>
+<p>[11.29]<br>很好，这个 DBThreadPool 压根就不能用。<br>各种写法，我真的无法理解，各种格式，可能是我太菜，各种没有注释，加大学习成本，是我妄想一眼望穿。<br>林，少安勿躁，不可急切，稳步做好能做的事。</p>
+<p>线程池，目前需要吗，但是如果有的话能够很好的满足测试用例的测试搭建。</p>
+<p>注释格式</p>
+<pre><code>/**@brief pFunction 的姊妹函数，将该指令中的返回值数据结构进行处理，生成字符串。
+* @param [in] input_struct pFunction 中的  output_struct
+* @param [out] output_buffer 返回的数据 buffer
+* @param [out] output_max_len 如果该值 &lt;=0 则可以内存分配,否则进行内存长度判断
+* @param [in/out] output_max_len 内存最大值
+* @param [in] offset output_buffer 的起始长度，或言前置预留位
+* @return  
+* - -1 失败
+* - 0 成功
+*/
+</code></pre>
+<p>&#x2F;**@brief 通用指令结构</p>
+<ul>
+<li>| NotifyType        | int        |</li>
+<li>| 通知类型            | 附带信息    |<br>*&#x2F;</li>
+</ul>
+<p>优化日志系统频繁分配空间问题。<br>为日志增加附加码。<br>日志应该有一个统一的编码和一个说明。<br>可以在前序加入一个 code。</p>
+<p>[11.30]<br>弄个线程池。</p>
+<p>[12.01]<br>散乱的线程布置，未有被管理的所有线程体系。<br>定时轮转体系，永远没法关闭的程序。这都是我们要考虑的问题。</p>
+<p>所以设计线程池如下:</p>
+<ol>
+<li>建立主类其应有以下方法:<ol>
+<li>任务线程， 主要负责建立任务线程。任务线程中跟随两个锁进行运行，也是双锁通知机制。锁 A 开就开始运行任务，任务结束后挂起；</li>
+<li>添加任务，对外而言，调用该接口即可实现人任务分配</li>
+</ol>
+</li>
+<li>成员：<ol>
+<li></li>
+</ol>
+</li>
+</ol>
+<p>[12.04]<br>需要解决如下问题：</p>
+<ol>
+<li>客户端有一个bug：每次在 new 的时候出现，提示堆已损坏。</li>
+<li>然后还需要解决的隐患是，条数不对的情况。</li>
+<li>服务端调试时出现 vs 正忙，注释掉管理线程后即可。</li>
+</ol>
+<p>第一个问题， new 的时候提示堆已损坏。<br>报错的时候，必定是 testGetData 的时候。<br>首先测试不删除的情况。<br>再精确点，必定是 tzdb_stmt_fetch 的锅。</p>
+<p>换个角度，只做查询，查询两次。<br>测试 10 次。出现了，该问题。</p>
+<p>测试 2：<br>数据库查询出的数据为：<br>u1 u2 u3 u4 u5 u6 u7 u8 u9 u10 u11<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’’)),<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’abvuib qjewbovusa’)),<br>((22,32767,-1,2147483647,255,65535,4294967295,18446744073709551615,3.402824,1.798767,’sdg2345rh34’)),<br>((1,0,-1,0,102,0,0,0,0.000000,0.000000,’’))<br>        4 records selected</p>
+<p>不进行插入，只进行1次查询，20次以上测试，未有任何一次测试出现该情况</p>
+<p>测试3：<br>在 2 的基础上，增加一次查询。<br>10 次测试中， 7 次出现该问题，3 次未出现该问题。</p>
+<p>基本可以确定，就是在多次查询的时候的问题。</p>
+<p>测试4：<br>数据库查询的数据，字符串不为空。<br>数据如下：<br>u1 u2 u3 u4 u5 u6 u7 u8 u9 u10 u11<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’123’)),<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’abvuib qjewbovusa’)),<br>((22,32767,-1,2147483647,255,65535,4294967295,18446744073709551615,3.402824,1.798767,’sdg2345rh34’)),<br>((1,0,-1,0,102,0,0,0,0.000000,0.000000,’’))<br>        4 records selected</p>
+<p>测试 10 次， 7次 未出现， 3 次出现。<br>仍然可以复现，该问题频率降低，但是也会出现。</p>
+<p>测试5：<br>因为测试 4 的最后一条数据出现了空字符串，所以，将数据库数据改为完全没有空。<br>u1 u2 u3 u4 u5 u6 u7 u8 u9 u10 u11<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’123’)),<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’abvuib qjewbovusa’)),<br>((22,32767,-1,2147483647,255,65535,4294967295,18446744073709551615,3.402824,1.798767,’sdg2345rh34’)),<br>((1,0,-1,0,102,0,0,0,0.000000,0.000000,’123’))<br>        4 records selected</p>
+<p>测试 10 次 ，6 次出现， 4 次未出现。<br>说明不一定是空的问题。</p>
+<p>测试 6：<br>数据库只有一个空白数据如下。查询两次。<br>u1 u2 u3 u4 u5 u6 u7 u8 u9 u10 u11<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’’))<br>        1 records selected</p>
+<p>测试 10 次 未出现任何一次。</p>
+<p>测试 7：<br>两条空白数据，查询两次。<br>测试10次，未出现。</p>
+<p>测试 8：<br>u1 u2 u3 u4 u5 u6 u7 u8 u9 u10 u11<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’123’)),<br>((1,0,-1,0,102,0,0,0,0.000000,0.000000,’123’)),<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’123’)),<br>((1,0,-1,0,102,0,0,0,0.000000,0.000000,’123’)),<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’123’)),<br>((1,0,-1,0,102,0,0,0,0.000000,0.000000,’123’)),<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’123’)),<br>((1,0,-1,0,102,0,0,0,0.000000,0.000000,’123’)),<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’123’)),<br>((1,0,-1,0,102,0,0,0,0.000000,0.000000,’123’)),<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’123’)),<br>((1,0,-1,0,102,0,0,0,0.000000,0.000000,’123’)),<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’123’)),<br>((1,0,-1,0,102,0,0,0,0.000000,0.000000,’123’)),<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’123’)),<br>((1,0,-1,0,102,0,0,0,0.000000,0.000000,’123’)),<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’123’)),<br>((1,0,-1,0,102,0,0,0,0.000000,0.000000,’123’)),<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’123’)),<br>((1,0,-1,0,102,0,0,0,0.000000,0.000000,’123’)),<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’123’)),<br>((1,0,-1,0,102,0,0,0,0.000000,0.000000,’123’)),<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’123’)),<br>((1,0,-1,0,102,0,0,0,0.000000,0.000000,’123’)),<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’123’)),<br>((1,0,-1,0,102,0,0,0,0.000000,0.000000,’123’)),<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’123’)),<br>((1,0,-1,0,102,0,0,0,0.000000,0.000000,’123’))<br>        28 records selected</p>
+<p>查询两次，10次测试未复现。</p>
+<p>测试 8：<br>交替数据，2 次查询：<br>u1 u2 u3 u4 u5 u6 u7 u8 u9 u10 u11<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’’)),<br>((20,-32768,-1,-2147483648,179,42536,11111119,4294967260,-3.402823,-1.798767,’abvuib qjewbovusa’))<br>        2 records selected</p>
+<p>10 次 7次出现，3次未出现。</p>
+<p>测试 9：<br>在测试 8 的基础上，只查询1次。<br>测试 10 次， 未出现。</p>
+<p>基本确定问题出现方式，都是在 res_metaSingleStringTotStruct 函数中。<br>但是，这个是 select 的时候的语句。<br>也就是说，之前，执行了 select 语句，并且进行了 fetch。<br>然后出现了该问题，并且 fetch 对结果集中，必须要空字符和非空字符都有的情况，才会出现该问题。<br>所以发生的地方，并不是 select ，而是 fetch 。select 会报错，是因为此时堆已经损坏，所以会出现一种随机的概念。</p>
+<p>所以我们有理由怀疑是，在更新的字符串的时候，对字符进行了更新和复用，所造成了访问冲突和。<br>重点检测更新字符串时的操作。</p>
+<p>审查函数 res_update ， 发现对字符串的更新有问题。存在长度不足而拷贝的情况。<br>修正， 添加对旧字符串指向的删除：</p>
+<pre><code>    RAS_DELETE(source_input.val.strValue);
+</code></pre>
+<p>修正后测试 20 次测试，未出现。<br>回复修正， 测试 10 次 ， 7 次出现。</p>
+<p>问题解决。</p>
+<p>[12.06]<br>天脉出现问题：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">202212060920</span>][INFO]dbrSTMT::execDirect:sql_str:<span class="function">INSERT INTO user_table <span class="title">VALUES</span> <span class="params">(<span class="number">20</span>, <span class="number">-32768</span>, <span class="number">-1</span>, <span class="number">-2147483648</span>, <span class="number">179</span>, <span class="number">42536</span>, <span class="number">11111119</span>, <span class="number">4294967260</span> , <span class="number">-3.402823538</span>, <span class="number">-1.798767</span> ,  <span class="string">&#x27;&#x27;);</span></span></span></span><br><span class="line"><span class="string"><span class="params"><span class="function">[202212060920][INFO]Error:stringToStruct:DataInfoFormat type:2113929216</span></span></span></span><br><span class="line"><span class="string"><span class="params"><span class="function">[202212060920][ERROR]Connection parsing data error</span></span></span></span><br><span class="line"><span class="string"><span class="params"><span class="function">[202212060920][INFO]Error:stringToStruct:DataInfoFormat type:-1895825408</span></span></span></span><br><span class="line"><span class="string"><span class="params"><span class="function">[202212060920][ERROR]Connection parsing data error</span></span></span></span><br></pre></td></tr></table></figure>
+
+<p>很明显，是单句柄多任务的时候，客户端数据发送之后，未等服务端响应，其他线程也开始发送数据，导致信道中任务包冲突。<br>所以如果是一个客户端，可以通过客户端加锁进行解决。</p>
+<p>windows 上进行了复现。测试中出现了该问题。<br>进行加锁之后解决该问题。</p>
+<p>但是仔细想，信道是分开的，也就是说，客户端发送两个包，也不会造成任何的影响。<br>只要 recv 的是正确的，那么是没有关系的。<br>所以是否是通信的时候，读取内容就不对了呢。<br>这个问题可能更加严重。</p>
+<p>[12.09]<br>到目前为止。我们仍需讨论关于是否可以使用单句柄多线程。<br>其实，主要时对于select 语句，多线程同时使用 select 语句时，服务端无法确定是什么时候第一个 select 和该语句之后的 fetch 会结束，也就没法开始第二个 select 语句。如果第一个线程执行结束 select 语句之后，直接不再进行任何 事务 ，那么服务端将无法判断其结束条件，并不利于高并发的处理。<br><em>而且如果要解决单句柄多线程的任务，那么还需要解决临界资源的问题。</em></p>
+<p>然后其他隐患是加锁的问题，我们需要对网络进行测试，两个包的情况下为什么无法解析。<br>定位到问题，同时发两个包的时候，读取的数据有问题。<br>说明该部分组件并不太可读。</p>
+<p>[12.25]<br>haha,Still need test cases.<br>接下来的事项就是：</p>
+<ol>
+<li>探明为什么会出现 Error:stringToStruct:DataInfoFormat type:-1895825408 的情况</li>
+<li>编写测试体系；</li>
+</ol>
+<p>正好需要测试用例，可以先编写一个测试用例来进行测试。那么还是需要一个线程池。这个好说，今天下午就写完。</p>
+<p>现有的天脉线程池， DBThreadSource 建立了一个线程池（?），每个线程通过 CREATE_PROCESS 运行任务线程 threadHandleMain ，每次 DBThread new 就从其中取出一个线程 ， delete DBThread 时放回。其有两个 DBEvent 控制和 threadHandleMain 任务线程的知会。<br>所以我们完成一个线程池，还要让 DBThread 能够从中取线程。那如果是天脉，岂不是线程池中的线程池，hahahh。<br>那我为啥要独立实现一个线程池？因为现在的线程池没有管理起来，然后我们希望的是，现有 DBThread， 然后有线程池，因为 DBThread 承担着适配的功能。<br>开发了线程池后能替代天脉上的线程池吗？不能，因为内核用的不是线程池。先后顺序都不一致了。<br>天脉上如何处理？很尴尬其实，特别尴尬。但是还好还有方法。DBThread 的职能另一个命名类执行，线程池使用该类。DBThread 仍然延续现有方法。</p>
+<p>所以设计线程池如下:</p>
+<ol>
+<li>对内方法:<ol>
+<li>任务线程方法，建立一个任务线程。任务线程中跟随两个锁进行运行，也是双锁通知机制。锁 A 开就开始运行任务，任务结束后挂起；</li>
+<li>管理线程，一个时间轮，管理整个线程，收集线程的各种参数；（还没想好）</li>
+</ol>
+</li>
+<li>对外方法：<ol>
+<li>初始化线程池；</li>
+<li>添加任务，对外而言，调用该接口即可实现任务分配，并且执行，可以设置多久后执行；</li>
+<li>关闭整个线程池，非阻塞方式；</li>
+<li>暂停整个线程池执行；</li>
+<li>开始整个线程池执行；</li>
+</ol>
+</li>
+<li>状态检索方法：<ol>
+<li>查看线程池上一个错误；</li>
+<li>查看线程任务的执行情况，返回值等；</li>
+<li>查看线程池历史执行任务，执行时间；</li>
+<li>查看线程任务执行时间；</li>
+</ol>
+</li>
+<li>成员：<ol>
+<li>线程队列，存放线程；</li>
+<li>锁</li>
+<li>信号量</li>
+</ol>
+</li>
+</ol>
+<p>我们再复盘一下，关键是如何确定需要多少的锁和信号量。<br>现有的机制中， dbrENV 没有管理起线程，都是依托给 dbrConnect ，线程关闭的时候，一个函数进行通知。 dbrENV 中维护的 RASThreadManage 实际就是一些锁。线程针对锁进行开关而已。管理起来，无非是希望能够释放线程，线程资源可以重复利用。<br>每个线程都用双锁。<br>自动扩展线程池大小。<br>首先，最基本的，开启和结束需要进行通知。</p>
+<p>基本流程：<br>线程池初始化若干子线程。<br>我们应该知道的是，两个锁加上一个时间片段或者一个判定参数就能完成一次信息的知会。其中线程池主线程不可以被阻塞。但是双锁通知造成的问题就是，有一个线程可能会无限执行，这是十分危险的，并且这种方式存在着本身的悖论，无法解决。所以，信号量才是关键。即，一个锁和一个判定参数实现一次通知。阻塞方式从等待锁，变成了子线程无限判断判定参数的过程。但是等待并不是阻塞，虽然我们可以增加唤醒这个概念，让多个线程的等待变成管理线程等待，任务到来的时候先定位空线程，再让一直在等待的管理线程唤醒空线程，再进行知会空线程执行相关任务。看了半天，其实还是没看太懂。咱们也是用系统的实现的。<br>信号量，使用 signed 通知， wait 进行等待。</p>
+<p>线程池用什么结构？假设有 65568 个线程，那么如何确定空线程？遍历检索，速度将会非常慢，哈希列表检索，检索了之后又做如何处理？不可行，比较好的处理方式是，freelist。<br>建立两个结构，一个存放正在执行的任务线程，一个存放空任务线程。freelist 是队列，先进先出。但是任务线程队列，应当是一个什么样的？应该是执行完成后就回退出来。最好是使用双向链表，只需要修改前后指针即可，那么 RASThread 可以继承 dbL2List ，多重继承。在 freelist 中，不必使用双向链表，但是在任务线程队列中，使用双向链表。<br>如果任务执行完成，那么如何回到空闲队列？RASThread 主动回归到 freelist ？不可，应该交由 RASThreadPool 来回归。得到该指针后，则退出队列，回到 freelist.</p>
+<p>执行的过程中，优先执行哪个任务？是否需要一个任务队列？设定任务的优先等级，给任务赋予权值，采用若干个任务队列。任务队列属于非必然情况。<br>任务队列，应该不属于线程池来管理，这应该有其他的任务队列算法来存储和分配任务。<br>而线程池应该提供辅助决策的信息。比如执行任务的时间，剩余的线程资源等。</p>
+<p>自动扩容是必须的。新建任务线程。需要一个权值算法。</p>
+<p>好，那么至此，基本概念构建完毕，开始写。</p>
+<p>hangup 什么概念呢，如果要让线程有这个概念，那么是否还需要设置挂起队列呢？肯定是需要的，然后开启的时候，所有 hang 线程一起开始，只是进行通知而已。<br>这就是控制线程同步了。但是挂起真的用的少。目前只能是说给测试用例使用，起到线程同步的作用。<br>还是要看 hung up 的作用是如何的。如果是部分的，那么就需要队列，如果是所有线程都挂起，直接使用开关即可。<br>不行，即使是 hung ，也没有办法做到统一。最接近的时间，首先是 锁 &lt; 信号量通知 &lt; wile(S)。<br>还是需要 hung 队列。所以暂时不考虑。<br>并且感觉意义不是很明确，没有使用的地方。</p>
+<p>目前编写完成，开始测试，并且添加错误码和其他状态需求。</p>
+<p>验证线程池方式：<br>我们可以对各种的方法做一个模板。<br>明确要测试什么：</p>
+<ol>
+<li>线程池，同时执行多个任务</li>
+<li>状态可以转变，从无任务到有任务执行</li>
+<li>所有任务都可以执行完成</li>
+<li>执行过任务的线程可以多次使用<br>临界情况：</li>
+<li>分配任务失败，无法扩容</li>
+<li>分配任务的时候进行了扩容</li>
+<li>停止后无法再执行任务，开启后可执行任务<br>状态检测：</li>
+<li>获取时间</li>
+<li>获取状态，时刻检测<br>针对线程是否需要监视呢？这个的话应该交由线程池进行监视。</li>
+</ol>
+<p>根据以上测试情形，建立以下测试方法：</p>
+<ol>
+<li>while(1) 运行方法。每隔一段时间输出</li>
+<li>运行固定时间的方法，可设置运行时间</li>
+<li></li>
+</ol>
+<p>扩容是否交给外部进行，如果给外部可以自拟权值策略。</p>
+<p>[2023.1.3]<br>测试。<br>测试有限线程时数据库的执行。</p>
+<p>更改接口符合 sqlite 的部分功能。<br>这部分在什么的基础上进行修正呢，在 tzdb-win 中？还是在 tzdb_ras 中？<br>从 tzdb_win 中开始修改。把目前的工作流程保存一下，然后看看 sqlite 的源码。准备周四出差。 </p>
+<p>首先要明确还有哪些隐患：</p>
+<ol>
+<li>字符串删除和复用可以优化， sqlresult.sql:396</li>
+<li>bug 字符串通讯</li>
+</ol>
+<p>还有哪些可以优化：</p>
+<ol>
+<li>错误码转码</li>
+<li>日志精确到类</li>
+<li>测试的时候可以一体式，ODBC 接口编译然后测试。ODBC 测试可以对标 mysql ， 测试一下 mysql 然后测我们自己的接口</li>
+</ol>
+<p>之后所有操作在 windows 上完成。</p>
+<p>[1.4]<br>windows 上不太方便观察 sqlite 源码。VScode 找不到变量…<br>直接在 linux 上进行查看，优先实现回调函数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">sqlite3_exec</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  sqlite3 *db,                <span class="comment">/* The database on which the SQL executes */</span></span></span></span><br><span class="line"><span class="params"><span class="function">  <span class="type">const</span> <span class="type">char</span> *zSql,           <span class="comment">/* The SQL to be executed */</span></span></span></span><br><span class="line"><span class="params"><span class="function">  sqlite3_callback xCallback, <span class="comment">/* Invoke this callback routine */</span></span></span></span><br><span class="line"><span class="params"><span class="function">  <span class="type">void</span> *pArg,                 <span class="comment">/* First argument to xCallback() */</span></span></span></span><br><span class="line"><span class="params"><span class="function">  <span class="type">char</span> **pzErrMsg             <span class="comment">/* Write error messages here */</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*sqlite3_callback)</span><span class="params">(<span class="type">void</span>*,<span class="type">int</span>,<span class="type">char</span>**, <span class="type">char</span>**)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>源码回调函数格式，网络上是说含义如下：</p>
+<pre><code>typedef int(*sqlite_callback)(void* para, int columenCount, char** columnValue, char** columnName);
+</code></pre>
+<p>para : sqlite3_exec 接口的第四个参数，即传入参数；<br>columenCount : 查询的结果集的字段列数；<br>columnValue : 该参数是双指针，查询出来的数据都保存在这里，它是一个 1 维数组，每一个元素都是一个 char* ，是一个字段内容，所以这个参数就可以不是单字节，而是可以为字符串等不定长度的数值，用字符串表示，以’\0’结尾；<br>columnName : 该参数是双指针，和 columenCount 是对应的，表示这个字段的字段名称。</p>
+<p>关键是 columnValue ， 里面是否有结果集？那么对外来说它应该如何操作？<br>按源码来看是该回调函数是执行 n 次的， n 为当前 exec 执行的结果集列数。<br>并且回调函数所处理的 columnValue[i] 都是结果集的字符串形式。<br>这样一来，接口适配就比较简单了。</p>
+<p>然后需要确定回调函数的使用场景，毕竟如果只是字符串，那么处理是十分有限的。sqlite 本意是如此吗，又为什么，需要确定。<br>关于使用场景，更多的是进行 display 。<br>回调函数比较好实现。</p>
+<p>但是重新审视一下接口，其实 C++ 接口还存在比较多的问题：</p>
+<ol>
+<li>获取列名函数</li>
+<li>getdata 应该有返回值是未找到，而不存在该列</li>
+</ol>
+<p>客户端永远只有一行数据。</p>
+<p>[2023.2.2]<br>出差西安之后的任务：</p>
+<ol>
+<li>开发 PCIe 接口</li>
+<li>开发远程的 sqlite3 接口；</li>
+<li>性能优化；</li>
+<li>线程池测试</li>
+</ol>
+<p>PCIe 接口开发，有设备吗？哪一套接口？</p>
+<h2 id="各系统入库情况"><a href="#各系统入库情况" class="headerlink" title="各系统入库情况"></a>各系统入库情况</h2><p>雷达数据库如下：</p>
+<p>HEHDT_Struct.aed<br>Infrared_L_Path.aed<br>Infrared_R_Path.aed<br>RadarMultimodal.aed<br>Radar_S_Path.aed<br>Radar_X_Path.aed<br>RMC_Struct.aed<br>TrackPacket.aed<br>UserRadarIMG.aed<br>UserRectInfo.aed<br>UserTarget.aed<br>UserTargetIMG.aed<br>UserVedioIMG.aed<br>Visible_L_Path.aed<br>Visible_R_Path.aed<br>Wind_Struct.aed<br>_AISData.aed</p>
+<p>open ‘RMC_Struct’;<br>CREATE TABLE RMC_Struct (PrimaryID INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,mmsi INT NOT NULL,time INT NOT NULL,m_timeGGA BIGINT NOT NULL,m_nHour INT NOT NULL,m_nMinute INT NOT NULL,m_nSecond INT NOT NULL,m_dSecond DOUBLE NOT NULL,m_dLatitude DOUBLE NOT NULL,m_dLongitude DOUBLE NOT NULL,m_dAltitudeMSL DOUBLE NOT NULL,m_dSpeedKnots DOUBLE NOT NULL,m_dTrackAngle DOUBLE NOT NULL,m_nMonth INT NOT NULL,m_nDay INT NOT NULL,m_nYear INT NOT NULL,m_dMagneticVariation DOUBLE NOT NULL);<br>insert INTO RMC_Struct(mmsi,time,m_timeGGA,m_nHour,m_nMinute,m_nSecond,m_dSecond,m_dLatitude,m_dLongitude,m_dAltitudeMSL,m_dSpeedKnots,m_dTrackAngle,m_nMonth,m_nDay,m_nYear,m_dMagneticVariation) VALUES (-1,1662611520,164206984112,-625017370,32761,0,3.95253e-10,18.0351,110.292,3.90312e-302,3.95253e-302,7.39451e-302,205682896,348,16,0.00000);<br>select * from RMC_Struct;</p>
+<p>insert INTO RMC_Struct(mmsi,time,m_timeGGA,m_nHour,m_nMinute,m_nSecond,m_dSecond,m_dLatitude,m_dLongitude,m_dAltitudeMSL,m_dSpeedKnots,m_dTrackAngle,m_nMonth,m_nDay,m_nYear,m_dMagneticVariation) VALUES (-1,1662611519,0,4,31,56,0,17.9909,110.496,0,12,198.6,9,8,2022,0);</p>
+<p>open ‘SailDatabase’;<br>CREATE TABLE SailTable(nTime_ UINT, nBoat_ID_ string,Lat_ float,Lon_ float,HDT_ float,WindSpeed_ float,WindDirection_ float,Pitch_ float,Roll_ float,Heave_ float,Depth_ float,BoatSpeed_ float,BoatCourse_ float,SeaHeight_ float,SeaSpeed_ float,SeaTemperature_ float,SeaSalinity_ float,SeaDensity_ float);<br>insert into SailTable values (1663034385 ,’’,21.211920,110.430359,31.799999,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000);</p>
+<p>insert into XX_YY_TSWZ (ID,RWBH,SBZS,SBBQ,YWLX,YWSXPL,IMEI,TMSI,ZDLX,MBJD,MBWD,YWQSSJ,RKSJ)values(‘H5720220905202144002’,’’,2,202201001,5,0,’358877010068422’,’000000000000000’,2,0,0,125911620153890000,1662380504994);</p>
+<p>m_dSecond<br>m_dAltitudeMSL<br>m_dSpeedKnots<br>m_dTrackAngle<br>m_dMagneticVariation</p>
+<p>无线电数据库如下：<br>CETC_10_DB:<br>XH_ZC_ACARSJYDXX<br>XX_JYTS_ACARS</p>
+<p>GL_JK_CDBSBJK<br>GL_JK_DZSBJK<br>GL_JK_WXSBJK<br>XH_ZC_ADSGTZNSBJG<br>XH_ZC_AISDTB<br>XH_ZC_AISJTB<br>XH_ZC_ARGOUS<br>XH_ZC_CGDP<br>XH_ZC_CGSJL<br>XH_ZC_LD<br>XH_ZC_MZIFF<br>XH_ZC_SINCGARS<br>XH_ZC_SINCGARSPLJ<br>XH_ZC_SJLZNSBJG<br>XH_ZC_TACAN<br>XH_ZC_TP<br>XH_ZC_TPPLJ<br>XH_ZC_ZDIFF<br>XH_ZC_ZDLD<br>XX_JYTS_ACARS<br>XX_JYTS_ADSB<br>XX_JYTS_AIS<br>XX_YY_DTF<br>XX_YY_DX<br>XX_YY_HY<br>XX_YY_TSWZ<br>XX_YY_YJ<br>YS_DWTK<br>YS_LD<br>YS_TX</p>
+<p>insert into XH_ZC_ACARSJYDXX (ID,RWBH,XHPL,JHSJ,XXID,ZCDZ,MSN,FJID,MODE,WBCD,WBNR,PTJD,PTWD,PTSD,PTHX,PTHG,RKSJ)values(‘H1020220908165352063’,’’,131450000,7140928320377699912,’’,’’,’’,’’,0,156,’2.B-6780148M56AZH9014POS<br>UTC 085447,DEP VTBS,DES ZLXY,N 31004E105352,CAS 283,WD 26137,WS   89,GS   543,ALT 31087,FOB 64,FF1 02750,FF2 02738,TAS 04525K’,226283804806605,0,0,0,0,1662627232259);<br>insert into XX_JYTS_ACARS (ID,RWBH,XHPL,FXSJ,XXID,ZCDZ,MSN,FJID,MBJD,MBWD,MBGD,MBHS,RYL,QFJC,MDJC,TCSJ,QFSJ,JLSJ,TKSJ,ETA,PTJD,PTWD,PTSD,PTHX,PTHG,PTZY,RKSJ)values(‘H3120220908165346013’,’’,131450000,7140928221431753384,’14’,’.B-6780’,’M56A’,’ZH9014’,105352000,31004000,9477,283000,0,’ VTBS’,’ ZLXY’,0,0,0,0,0,226283804806605,0,0,0,0,15418932723712,1662627226494);</p>
+<p>声纳数据库如下：<br>2个数据库</p>
+<h2 id="软件调试"><a href="#软件调试" class="headerlink" title="软件调试"></a>软件调试</h2><p>将需要测试的接口分为以下群组：ODBC 测试接口群组:</p>
+<ul>
+<li><ol>
+<li>SQL_ 标准接口群组</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>C++ 接口群组</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>服务端主句柄群组</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>指令系统群组</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>res 结果集字符串处理群组</li>
+</ol>
+</li>
+<li><ol start="6">
+<li>global 方法群组</li>
+</ol>
+</li>
+</ul>
+<p>针对以下几个方面进行测试：测试类型分为:</p>
+<ul>
+<li><ol>
+<li>接口触探测试,测试接口的合理值</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>组件单元测试,测试组件的功能</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>系统测试,测试系统主体的全面功能性</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>异常测试,针对系统主体进行黑盒异常测试</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>压力测试,针对系统主体功能性范围进行全面压力测试</li>
+</ol>
+</li>
+</ul>
+<ol>
+<li>针对接口群的接口测试。返回值。</li>
+<li>单库多表。</li>
+<li>sql 语句中的 删除，更新，查询，这些语句。</li>
+</ol>
+<h2 id="日志锚点完善"><a href="#日志锚点完善" class="headerlink" title="日志锚点完善"></a>日志锚点完善</h2><p>输出的时候多了很多无用的和杂乱的输出信息。</p>
+<p>输出信息分类为：</p>
+<ol>
+<li>程序函数调用信息。在每个函数开始时输出该函数名称。</li>
+<li>程序关键步骤执行情况。</li>
+<li>程序分析内存数据信息。包括网络通信。</li>
+</ol>
+<p>信息重要程度分级：<br>LOG_LEVEL_ERROR,     &#x2F;&#x2F; error<br>LOG_LEVEL_WARNING,   &#x2F;&#x2F; warning<br>LOG_LEVEL_DEBUG,     &#x2F;&#x2F; debug<br>LOG_LEVEL_INFO,      &#x2F;&#x2F; info	</p>
+<p>信息输出位置：<br>LOG_TARGET_CONSOLE &#x3D; 0x01,<br>LOG_TARGET_FILE &#x3D; 0x10</p>
+<p>约定策略：</p>
+<ol>
+<li><p>错误信息输出到文件</p>
+</li>
+<li><p>关键步骤输出到文件。</p>
+</li>
+<li><p>步骤调试输出到控制台。</p>
+</li>
+<li><p>输出到文件的信息也输出到控制台一份。</p>
+</li>
+<li><p>主要使用以下的 define ，如果有特殊需求则定义其他的 LOG</p>
+<pre><code> //重要错误信息,输出到文件级
+ #define LOG_IN_ERROR(x, ...)
+ //关键步骤执行信息, 输出到控制台
+ #define LOG_IN_INFO(x, ...)
+ //一般信息,输出到控制台，比如程序执行步骤信息
+ #define LOG_PRINTF(x, ...)
+ //关键分析性信息,输出到文件级
+ #define LOG_DEBUG(x, ...)
+</code></pre>
+</li>
+</ol>
+<h2 id="QT-ODBC-调试总结"><a href="#QT-ODBC-调试总结" class="headerlink" title="QT ODBC 调试总结"></a>QT ODBC 调试总结</h2><p>[4.11]日布置完成.<br>[4.15]日解决偶尔出现连接不成功的现象.原因为使用接口 SQLDriverConnect 时对第五个参数 out 有输出需求,将其命名后输出解决该问题.<br>4月17日出现程序在 exe_sql 语句时无返回的情况.但是日志文件显示调用 SQLExecDirect 返回结果成功.</p>
+<p>停在了 create 语句上。<br>但是我们平时去创建语句的时候不会出现这种问题。是否是因为一些错误的语句内容呢？<br>其语句为：</p>
+<p>CREATE TABLE UserRadarIMG (PrimaryID INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,UserTargetId INT,createTime INT,circleNum INT,radarCircle INT,lon DOUBLE,lat DOUBLE,range DOUBLE,image String);</p>
+<p>CREATE TABLE UserRadarIMG (UserTargetId INT,createTime INT,circleNum INT,radarCircle INT,lon DOUBLE,lat DOUBLE,range DOUBLE,image String);</p>
+<p>CREATE TABLE UserRadarIMG (PrimaryID INTEGER PRIMARY KEY AUTO INCREMENT NOT NULL,UserTargetId INT,createTime INT,circleNum INT,radarCircle INT,lon DOUBLE,lat DOUBLE,range DOUBLE,image String);</p>
+<p>select * from TrackPacket WHERE time &gt; 1640966400 AND time &lt; 1651334400 GROUP BY id  order by time desc;</p>
+<h3 id="QT-联试更改内容"><a href="#QT-联试更改内容" class="headerlink" title="QT 联试更改内容"></a>QT 联试更改内容</h3><ol>
+<li>exec_sql 需要检测返回值并且返回内容。<br> 完成</li>
+<li>锁的分配和内存需要监控。<br> 完成</li>
+<li>锁的前序提交并且分配机制。</li>
+</ol>
+<h2 id="说明文档"><a href="#说明文档" class="headerlink" title="说明文档"></a>说明文档</h2><p>字符类型关键字</p>
+<pre><code>&quot;Boolean&quot;,
+&quot;Int1&quot;,
+&quot;Int2&quot;,
+&quot;Int4&quot;,
+&quot;Int8&quot;,
+&quot;Real4&quot;,
+&quot;Real8&quot;,
+&quot;String&quot;,
+&quot;Reference&quot;,
+&quot;Array&quot;,
+&quot;MethodBool&quot;,
+&quot;MethodInt1&quot;,
+&quot;MethodInt2&quot;,
+&quot;MethodInt4&quot;,
+&quot;MethodInt8&quot;,
+&quot;MethodReal4&quot;,
+&quot;MethodReal8&quot;,
+&quot;MethodString&quot;,
+&quot;MethodReference&quot;,
+&quot;Structure&quot;,
+&quot;RawBinary&quot;,
+&quot;StdString&quot;,
+&quot;Rectangle&quot;,
+&quot;WString&quot;,
+&quot;StdWString&quot;,
+&quot;MethodWString&quot;,
+&quot;Unknown&quot;
+</code></pre>
+<h2 id="测试内容"><a href="#测试内容" class="headerlink" title="测试内容"></a>测试内容</h2><ol>
+<li>并发操作的控制。SQL 引擎嵌套事物操作。</li>
+<li>并发性操作。ODBC server 是否支持多用户进行连接和操作。</li>
+</ol>
+<h2 id="I-x2F-O-模型"><a href="#I-x2F-O-模型" class="headerlink" title="I&#x2F;O 模型"></a>I&#x2F;O 模型</h2><p>五种 I&#x2F;O 模型<br>(1) select 模型<br>每个连接都需要开辟一个线程进行循环监听。<br>优点：简单易实现，适配可行。<br>(2) WsaAsyncSelect 模型<br>异步消息通知。<br>只能用在windows程序上，因为它需要一个接收系统消息的窗口句柄<br>(3) WsaEventSelect 模型 – 实现了一套<br>事件驱动，最多64个事件<br>(4) Overlapped I&#x2F;O 事件通知模型</p>
+<p>(5) 完成端口 IOCP<br>使用线程池处理异步I&#x2F;O请求的一种机制。<br>(6) poll<br>poll 的机制与 select 类似，对多个连接进行轮询。</p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="http://itheds.github.io">iTheds</a>
+            <p>Link：<a href="http://itheds.github.io/work/%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE%E6%A8%A1%E5%9D%97%E9%A1%B9%E7%9B%AE%E4%BD%93%E7%B3%BB.html">http://itheds.github.io/work/%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE%E6%A8%A1%E5%9D%97%E9%A1%B9%E7%9B%AE%E4%BD%93%E7%B3%BB.html</a>
+            <p>Publish date：<a href="http://itheds.github.io/work/%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE%E6%A8%A1%E5%9D%97%E9%A1%B9%E7%9B%AE%E4%BD%93%E7%B3%BB.html">January 10th 2022, 12:00:00 am</a>
+            <p>Update date：<a href="http://itheds.github.io/work/%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE%E6%A8%A1%E5%9D%97%E9%A1%B9%E7%9B%AE%E4%BD%93%E7%B3%BB.html">February 2nd 2023, 3:01:24 pm</a>
+            <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:12345@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/fi3ework" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 78
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/10</span>
+            <a class="archive-post-title" href="/2022/08/10/TDengine%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">TDengine学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/10</span>
+            <a class="archive-post-title" href="/2022/03/10/%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F%E7%AD%96%E5%88%92%E6%96%B9%E6%A1%88/">学习方式策划方案</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/17</span>
+            <a class="archive-post-title" href="/2021/11/17/QT%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">QT学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/06</span>
+            <a class="archive-post-title" href="/2021/09/06/%E8%BF%9E%E6%8E%A5%E6%B1%A0%E5%AE%9E%E7%8E%B0/">连接池实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/25</span>
+            <a class="archive-post-title" href="/2021/08/25/Lib%E5%92%8CDLL%E8%AF%A6%E8%A7%A3/">Lib和DLL详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/11</span>
+            <a class="archive-post-title" href="/2021/08/11/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B002/">算法学习笔记02</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/24</span>
+            <a class="archive-post-title" href="/2021/07/24/%E5%8C%97%E4%BA%AC%E9%A3%9F%E5%BA%97%E6%94%B6%E5%BD%95/">北京食店收录</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/08</span>
+            <a class="archive-post-title" href="/2021/07/08/Cmake%E5%92%8Cbison/">Cmake和bison</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/17</span>
+            <a class="archive-post-title" href="/2021/06/17/mysql%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Mysql源码以及Mysql ODBC源码分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/04</span>
+            <a class="archive-post-title" href="/2021/06/04/%E5%AD%97%E4%BD%93%E7%89%88%E6%9D%83%E9%97%AE%E9%A2%98/">字体版权问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/04</span>
+            <a class="archive-post-title" href="/2021/06/04/%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2%E7%AE%97%E6%B3%95/">EKF，UKF，CKF，PF非线性滤波算法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/25</span>
+            <a class="archive-post-title" href="/2021/05/25/SQLite/">SQLite</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span>
+            <a class="archive-post-title" href="/2021/05/18/Cppwindows%E6%9C%8D%E5%8A%A1/">C/C++windows服务</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/13</span>
+            <a class="archive-post-title" href="/2021/05/13/ODBC%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/">ODBC连接数据库</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span>
+            <a class="archive-post-title" href="/2021/05/06/ODBC%E7%90%86%E8%AE%BA/">ODBC理论</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span>
+            <a class="archive-post-title" href="/2021/05/06/ODBC%E7%BC%96%E7%A8%8B/">ODBC编程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/05</span>
+            <a class="archive-post-title" href="/2021/05/05/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">智能指针</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span>
+            <a class="archive-post-title" href="/2021/04/28/B%E6%A0%91%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">B树学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/2021/04/16/C++%E5%9F%BA%E6%9C%AC%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/">C++基本项目开发思路</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span>
+            <a class="archive-post-title" href="/2021/04/13/TCP%E4%B8%8EUDP%E5%AE%9E%E7%8E%B0/">TCP与UDP实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/11</span>
+            <a class="archive-post-title" href="/2021/04/11/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">开发者手册</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/10</span>
+            <a class="archive-post-title" href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/">CRC循环冗余校验</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/10</span>
+            <a class="archive-post-title" href="/2021/04/10/CCpp%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/">C/C++问题收录与知识积累</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span>
+            <a class="archive-post-title" href="/2021/03/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E6%89%8B%E5%86%8C/">数据库理论系统学习手册</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span>
+            <a class="archive-post-title" href="/2021/03/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0/">计算机网络具体实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span>
+            <a class="archive-post-title" href="/2021/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/">设计模式总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span>
+            <a class="archive-post-title" href="/2021/03/08/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E6%8C%87%E5%8D%97/">重装系统指南</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/05</span>
+            <a class="archive-post-title" href="/2021/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%85%A5%E9%97%A8%E8%B7%AF%E7%BA%BF/">计算机入门路线(应用篇)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/06</span>
+            <a class="archive-post-title" href="/2021/02/06/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Nodejs学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span>
+            <a class="archive-post-title" href="/2021/02/03/Apache%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/">Apache系统管理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span>
+            <a class="archive-post-title" href="/2021/02/03/Linux%E4%B8%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BB%BA%E5%BA%93/">Linux下数据库管理与建库</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span>
+            <a class="archive-post-title" href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/">Linux命令总集与系统</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span>
+            <a class="archive-post-title" href="/2021/02/03/%E7%BC%96%E7%A0%81%E6%80%BB%E7%BB%93/">编码总集</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/21</span>
+            <a class="archive-post-title" href="/2021/01/21/%E8%BD%AF%E4%BB%B6%E6%80%BB%E9%9B%86/">软件总集以及网站</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/20</span>
+            <a class="archive-post-title" href="/2021/01/20/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">英语学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/Ps%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">Ps学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/php%E8%BF%9B%E9%98%B6%E6%89%8B%E5%86%8C/">php进阶手册</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/">工具总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0/">数据结构具体实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/git_use_page/">git 及 github 使用手册</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/">Linux网络编程笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/String%E5%87%BD%E6%95%B0/">C/C++ String函数</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/VS%E5%BC%80%E5%8F%91%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">VS C++开发使用笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/YII%E6%A1%86%E6%9E%B6%E7%AC%94%E8%AE%B0/">YII框架笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/%E5%90%84%E8%BD%AF%E4%BB%B6%E5%8F%8Awindows%E6%93%8D%E4%BD%9C%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%80%BB%E9%9B%86/">各软件及windows操作快捷键总集</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/CCpp%E8%BF%9B%E9%98%B6/">C/C++进阶</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/">算法学习笔记01</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2018 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span>
+            <a class="archive-post-title" href="/2018/12/06/%E7%BA%BF%E7%A8%8B%E4%B8%8E%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">线程与进程管理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/10</span>
+            <a class="archive-post-title" href="/2018/10/10/Linux%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8oo/">Linux网络应用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/30</span>
+            <a class="archive-post-title" href="/2018/09/30/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5oo/">宽字节注入</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/13</span>
+            <a class="archive-post-title" href="/2018/09/13/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8Foo/">正则表达式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/05</span>
+            <a class="archive-post-title" href="/2018/09/05/%E9%AB%98%E9%A2%91%E8%AF%8D%E6%B1%87%E8%A1%A8oo/">高频词汇表</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/30</span>
+            <a class="archive-post-title" href="/2018/08/30/%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E4%B9%8B%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E8%AE%B0oo/">系统管理之重装系统记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/29</span>
+            <a class="archive-post-title" href="/2018/08/29/%E6%89%93%E5%8D%B0%E6%9C%BA%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8Coo/">打印机问题及使用方法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/20</span>
+            <a class="archive-post-title" href="/2018/08/20/%E6%96%87%E4%BB%B6%E5%A4%B4%E6%96%87%E4%BB%B6%E5%B0%BE%E6%80%BB%E7%BB%93oo/">文件类型以及分析手册</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/11</span>
+            <a class="archive-post-title" href="/2018/08/11/Linux%E4%B8%8B%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83(lamp%E5%92%8Cshadowsocks%E3%80%81lnmp)oo/">Linux下配置服务器环境(lamp和shadowsocks、lnmp)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span>
+            <a class="archive-post-title" href="/2018/07/25/wiki%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0oo/">Wiki搭建</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/15</span>
+            <a class="archive-post-title" href="/2018/07/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%B6%89%E7%8C%8Eoo/">大数据涉猎</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span>
+            <a class="archive-post-title" href="/2018/07/07/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86oo/">通信原理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span>
+            <a class="archive-post-title" href="/2018/06/18/AA%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95/">文件目录</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span>
+            <a class="archive-post-title" href="/2018/06/18/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E4%B9%8B%E9%A2%84%E6%B5%8B%E5%88%86%E6%9E%90%E5%99%A8%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">编译原理之预测分析器的设计与实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span>
+            <a class="archive-post-title" href="/2018/06/18/%E9%A1%B9%E7%9B%AE%E5%B0%8F%E6%86%A9/">项目小憩</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span>
+            <a class="archive-post-title" href="/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/">算法导论</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/11</span>
+            <a class="archive-post-title" href="/2018/06/11/SQL%E8%AF%AD%E5%8F%A5%E6%9C%AD%E8%AE%B0oo/">SQL语句札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/11</span>
+            <a class="archive-post-title" href="/2018/06/11/%E5%9F%BA%E4%BA%8EMIPS%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%8432%E4%BD%8D%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%E8%AE%BE%E8%AE%A1oo/">基于MIPS指令集的32位五级流水线CPU设计</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/04</span>
+            <a class="archive-post-title" href="/2018/06/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86oo/">计算机组成原理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/25</span>
+            <a class="archive-post-title" href="/2018/05/25/%E5%88%9B%E6%96%B0%E5%88%9B%E4%B8%9A%E9%A1%B9%E7%9B%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/">创新创业项目库管理系统</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/23</span>
+            <a class="archive-post-title" href="/2018/05/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E4%B9%8B%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90oo/">编译原理之语法分析程序</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/20</span>
+            <a class="archive-post-title" href="/2018/05/20/WebCollector%E7%88%AC%E8%99%AB%E4%B8%8EHbase/">WebCollector爬虫与Hbase</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span>
+            <a class="archive-post-title" href="/2018/05/18/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86oo/">加密解密的艺术</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span>
+            <a class="archive-post-title" href="/2018/05/15/Linux%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AEoo/">配置Linux环境</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2018/05/12/SQL%E6%B3%A8%E5%85%A5/">SQL注入札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2018/05/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98oo/">数据库中文乱码问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2018/05/12/%E7%BD%91%E9%A1%B5%E7%8A%B6%E6%80%81%E6%89%8B%E5%86%8C/">网页状态提示说明</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/10</span>
+            <a class="archive-post-title" href="/2018/05/10/hexo%E6%9C%AD%E8%AE%B0/">hexo搭建部署</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span>
+            <a class="archive-post-title" href="/2018/05/08/DOS%E5%91%BD%E4%BB%A4%E6%89%AB%E6%8F%8F%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/">DOS命令扫描指定端口并查看端口号</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2017 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/18</span>
+            <a class="archive-post-title" href="/2017/10/18/Markdown%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8Eoo/">markdown语法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span>
+            <a class="archive-post-title" href="/2017/07/25/JS%E8%BF%9B%E9%98%B6oo/">JS进阶</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="JAVA">
+                <span class="iconfont-archer">&#xe606;</span>
+                JAVA
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Linux">
+                <span class="iconfont-archer">&#xe606;</span>
+                Linux
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="信息安全">
+                <span class="iconfont-archer">&#xe606;</span>
+                信息安全
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="apache">
+                <span class="iconfont-archer">&#xe606;</span>
+                apache
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- work -- cmake">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- work -- cmake
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="JS">
+                <span class="iconfont-archer">&#xe606;</span>
+                JS
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                mysql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="SQL">
+                <span class="iconfont-archer">&#xe606;</span>
+                SQL
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Markdown">
+                <span class="iconfont-archer">&#xe606;</span>
+                Markdown
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="hexo">
+                <span class="iconfont-archer">&#xe606;</span>
+                hexo
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="git">
+                <span class="iconfont-archer">&#xe606;</span>
+                git
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- C/C++ -- ODBC">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++ -- ODBC
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- C/C++ -- QT">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++ -- QT
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- work">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- work
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- C/C++ -- C/C++手册">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++ -- C/C++手册
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="wiki">
+                <span class="iconfont-archer">&#xe606;</span>
+                wiki
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="参考文档">
+                <span class="iconfont-archer">&#xe606;</span>
+                参考文档
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Hadoop">
+                <span class="iconfont-archer">&#xe606;</span>
+                Hadoop
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="免密登入">
+                <span class="iconfont-archer">&#xe606;</span>
+                免密登入
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="--">
+                <span class="iconfont-archer">&#xe606;</span>
+                --
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="数据库">
+                <span class="iconfont-archer">&#xe606;</span>
+                数据库
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                Mysql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="文件类型">
+                <span class="iconfont-archer">&#xe606;</span>
+                文件类型
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="编译原理">
+                <span class="iconfont-archer">&#xe606;</span>
+                编译原理
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                C/C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="计划">
+                <span class="iconfont-archer">&#xe606;</span>
+                计划
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- English">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- English
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="计算机组成原理">
+                <span class="iconfont-archer">&#xe606;</span>
+                计算机组成原理
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- RTthread">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- RTthread
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="算法">
+                <span class="iconfont-archer">&#xe606;</span>
+                算法
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="lamp">
+                <span class="iconfont-archer">&#xe606;</span>
+                lamp
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="lnmp">
+                <span class="iconfont-archer">&#xe606;</span>
+                lnmp
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="CPU">
+                <span class="iconfont-archer">&#xe606;</span>
+                CPU
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- C/C++ -- C/C++问题收录">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++ -- C/C++问题收录
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Socket网络编程">
+                <span class="iconfont-archer">&#xe606;</span>
+                Socket网络编程
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "http://itheds.github.io",
+        root: siteMetaRoot,
+        author: "iTheds"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

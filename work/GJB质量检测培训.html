@@ -1,0 +1,2572 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="iTheds">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="iTheds">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="GJB质量检测培训微信的支付方式关联公务卡信息，用公务卡转帐 大家备注下单位+名字 直接公务卡转帐可以不办理借款，用公务卡支付后报销 对，别办借款了，今天再提OA，然后办借款，时间来不及培训申请是实验室统一申请的吧？-申请是所里统一报名的 中科院软件所天基三部 - 严林涛，需要普通发票中科院软件所天基三部 - 闫紫藤，需要普通发票 三、培训费用每人700元（含电子培训资料和检验员证书），培训费请汇">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GJB质量检测培训">
+<meta property="og:url" content="http://itheds.github.io/work/GJB%E8%B4%A8%E9%87%8F%E6%A3%80%E6%B5%8B%E5%9F%B9%E8%AE%AD.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="GJB质量检测培训微信的支付方式关联公务卡信息，用公务卡转帐 大家备注下单位+名字 直接公务卡转帐可以不办理借款，用公务卡支付后报销 对，别办借款了，今天再提OA，然后办借款，时间来不及培训申请是实验室统一申请的吧？-申请是所里统一报名的 中科院软件所天基三部 - 严林涛，需要普通发票中科院软件所天基三部 - 闫紫藤，需要普通发票 三、培训费用每人700元（含电子培训资料和检验员证书），培训费请汇">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-09-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-09-14T06:20:01.301Z">
+<meta property="article:author" content="iTheds">
+<meta property="article:tag" content="-- work">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>GJB质量检测培训 · fi3ework&#39;s Studio</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>fi3ework's Studio.</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+">
+    
+    <!-- 主页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="GJB质量检测培训"><a href="#GJB质量检测培训" class="headerlink" title="GJB质量检测培训"></a>GJB质量检测培训</h1><p>微信的支付方式关联公务卡信息，用公务卡转帐</p>
+<p>大家备注下单位+名字<br> 直接公务卡转帐<br>可以不办理借款，用公务卡支付后报销<br> 对，别办借款了，今天再提OA，然后办借款，时间来不及<br>培训申请是实验室统一申请的吧？-申请是所里统一报名的</p>
+<p>中科院软件所天基三部 - 严林涛，需要普通发票<br>中科院软件所天基三部 - 闫紫藤，需要普通发票</p>
+<p>三、培训费用<br>每人700元（含电子培训资料和检验员证书），培训费请汇款，请注明汇款姓名，如：XXX（姓名）质量培训费。<br>户名：北京市海淀区中科院计算所职业技能培训学校<br>开户银行：工行海淀西区支行<br>账    号： 0200 0045 1920 0043 667<br>开户银行代码：1021 0000 0458<br>注：请注明发票是开增值税普用票或增值税专用票。</p>
+<p>下午3:30考试方式采用扫二维码网络考试！</p>
+<p>9月14日上午8:30入腾讯会议号ID：659 273 970；9:00上课。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>质量检验的主要功能：把关、预防、报告、改进。 把关是质量检验最基本的职能，也可称为质量保证职能。 这一职能是质量检验出现时就已经存在的，即使是生产自动化高度发展的将来，检验的手段和技术有所发展和变化，质量检验的把关作用，仍然是不可缺少的。</p>
+<p>质量检验机构的权限（八项权限）<br>1）有权在组织内认真贯彻产品质量方面的方针、政策，执行检验标准和有关技术标<br>2）有权按有关技术标准的规定，判定产品和零部件合格与否；<br>3）有权按有关规定，对购入的各种原材料、外购件、外协件及配套产品等进行检验 ，并确定其合格与否；<br>4）对交验的产品或零部件，当缺乏相应的标准或技术文件时，有权拒绝接收检验；<br>5）有权对产品或零部件的材料代用等，参与分析、研究和审批；<br>6）对于忽视产品质量，以次充好，弄虚作假等行为，有权制止，限期改正，建议视 其情节轻重给予责任者以相应的处分；<br>7）有权追查产品质量事故产生的原因，找出责任者，提出视情节给予处分的建议；<br>8）对产生的各类不合格品，有权如实进行统计与分析，要求责任部门针对存在的问 题提出相应的改进措施。</p>
+<p>标准实样 standard model<br>对零、部（组）件或成品难以通过监视和测扯设备鉴别的<code>质量特性</code>，经选定和批准作为 <code>检测判定依据</code> 的样品</p>
+<p>组织应依据产品实现策划的安排，组织实施产品检验工作，并保存 产品符合接受准则的证据。4.2 检验人员的配置应满足组织检验工作要求。</p>
+<h2 id="产品检验状态"><a href="#产品检验状态" class="headerlink" title="产品检验状态"></a>产品检验状态</h2><p>产品缺陷需要依法赔偿。</p>
+<p>返工：： 为使不合格产品或服务符合要求而对其采取的措施。<br>返修： 为使不合格品或服务满足预期用途而对其采取的措施。</p>
+<h2 id="记录和文件"><a href="#记录和文件" class="headerlink" title="记录和文件"></a>记录和文件</h2><p>记录：阐明所取得的结果或提供所完成活动的证据文件。<br>表格： 用于记录质量管理体系所要求的数据的文件。</p>
+<p>记录和文件的区别。<br>记录不需要控制版本。文件有版本控制要求。</p>
+<p>当表格填写了数据，表格就成了记录。<br>开始时间，结束时间。</p>
+<p>首件鉴定：对<code>试生产</code>的第一件零部件进行全面的过程和产品检查。<br>首件检验：对批量加工的第一件产品所进行的自检和检验员专检的活动。</p>
+<p>关键过程(关键工序)：对形成产品质量起决定作用的过程。</p>
+<h4 id="检验文件"><a href="#检验文件" class="headerlink" title="检验文件"></a>检验文件</h4><p>依据性 的检验文件<br>国家标准<br>行业标准（地方标准）<br>企业标准<br>合同、技术协议（顾客的要求）</p>
+<p>技术性 的检验文件<br>设计图样<br>检验规程( ( 大纲 , 细则) )<br>检验指导书( ( 操作规程) )</p>
+<p>管理性 的检验文件<br>程序文件<br>检验规章制度</p>
+<p>证明性 的检验文件<br>检验报告( ( 记录) ) ： 按照GJB1442 统一改成检验记录，具体按顾客要求。<br>试验报告( ( 证明书) )<br>质量证明文件( ( 合格证书) )</p>
+<h4 id="检验依据文件使用顺序"><a href="#检验依据文件使用顺序" class="headerlink" title="检验依据文件使用顺序"></a>检验依据文件使用顺序</h4><p>国家或行业的 强制性 法律、法规或标准<br>订货合同或技术协议书<br>产品图样、专用技术条件、工艺规程、标准样件等<br>图样、技术条件引用的标准或承制方、订货方认可的有关<br>标准</p>
+<h4 id="检验依据有效性判定依据"><a href="#检验依据有效性判定依据" class="headerlink" title="检验依据有效性判定依据"></a>检验依据有效性判定依据</h4><p>行政文件 不能 作检验验收的依据<br>各级领导或有关人员的 口头 承诺也不能作验收依据<br>无文字根据的 不正确 的习惯作法，不能作为检验依据<br>不符合规定程序的 更改 ，不能作为检验依据<br>超越 使用时限、范围的设计文件和工艺文件不能作为检验依据</p>
+<h4 id="检验文件的编制、管理"><a href="#检验文件的编制、管理" class="headerlink" title="检验文件的编制、管理"></a>检验文件的编制、管理</h4><p>检验文件编制：<br>依据性的检验文件 —— 有关单位、人员编制<br>技术性的检验文件 —— 设计、检验部门编制<br>管理性的检验文件 —— 质管、检验部门编制<br>证明性的检验文件 —— 检验、试验部门编制</p>
+<p>检验规范（大纲、细则）的编制：<br>需符合国家标准、军用标准的要求（格式、内容）<br>应包括<code>合同（技术协议）要求</code>的全部检验项目<br>应与<code>设计文件</code>、<code>工艺文件</code>保持一致<br>应对检验活动作出具体规定（人、机、料、法、环）</p>
+<p>检验规范（大纲、细则）的编制：<br>“五 W 一 H”<br>What 做什么<br>Why 为什么做<br>Who 谁来做<br>When 何时做<br>Where 在哪里做<br>How 怎么做</p>
+<h4 id="检验工作"><a href="#检验工作" class="headerlink" title="检验工作"></a>检验工作</h4><p>按生产过程的顺序检验工作可分为:<br>按检验方式的不同特点和作用，可分为： 按工作过程的顺序 按工作过程的顺序来分：进货检验（IQC– Incoming Quality Control 生产过程检（IPQC–In-Process Quality Control 最终检验（出厂检验OQC–Outgoing Quality Control 最终检验是对生产对象的完工检验（出厂检验）。</p>
+<h4 id="评价检验员的责任指标："><a href="#评价检验员的责任指标：" class="headerlink" title="评价检验员的责任指标："></a>评价检验员的责任指标：</h4><p>产品错检：经过检验以后的不合格品中，还有合格品。<br>产品漏检：经过检验以后的合格品中，还有不合格品。</p>
+<p>先做高温后做低温。</p>
+<h4 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h4><p>标准实样 standard model<br>对零、部（组）件或成品难以通过监视和测量设备鉴别的质量特性，经选定和批准作为检测判定依据的样品。</p>
+<p>检验计划 inspection<br>对检验工作涉及的活动、过程、资源及相互关系作出的规定，用以<br>指导检验活动正确、有序、协调进行</p>
+<h4 id="最高管理者"><a href="#最高管理者" class="headerlink" title="最高管理者"></a>最高管理者</h4><p>最高管理者应对最终产品质量负全责。确保检验部门能够<br>、 独立行使职权，检验工作所需的人员、 基础设施等资源的配备<br>以及检验工作的正常开展和持续改进</p>
+<p>最高管理者一般指法人。</p>
+<h4 id="质量检验机构的设置"><a href="#质量检验机构的设置" class="headerlink" title="质量检验机构的设置"></a>质量检验机构的设置</h4><p>最高管理者应 授权 并支持和确保检验机构独立行使职权<br>为检验机构配备必要的工作环境、工作条件和资源<br>建立 完善的检验工作系统，配备符合要求的质量人员，并<br>进行统一管理<br>明确 各级检验机构之间的分工与职责，确定其工作范围，<br>并形成文件</p>
+<p>合理设置机构<br>集中管理型质量检验机构<br>（建立独立的质量检验体系）<br>集中与分散相结合型质量检验机构！！！<br>专、兼职结合型质量检验机构！！！<br>（与其他的部门合并）</p>
+<h4 id="质量检验机构职责"><a href="#质量检验机构职责" class="headerlink" title="质量检验机构职责"></a>质量检验机构职责</h4><p>对由于 未认真 贯彻执行产品质量方面的方针、政策、标准或规定，致使产品质量低劣或出现质量事故负一定责任<br>对不合格品管理不善所造成的后果负责<br>对统计上报的质量报表、质量信息的正确性、及时性负责对因 错检、漏检、误检 而造成的质量损失负责<br>对忽视质量的行为或质量事故，不反映、不上报，而造成的影响和后果负责<br>对明知是不合格品，还给予检验并签发检验合格证书的行为负责</p>
+<p>依据质量要求， 独立 判定产品合格与不合格的权利<br>对于不具备检验条件或要求的产品，有权 拒绝 接收检验<br>对于忽视产品质量，以次充好，弄虚作假等行为，有权制止、限期改进及视情节提出处分的建议<br>对产品质量事故，有权 追查 产生的原因，找出责任者，视情况提出给予处分的建议<br>对生产中产生的各种不合格品，有权如实进行统计与分析，针对存在问题，要求有关责任部门提出 改进<br>对国家明令禁止的淘汰产品、以假充真的产品，有权不予检验<br>对研制生产过程控制进行监督检查</p>
+<p>质量检验机构在独立行使质量检验职能时，不受内外部任何方面的干扰，客观、公正行使职权。</p>
+<h4 id="检验部门-的职责和权限至少应包括"><a href="#检验部门-的职责和权限至少应包括" class="headerlink" title="检验部门 的职责和权限至少应包括:"></a>检验部门 的职责和权限至少应包括:</h4><p>a) 负责检验工作的归口管理，编制或参与编制检验文件，会签有关技术文件。<br>b) 根据检验文件组织检验人员对产品进行检验，做出符合性的结论，办理质量证明文件。<br>c) 。 按规定保存产品检验的相关证明性文件。 一般包括 :<br>、 产品合格证明、 产品检验证据、不合格品处置记录等。<br>d) 负责或参与检验人员的培训和考核，确保检验人员按<br>要求持证上岗。<br>e) 负责检验印章的管理。<br>f) 按规定的授权处置不合格品，参与不合格品原因分析。<br>g) 按规定参与首件鉴定、技术攻关、产品质量评审等工<br>作。必要时，参与对供方的质量保证能力考察。<br>h) 有权越级反映质量问题。</p>
+<h4 id="检验人员-的职责和权限至少应包括"><a href="#检验人员-的职责和权限至少应包括" class="headerlink" title="检验人员 的职责和权限至少应包括:"></a>检验人员 的职责和权限至少应包括:</h4><p>a) 依据检验文件、设计文件、工艺文件以及合同( ( 或技术<br>协议) ) 等产品质量要求，对采购产品、过程产品和最终产品做出<br>合格否判断，并对检验结果的与正确性负责；<br>b) 负责对产品检验状态进行标识；<br>c) 做好检验、试验记录并及时归档；<br>d) 有权越级反映质量问题。</p>
+<h4 id="检验印章"><a href="#检验印章" class="headerlink" title="检验印章"></a>检验印章</h4><p>按授权的范围，发放检验印章。检验印章统一发放、统一管理<br>检验印章 专人 专用，不准转借<br>检验印章盖的印记必须清晰，易于识别。当盖的印记模糊时应重盖。如印章磨损，则应交旧换新<br>检验人员调离到 新岗位 或本岗位增加新的检验项目、内容时，必须重新进行培训，考核。考核合格者使用的检验印章交旧领新<br>检验人员免职或 调离</p>
+<p>印章专人专管</p>
+<h4 id="例外放行审批程序-续"><a href="#例外放行审批程序-续" class="headerlink" title="例外放行审批程序( ( 续) )"></a>例外放行审批程序( ( 续) )</h4><p>如因生产急需，来不及检验而放行时，应对该产品做出明<br>确标识，并作好记录，以便发现问题及时追回。使用例外放行<br>应慎重考虑，并严格执行以下审批程序：<br>由提出例外放行的部门填写 《 例外放行申请单 》 ，经审批<br>后送交检验员。<br>检验人员应对例外放行的产品做好标识。</p>
+<h2 id="外部提供产品和服务"><a href="#外部提供产品和服务" class="headerlink" title="外部提供产品和服务"></a>外部提供产品和服务</h2><h4 id="外部提供产品和服务控制程序"><a href="#外部提供产品和服务控制程序" class="headerlink" title="外部提供产品和服务控制程序"></a>外部提供产品和服务控制程序</h4><p>职责</p>
+<p>质量处 负责组织进货检验和试验；<br>质量处 电子学检验站负责电子元器件及相关电子产品的进<br>货检验和试验；<br>检测中心 负责外包光学件、机械件及外包分系统的进货检<br>验和试验；<br>采购部门 和产品设计部门协助提供相关资料（如有效的质<br>量证明文件、验收准则和技术文件等）</p>
+<p>对批量大的采购产品，可以采用抽样检验方式进行，抽样方案执行 GJB179A 《 计数抽样检验程序及表 》 。对重要的元器件、配套件等必须进行全数检验。</p>
+<h2 id="最终检验"><a href="#最终检验" class="headerlink" title="最终检验"></a>最终检验</h2><p>目的：对最终检验和试验进行控制，确保采用适宜的监视和测量方法，以验证最终产品符合规定的要求。</p>
+<p>适用范围：适用于对项目的最终检验和试验控制。</p>
+<p>职责：检验中心负责研制项目(产品)最终检验和试验的实施和控制。</p>
+<p>产品的标识<br>最终产品应在专用场地存放并有明显的标识。<br>产品的最终检验状态分为： “ 待检”、“合格”、“不合<br>格”、“待判定”四种，由检验人员标识。</p>
+<p>已标识合格的产品的技术状态 不再改变。</p>
+<p>成品入库、包装及出所检验<br>成品入库检验。<br>成品包装及出所检验。</p>
+<p>质量（检验和试验）记录填写要求及检验证书</p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="http://itheds.github.io">iTheds</a>
+            <p>Link：<a href="http://itheds.github.io/work/GJB%E8%B4%A8%E9%87%8F%E6%A3%80%E6%B5%8B%E5%9F%B9%E8%AE%AD.html">http://itheds.github.io/work/GJB%E8%B4%A8%E9%87%8F%E6%A3%80%E6%B5%8B%E5%9F%B9%E8%AE%AD.html</a>
+            <p>Publish date：<a href="http://itheds.github.io/work/GJB%E8%B4%A8%E9%87%8F%E6%A3%80%E6%B5%8B%E5%9F%B9%E8%AE%AD.html">September 10th 2021, 12:00:00 am</a>
+            <p>Update date：<a href="http://itheds.github.io/work/GJB%E8%B4%A8%E9%87%8F%E6%A3%80%E6%B5%8B%E5%9F%B9%E8%AE%AD.html">September 14th 2021, 2:20:01 pm</a>
+            <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:12345@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/fi3ework" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 78
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/10</span>
+            <a class="archive-post-title" href="/2022/08/10/TDengine%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">TDengine学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/10</span>
+            <a class="archive-post-title" href="/2022/03/10/%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F%E7%AD%96%E5%88%92%E6%96%B9%E6%A1%88/">学习方式策划方案</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/17</span>
+            <a class="archive-post-title" href="/2021/11/17/QT%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">QT学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/06</span>
+            <a class="archive-post-title" href="/2021/09/06/%E8%BF%9E%E6%8E%A5%E6%B1%A0%E5%AE%9E%E7%8E%B0/">连接池实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/25</span>
+            <a class="archive-post-title" href="/2021/08/25/Lib%E5%92%8CDLL%E8%AF%A6%E8%A7%A3/">Lib和DLL详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/11</span>
+            <a class="archive-post-title" href="/2021/08/11/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B002/">算法学习笔记02</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/24</span>
+            <a class="archive-post-title" href="/2021/07/24/%E5%8C%97%E4%BA%AC%E9%A3%9F%E5%BA%97%E6%94%B6%E5%BD%95/">北京食店收录</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/08</span>
+            <a class="archive-post-title" href="/2021/07/08/Cmake%E5%92%8Cbison/">Cmake和bison</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/17</span>
+            <a class="archive-post-title" href="/2021/06/17/mysql%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Mysql源码以及Mysql ODBC源码分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/04</span>
+            <a class="archive-post-title" href="/2021/06/04/%E5%AD%97%E4%BD%93%E7%89%88%E6%9D%83%E9%97%AE%E9%A2%98/">字体版权问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/04</span>
+            <a class="archive-post-title" href="/2021/06/04/%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2%E7%AE%97%E6%B3%95/">EKF，UKF，CKF，PF非线性滤波算法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/25</span>
+            <a class="archive-post-title" href="/2021/05/25/SQLite/">SQLite</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span>
+            <a class="archive-post-title" href="/2021/05/18/Cppwindows%E6%9C%8D%E5%8A%A1/">C/C++windows服务</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/13</span>
+            <a class="archive-post-title" href="/2021/05/13/ODBC%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/">ODBC连接数据库</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span>
+            <a class="archive-post-title" href="/2021/05/06/ODBC%E7%90%86%E8%AE%BA/">ODBC理论</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span>
+            <a class="archive-post-title" href="/2021/05/06/ODBC%E7%BC%96%E7%A8%8B/">ODBC编程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/05</span>
+            <a class="archive-post-title" href="/2021/05/05/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">智能指针</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span>
+            <a class="archive-post-title" href="/2021/04/28/B%E6%A0%91%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">B树学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/2021/04/16/C++%E5%9F%BA%E6%9C%AC%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/">C++基本项目开发思路</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span>
+            <a class="archive-post-title" href="/2021/04/13/TCP%E4%B8%8EUDP%E5%AE%9E%E7%8E%B0/">TCP与UDP实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/11</span>
+            <a class="archive-post-title" href="/2021/04/11/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">开发者手册</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/10</span>
+            <a class="archive-post-title" href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/">CRC循环冗余校验</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/10</span>
+            <a class="archive-post-title" href="/2021/04/10/CCpp%E9%97%AE%E9%A2%98%E6%94%B6%E5%BD%95%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/">C/C++问题收录与知识积累</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span>
+            <a class="archive-post-title" href="/2021/03/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E6%89%8B%E5%86%8C/">数据库理论系统学习手册</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span>
+            <a class="archive-post-title" href="/2021/03/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0/">计算机网络具体实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span>
+            <a class="archive-post-title" href="/2021/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/">设计模式总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span>
+            <a class="archive-post-title" href="/2021/03/08/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E6%8C%87%E5%8D%97/">重装系统指南</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/05</span>
+            <a class="archive-post-title" href="/2021/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%85%A5%E9%97%A8%E8%B7%AF%E7%BA%BF/">计算机入门路线(应用篇)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/06</span>
+            <a class="archive-post-title" href="/2021/02/06/Nodejs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Nodejs学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span>
+            <a class="archive-post-title" href="/2021/02/03/Apache%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/">Apache系统管理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span>
+            <a class="archive-post-title" href="/2021/02/03/Linux%E4%B8%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BB%BA%E5%BA%93/">Linux下数据库管理与建库</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span>
+            <a class="archive-post-title" href="/2021/02/03/Linux%E5%91%BD%E4%BB%A4%E6%80%BB%E9%9B%86%E4%B8%8E%E7%B3%BB%E7%BB%9F/">Linux命令总集与系统</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span>
+            <a class="archive-post-title" href="/2021/02/03/%E7%BC%96%E7%A0%81%E6%80%BB%E7%BB%93/">编码总集</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/21</span>
+            <a class="archive-post-title" href="/2021/01/21/%E8%BD%AF%E4%BB%B6%E6%80%BB%E9%9B%86/">软件总集以及网站</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/20</span>
+            <a class="archive-post-title" href="/2021/01/20/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">英语学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/Ps%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">Ps学习札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/php%E8%BF%9B%E9%98%B6%E6%89%8B%E5%86%8C/">php进阶手册</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/">工具总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0/">数据结构具体实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span>
+            <a class="archive-post-title" href="/2021/01/05/git_use_page/">git 及 github 使用手册</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/">Linux网络编程笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/String%E5%87%BD%E6%95%B0/">C/C++ String函数</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/VS%E5%BC%80%E5%8F%91%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">VS C++开发使用笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/YII%E6%A1%86%E6%9E%B6%E7%AC%94%E8%AE%B0/">YII框架笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/%E5%90%84%E8%BD%AF%E4%BB%B6%E5%8F%8Awindows%E6%93%8D%E4%BD%9C%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%80%BB%E9%9B%86/">各软件及windows操作快捷键总集</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/CCpp%E8%BF%9B%E9%98%B6/">C/C++进阶</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2021/01/02/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/">算法学习笔记01</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2018 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span>
+            <a class="archive-post-title" href="/2018/12/06/%E7%BA%BF%E7%A8%8B%E4%B8%8E%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">线程与进程管理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/10</span>
+            <a class="archive-post-title" href="/2018/10/10/Linux%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8oo/">Linux网络应用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/30</span>
+            <a class="archive-post-title" href="/2018/09/30/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5oo/">宽字节注入</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/13</span>
+            <a class="archive-post-title" href="/2018/09/13/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8Foo/">正则表达式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/05</span>
+            <a class="archive-post-title" href="/2018/09/05/%E9%AB%98%E9%A2%91%E8%AF%8D%E6%B1%87%E8%A1%A8oo/">高频词汇表</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/30</span>
+            <a class="archive-post-title" href="/2018/08/30/%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E4%B9%8B%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E8%AE%B0oo/">系统管理之重装系统记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/29</span>
+            <a class="archive-post-title" href="/2018/08/29/%E6%89%93%E5%8D%B0%E6%9C%BA%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8Coo/">打印机问题及使用方法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/20</span>
+            <a class="archive-post-title" href="/2018/08/20/%E6%96%87%E4%BB%B6%E5%A4%B4%E6%96%87%E4%BB%B6%E5%B0%BE%E6%80%BB%E7%BB%93oo/">文件类型以及分析手册</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/11</span>
+            <a class="archive-post-title" href="/2018/08/11/Linux%E4%B8%8B%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83(lamp%E5%92%8Cshadowsocks%E3%80%81lnmp)oo/">Linux下配置服务器环境(lamp和shadowsocks、lnmp)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span>
+            <a class="archive-post-title" href="/2018/07/25/wiki%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0oo/">Wiki搭建</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/15</span>
+            <a class="archive-post-title" href="/2018/07/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%B6%89%E7%8C%8Eoo/">大数据涉猎</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span>
+            <a class="archive-post-title" href="/2018/07/07/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86oo/">通信原理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span>
+            <a class="archive-post-title" href="/2018/06/18/AA%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95/">文件目录</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span>
+            <a class="archive-post-title" href="/2018/06/18/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E4%B9%8B%E9%A2%84%E6%B5%8B%E5%88%86%E6%9E%90%E5%99%A8%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">编译原理之预测分析器的设计与实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span>
+            <a class="archive-post-title" href="/2018/06/18/%E9%A1%B9%E7%9B%AE%E5%B0%8F%E6%86%A9/">项目小憩</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span>
+            <a class="archive-post-title" href="/2018/06/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BAoo/">算法导论</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/11</span>
+            <a class="archive-post-title" href="/2018/06/11/SQL%E8%AF%AD%E5%8F%A5%E6%9C%AD%E8%AE%B0oo/">SQL语句札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/11</span>
+            <a class="archive-post-title" href="/2018/06/11/%E5%9F%BA%E4%BA%8EMIPS%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%8432%E4%BD%8D%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%E8%AE%BE%E8%AE%A1oo/">基于MIPS指令集的32位五级流水线CPU设计</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/04</span>
+            <a class="archive-post-title" href="/2018/06/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86oo/">计算机组成原理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/25</span>
+            <a class="archive-post-title" href="/2018/05/25/%E5%88%9B%E6%96%B0%E5%88%9B%E4%B8%9A%E9%A1%B9%E7%9B%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/">创新创业项目库管理系统</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/23</span>
+            <a class="archive-post-title" href="/2018/05/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E4%B9%8B%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90oo/">编译原理之语法分析程序</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/20</span>
+            <a class="archive-post-title" href="/2018/05/20/WebCollector%E7%88%AC%E8%99%AB%E4%B8%8EHbase/">WebCollector爬虫与Hbase</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span>
+            <a class="archive-post-title" href="/2018/05/18/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86oo/">加密解密的艺术</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span>
+            <a class="archive-post-title" href="/2018/05/15/Linux%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AEoo/">配置Linux环境</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2018/05/12/SQL%E6%B3%A8%E5%85%A5/">SQL注入札记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2018/05/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98oo/">数据库中文乱码问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2018/05/12/%E7%BD%91%E9%A1%B5%E7%8A%B6%E6%80%81%E6%89%8B%E5%86%8C/">网页状态提示说明</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/10</span>
+            <a class="archive-post-title" href="/2018/05/10/hexo%E6%9C%AD%E8%AE%B0/">hexo搭建部署</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span>
+            <a class="archive-post-title" href="/2018/05/08/DOS%E5%91%BD%E4%BB%A4%E6%89%AB%E6%8F%8F%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/">DOS命令扫描指定端口并查看端口号</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2017 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/18</span>
+            <a class="archive-post-title" href="/2017/10/18/Markdown%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8Eoo/">markdown语法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span>
+            <a class="archive-post-title" href="/2017/07/25/JS%E8%BF%9B%E9%98%B6oo/">JS进阶</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="JAVA">
+                <span class="iconfont-archer">&#xe606;</span>
+                JAVA
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Linux">
+                <span class="iconfont-archer">&#xe606;</span>
+                Linux
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="信息安全">
+                <span class="iconfont-archer">&#xe606;</span>
+                信息安全
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="apache">
+                <span class="iconfont-archer">&#xe606;</span>
+                apache
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- work -- cmake">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- work -- cmake
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="JS">
+                <span class="iconfont-archer">&#xe606;</span>
+                JS
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                mysql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="SQL">
+                <span class="iconfont-archer">&#xe606;</span>
+                SQL
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Markdown">
+                <span class="iconfont-archer">&#xe606;</span>
+                Markdown
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="hexo">
+                <span class="iconfont-archer">&#xe606;</span>
+                hexo
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="git">
+                <span class="iconfont-archer">&#xe606;</span>
+                git
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- C/C++ -- ODBC">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++ -- ODBC
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- C/C++ -- QT">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++ -- QT
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- work">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- work
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- C/C++ -- C/C++手册">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++ -- C/C++手册
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="wiki">
+                <span class="iconfont-archer">&#xe606;</span>
+                wiki
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="参考文档">
+                <span class="iconfont-archer">&#xe606;</span>
+                参考文档
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Hadoop">
+                <span class="iconfont-archer">&#xe606;</span>
+                Hadoop
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="免密登入">
+                <span class="iconfont-archer">&#xe606;</span>
+                免密登入
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="--">
+                <span class="iconfont-archer">&#xe606;</span>
+                --
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="数据库">
+                <span class="iconfont-archer">&#xe606;</span>
+                数据库
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                Mysql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="文件类型">
+                <span class="iconfont-archer">&#xe606;</span>
+                文件类型
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="编译原理">
+                <span class="iconfont-archer">&#xe606;</span>
+                编译原理
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                C/C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="计划">
+                <span class="iconfont-archer">&#xe606;</span>
+                计划
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- English">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- English
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="计算机组成原理">
+                <span class="iconfont-archer">&#xe606;</span>
+                计算机组成原理
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- RTthread">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- RTthread
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="算法">
+                <span class="iconfont-archer">&#xe606;</span>
+                算法
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="lamp">
+                <span class="iconfont-archer">&#xe606;</span>
+                lamp
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="lnmp">
+                <span class="iconfont-archer">&#xe606;</span>
+                lnmp
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="CPU">
+                <span class="iconfont-archer">&#xe606;</span>
+                CPU
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="-- C/C++ -- C/C++问题收录">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++ -- C/C++问题收录
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Socket网络编程">
+                <span class="iconfont-archer">&#xe606;</span>
+                Socket网络编程
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "http://itheds.github.io",
+        root: siteMetaRoot,
+        author: "iTheds"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>
