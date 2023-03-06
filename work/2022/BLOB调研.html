@@ -19,18 +19,23 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://itheds.github.io/archives/2021/09/index.html">
+    <meta name="description" content="BLOB调研一、目前数据库支持 BLOB 方式Moc 接口使用时，将设置 BLOB 类型，将数据设置为字符串进行存储。SQL 语句使用时对 BLOB 数据识别为字符串进行存储。二、CLOB 与 BLOB 区别BLOB和CLOB都是大字段类型，BLOB是按二进制来存储的，而CLOB是可以直接存储文字的。其实两个是可以互换的的，或者可以直接用LOB字段代替这两个。但是为了更好的管理ORACLE数据库，">
+<meta property="og:type" content="website">
+<meta property="og:title" content="BLOB调研">
+<meta property="og:url" content="http://itheds.github.io/work/2022/BLOB%E8%B0%83%E7%A0%94.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="BLOB调研一、目前数据库支持 BLOB 方式Moc 接口使用时，将设置 BLOB 类型，将数据设置为字符串进行存储。SQL 语句使用时对 BLOB 数据识别为字符串进行存储。二、CLOB 与 BLOB 区别BLOB和CLOB都是大字段类型，BLOB是按二进制来存储的，而CLOB是可以直接存储文字的。其实两个是可以互换的的，或者可以直接用LOB字段代替这两个。但是为了更好的管理ORACLE数据库，">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-05-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-11T07:26:40.216Z">
 <meta property="article:author" content="iTheds">
+<meta property="article:tag" content="-- work">
 <meta name="twitter:card" content="summary">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/favicon.ico">
     
-    <title>fi3ework&#39;s Studio</title>
+    <title>BLOB调研 · iTheds&#39;s Studio</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -241,7 +246,7 @@
         </span>
         <!-- back to home page text -->
         <span class="home-link header-element">
-            <a href=/>fi3ework's Studio.</a>
+            <a href=/>iTheds's Studio.</a>
         </span>
     </div>
     <!-- toggle banner for post layout -->
@@ -419,49 +424,76 @@
 
             <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
             <div class="container container-unloaded">
-                <main class="main index-page">
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/09/06/%E8%BF%9E%E6%8E%A5%E6%B1%A0%E5%AE%9E%E7%8E%B0/">
-                
-                <span class="abstract-title-text">连接池实现</span>
-            </a>
-            <div class="abstract-content">
-                连接池实现目前一个基本的socket类已经封装好了。之后要实现一个连接池。
-连接池需要连接队列。
-在线程队列的基础上完成一个连接池。
-在连接数据库的过程中通常是先连接，最后的时候断开连接。
-Server建立一个线程池，该池接收任务，并且提供触发器进行执行任务。
-建立一个I&#x2F;O模型完成端口。在船舶项目中利用 Windows 中的 WSA event 事件，将多个套接字socket分别与端口相对应，来达到监听是否有连接进入的问题。之后再分配独立次级主线程进行数据接收和发送。而在本项目中只使用一个端口。建立一个线程进行监听，进行TCP连接。如果连接成功就将该TCP连接关联到IOCP端...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/09/26">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/09/06</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="-- C/C++">-- C/C++</a>
-    
-</div>
+                <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="BLOB调研"><a href="#BLOB调研" class="headerlink" title="BLOB调研"></a>BLOB调研</h1><p>一、目前数据库支持 BLOB 方式<br>Moc 接口使用时，将设置 BLOB 类型，将数据设置为字符串进行存储。<br>SQL 语句使用时对 BLOB 数据识别为字符串进行存储。<br>二、CLOB 与 BLOB 区别<br>BLOB和CLOB都是大字段类型，BLOB是按二进制来存储的，而CLOB是可以直接存储文字的。其实两个是可以互换的的，或者可以直接用LOB字段代替这两个。但是为了更好的管理ORACLE数据库，通常像图片、文件、音乐等信息就用BLOB字段来存储，先将文件转为二进制再存储进去。而像文章或者是较长的文字，就用CLOB存储，这样对以后的查询更新存储等操作都提供很大的方便。</p>
+<p>三、BLOB 使用方式</p>
+<ol>
+<li>JAVA 中的使用方式</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">PreparedStatement</span> <span class="variable">stmt</span> <span class="operator">=</span> con.prepareStatement(<span class="string">&quot;insert into student(name,image) values(?,?)&quot;</span>);			</span><br><span class="line">stmt.setString(<span class="number">1</span>,<span class="string">&quot;April&quot;</span>);</span><br><span class="line">stmt.setBlob(<span class="number">2</span>, <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;D:\\work\\April.png&quot;</span>));</span><br><span class="line">stmt.executeUpdate();</span><br></pre></td></tr></table></figure>
 
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
+<p>Mysql 中 使用 Blob，有长度限制。</p>
+<ol start="2">
+<li>C++ 中的使用方式</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::stringbuf <span class="title">buf</span><span class="params">(blob, std::ios_base::in)</span></span>;</span><br><span class="line"><span class="function">std::istream <span class="title">stream</span><span class="params">(&amp;buf)</span></span>;</span><br><span class="line">pstmt-&gt;<span class="built_in">setBlob</span>(<span class="number">2</span>, &amp;stream);</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>ODBC 中的使用方式</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+    </article>
+    <!-- license -->
     
-    <!-- paginator  -->
+        <div class="license-wrapper">
+            <p>Author：<a href="http://itheds.github.io">iTheds</a>
+            <p>Link：<a href="http://itheds.github.io/work/2022/BLOB%E8%B0%83%E7%A0%94.html">http://itheds.github.io/work/2022/BLOB%E8%B0%83%E7%A0%94.html</a>
+            <p>Publish date：<a href="http://itheds.github.io/work/2022/BLOB%E8%B0%83%E7%A0%94.html">May 7th 2022, 12:00:00 am</a>
+            <p>Update date：<a href="http://itheds.github.io/work/2022/BLOB%E8%B0%83%E7%A0%94.html">May 11th 2022, 3:26:40 pm</a>
+            <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
     
 </main>
 
@@ -476,13 +508,13 @@ Server建立一个线程池，该池接收任务，并且提供触发器进行�
     
         
             
-                <a href="mailto:12345@qq.com" class="iconfont-archer email" title=email ></a>
+                <a href="mailto:itheds@163.com" class="iconfont-archer email" title=email ></a>
             
         
     
         
             
-                <a href="//github.com/fi3ework" class="iconfont-archer github" target="_blank" title=github></a>
+                <a href="//github.com/iTheds" class="iconfont-archer github" target="_blank" title=github></a>
             
         
     
@@ -929,104 +961,7 @@ Server建立一个线程池，该池接收任务，并且提供触发器进行�
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -1751,7 +1686,7 @@ Server建立一个线程池，该池接收任务，并且提供触发器进行�
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 78
+        Total : 73
         </div>
         <!-- search  -->
         
@@ -1790,12 +1725,6 @@ Server建立一个线程池，该池接收任务，并且提供触发器进行�
         <li class="archive-post-item">
             <span class="archive-post-date">11/17</span>
             <a class="archive-post-title" href="/2021/11/17/QT%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">QT学习札记</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">09/06</span>
-            <a class="archive-post-title" href="/2021/09/06/%E8%BF%9E%E6%8E%A5%E6%B1%A0%E5%AE%9E%E7%8E%B0/">连接池实现</a>
         </li>
     
         
@@ -1926,18 +1855,6 @@ Server建立一个线程池，该池接收任务，并且提供触发器进行�
     
         
         <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span>
-            <a class="archive-post-title" href="/2021/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/">设计模式总结</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span>
-            <a class="archive-post-title" href="/2021/03/08/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E6%8C%87%E5%8D%97/">重装系统指南</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
             <span class="archive-post-date">03/05</span>
             <a class="archive-post-title" href="/2021/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%85%A5%E9%97%A8%E8%B7%AF%E7%BA%BF/">计算机入门路线(应用篇)</a>
         </li>
@@ -2030,12 +1947,6 @@ Server建立一个线程池，该池接收任务，并且提供触发器进行�
         <li class="archive-post-item">
             <span class="archive-post-date">01/02</span>
             <a class="archive-post-title" href="/2021/01/02/VS%E5%BC%80%E5%8F%91%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">VS C++开发使用笔记</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/02</span>
-            <a class="archive-post-title" href="/2021/01/02/YII%E6%A1%86%E6%9E%B6%E7%AC%94%E8%AE%B0/">YII框架笔记</a>
         </li>
     
         
@@ -2135,12 +2046,6 @@ Server建立一个线程池，该池接收任务，并且提供触发器进行�
         <li class="archive-post-item">
             <span class="archive-post-date">07/07</span>
             <a class="archive-post-title" href="/2018/07/07/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86oo/">通信原理</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span>
-            <a class="archive-post-title" href="/2018/06/18/AA%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95/">文件目录</a>
         </li>
     
         
@@ -2271,6 +2176,11 @@ Server建立一个线程池，该池接收任务，并且提供触发器进行�
                 JAVA
             </span>
         
+            <span class="sidebar-tag-name" data-tags="-- RTthread">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- RTthread
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="Linux">
                 <span class="iconfont-archer">&#xe606;</span>
                 Linux
@@ -2281,6 +2191,11 @@ Server建立一个线程池，该池接收任务，并且提供触发器进行�
                 信息安全
             </span>
         
+            <span class="sidebar-tag-name" data-tags="-- C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="apache">
                 <span class="iconfont-archer">&#xe606;</span>
                 apache
@@ -2289,11 +2204,6 @@ Server建立一个线程池，该池接收任务，并且提供触发器进行�
             <span class="sidebar-tag-name" data-tags="-- work -- cmake">
                 <span class="iconfont-archer">&#xe606;</span>
                 -- work -- cmake
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="-- C/C++">
-                <span class="iconfont-archer">&#xe606;</span>
-                -- C/C++
             </span>
         
             <span class="sidebar-tag-name" data-tags="JS">
@@ -2339,11 +2249,6 @@ Server建立一个线程池，该池接收任务，并且提供触发器进行�
             <span class="sidebar-tag-name" data-tags="-- work">
                 <span class="iconfont-archer">&#xe606;</span>
                 -- work
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="-- C/C++ -- C/C++手册">
-                <span class="iconfont-archer">&#xe606;</span>
-                -- C/C++ -- C/C++手册
             </span>
         
             <span class="sidebar-tag-name" data-tags="wiki">
@@ -2411,11 +2316,6 @@ Server建立一个线程池，该池接收任务，并且提供触发器进行�
                 计算机组成原理
             </span>
         
-            <span class="sidebar-tag-name" data-tags="-- RTthread">
-                <span class="iconfont-archer">&#xe606;</span>
-                -- RTthread
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="算法">
                 <span class="iconfont-archer">&#xe606;</span>
                 算法
@@ -2434,11 +2334,6 @@ Server建立一个线程池，该池接收任务，并且提供触发器进行�
             <span class="sidebar-tag-name" data-tags="CPU">
                 <span class="iconfont-archer">&#xe606;</span>
                 CPU
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="-- C/C++ -- C/C++问题收录">
-                <span class="iconfont-archer">&#xe606;</span>
-                -- C/C++ -- C/C++问题收录
             </span>
         
             <span class="sidebar-tag-name" data-tags="Socket网络编程">

@@ -19,15 +19,15 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="python 远程访问服务 ODBC 标准接口本次只需要实现 client 客户端操作。 已经实现的 C++ 接口 连接数据库。本质是建立 TCP 通信连接。 传输 SQL 语句数据。以特定协议格式封装数据并发送到服务端，等待接收信息并返回。 获取数据。判断结果集数据是否存在。 取出当前结果集中的行集中某一列的数据。 关闭连接。关闭 TCP 连接。  python ODBC 接口实现拟过程：  确">
+    <meta name="description" content="Code_LM任务线路：[9.8]完成拆包、组包基本函数。[9.15]反馈，该任务并没有基本完成。经过组内讨论，废除该方法，因为socket底层已经实现了组包和拆包的过程。为调研问题。 熟悉 aeci 层接口使用方式[9.16] 创建数据库的整个流程。 了解TCP的基本操作。  123456789101112131415161718192021222324252627282930313233343">
 <meta property="og:type" content="website">
-<meta property="og:title" content="python 远程访问服务 ODBC 标准接口">
-<meta property="og:url" content="http://itheds.github.io/work/python-%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE%E6%9C%8D%E5%8A%A1.html">
+<meta property="og:title" content="Code_LM">
+<meta property="og:url" content="http://itheds.github.io/work/2021/Code_LM.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="python 远程访问服务 ODBC 标准接口本次只需要实现 client 客户端操作。 已经实现的 C++ 接口 连接数据库。本质是建立 TCP 通信连接。 传输 SQL 语句数据。以特定协议格式封装数据并发送到服务端，等待接收信息并返回。 获取数据。判断结果集数据是否存在。 取出当前结果集中的行集中某一列的数据。 关闭连接。关闭 TCP 连接。  python ODBC 接口实现拟过程：  确">
+<meta property="og:description" content="Code_LM任务线路：[9.8]完成拆包、组包基本函数。[9.15]反馈，该任务并没有基本完成。经过组内讨论，废除该方法，因为socket底层已经实现了组包和拆包的过程。为调研问题。 熟悉 aeci 层接口使用方式[9.16] 创建数据库的整个流程。 了解TCP的基本操作。  123456789101112131415161718192021222324252627282930313233343">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-03-01T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-08-23T07:16:28.922Z">
+<meta property="article:published_time" content="2021-09-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-09-17T06:13:15.543Z">
 <meta property="article:author" content="iTheds">
 <meta property="article:tag" content="-- work">
 <meta name="twitter:card" content="summary">
@@ -35,7 +35,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/favicon.ico">
     
-    <title>python 远程访问服务 ODBC 标准接口 · fi3ework&#39;s Studio</title>
+    <title>Code_LM · iTheds&#39;s Studio</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -246,7 +246,7 @@
         </span>
         <!-- back to home page text -->
         <span class="home-link header-element">
-            <a href=/>fi3ework's Studio.</a>
+            <a href=/>iTheds's Studio.</a>
         </span>
     </div>
     <!-- toggle banner for post layout -->
@@ -426,37 +426,24 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <h1 id="python-远程访问服务-ODBC-标准接口"><a href="#python-远程访问服务-ODBC-标准接口" class="headerlink" title="python 远程访问服务 ODBC 标准接口"></a>python 远程访问服务 ODBC 标准接口</h1><p>本次只需要实现 client 客户端操作。</p>
-<h2 id="已经实现的-C-接口"><a href="#已经实现的-C-接口" class="headerlink" title="已经实现的 C++ 接口"></a>已经实现的 C++ 接口</h2><ol>
-<li>连接数据库。本质是建立 TCP 通信连接。</li>
-<li>传输 SQL 语句数据。以特定协议格式封装数据并发送到服务端，等待接收信息并返回。</li>
-<li>获取数据。判断结果集数据是否存在。</li>
-<li>取出当前结果集中的行集中某一列的数据。</li>
-<li>关闭连接。关闭 TCP 连接。</li>
+        <h1 id="Code-LM"><a href="#Code-LM" class="headerlink" title="Code_LM"></a>Code_LM</h1><p>任务线路：<br>[9.8]<br>完成拆包、组包基本函数。<br>[9.15]<br>反馈，该任务并没有基本完成。<br>经过组内讨论，废除该方法，因为socket底层已经实现了组包和拆包的过程。为调研问题。</p>
+<h2 id="熟悉-aeci-层接口使用方式-9-16"><a href="#熟悉-aeci-层接口使用方式-9-16" class="headerlink" title="熟悉 aeci 层接口使用方式[9.16]"></a>熟悉 aeci 层接口使用方式[9.16]</h2><ol>
+<li>创建数据库的整个流程。</li>
+<li>了解TCP的基本操作。</li>
 </ol>
-<h2 id="python-ODBC-接口实现"><a href="#python-ODBC-接口实现" class="headerlink" title="python ODBC 接口实现"></a>python ODBC 接口实现</h2><p>拟过程：</p>
-<ol>
-<li>确定技术点：是否使用 pyodbc 进行实现。</li>
-<li>搭建空代码框架，并且等效于连接 mysql 代码的 pyodbc。</li>
-<li>构建 python 通信组件。</li>
-<li>解释接收的数据包。(目前 C++ 使用的是四个主类进行存放数据)。本质是使用结果集，将数据进行存放。</li>
-</ol>
-<h2 id="打包成-exe"><a href="#打包成-exe" class="headerlink" title="打包成 exe"></a>打包成 exe</h2><p>pyinstaller -F Select_Data.py</p>
-<p>目录下生成 dist 内有 exe。</p>
-<h2 id="总览性文档"><a href="#总览性文档" class="headerlink" title="总览性文档"></a>总览性文档</h2><p>基本内容已经完成。</p>
-<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/sql/odbc/reference/syntax/sqlallocconnect-function?view=sql-server-ver15">Microsoft ODBC</a></p>
-<h2 id="安装-pyodbc"><a href="#安装-pyodbc" class="headerlink" title="安装 pyodbc"></a>安装 pyodbc</h2><p>odbcinst -j</p>
-<p>sudo apt install unixodbc<br>pip install pyodbc</p>
-<h2 id="问题笔记"><a href="#问题笔记" class="headerlink" title="问题笔记"></a>问题笔记</h2><h3 id="出现-SQLGetPrivateProfileString-无法识别"><a href="#出现-SQLGetPrivateProfileString-无法识别" class="headerlink" title="出现 SQLGetPrivateProfileString 无法识别"></a>出现 SQLGetPrivateProfileString 无法识别</h3><p>该问题是目标库没有连接到 odbcinst 导致。<br>只需要在环境中添加该库。<br>或者提供的驱动程序连接该库即可。<br>一般来说多出现在 linux 上。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> USER_TABLE_NAME	<span class="string">&quot;pokTable&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> USER_DB_NAME	<span class="string">&quot;pokAuthDb&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> USER_FILE_NAME	<span class="string">&quot;F:\\log\\pok.aed&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//数据库模型</span></span><br><span class="line"><span class="type">static</span> aeci_field_descriptor user_table_descriptor[] =</span><br><span class="line">&#123;</span><br><span class="line">	&#123;aeci_int4, <span class="number">0</span>, <span class="string">&quot;uid&quot;</span>&#125;,</span><br><span class="line">	&#123;aeci_int4, <span class="number">0</span>, <span class="string">&quot;auth&quot;</span>&#125;,</span><br><span class="line">	&#123;aeci_int4, <span class="number">0</span>, <span class="string">&quot;token&quot;</span>&#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">USER_Table</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">aeci_int4_t</span> uid;</span><br><span class="line">	<span class="type">aeci_int4_t</span> auth;</span><br><span class="line">	<span class="type">aeci_int4_t</span> token;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建用于权限认证数据库的函数</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">create_user_db</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> rc = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> session = <span class="number">0</span>;</span><br><span class="line">    <span class="type">aeci_oid_t</span> oid1 = <span class="literal">NULL</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//建库建表</span></span><br><span class="line">    session = <span class="built_in">aeci_create</span>(USER_DB_NAME, USER_FILE_NAME,</span><br><span class="line">        <span class="number">0</span>, <span class="number">0x04</span>, <span class="number">4</span> * <span class="number">1024</span> * <span class="number">1024</span>, <span class="number">4</span> * <span class="number">1024</span> * <span class="number">1024</span>, <span class="number">512</span> * <span class="number">1024</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (session &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Creating database failed!\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Creating database!\n&quot;</span>);</span><br><span class="line">    rc = <span class="built_in">aeci_create_table</span>(session, USER_TABLE_NAME, </span><br><span class="line">        <span class="built_in">sizeof</span>(user_table_descriptor) / <span class="built_in">sizeof</span>(aeci_field_descriptor), user_table_descriptor);</span><br><span class="line">    <span class="keyword">if</span> (rc &gt;= <span class="number">0</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Create table successful.\n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Create table failed with db code.\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//拟定数据</span></span><br><span class="line">    USER_Table user_test_table;</span><br><span class="line">    user_test_table.uid = <span class="number">567</span>;</span><br><span class="line">    user_test_table.auth = <span class="number">631725</span>;</span><br><span class="line">    user_test_table.token = <span class="number">907823</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//插入数据</span></span><br><span class="line">    rc = <span class="built_in">aeci_insert_struct</span>(session, USER_TABLE_NAME, &amp;user_test_table, &amp;oid1);</span><br><span class="line">    <span class="built_in">aeci_commit</span>(session);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//查询验证</span></span><br><span class="line">    <span class="type">int</span> statement = <span class="number">0</span>;</span><br><span class="line">    <span class="type">char</span> query_sql[<span class="number">64</span>] = <span class="string">&quot;select * from &quot;</span>;</span><br><span class="line">    <span class="built_in">strcat</span>(query_sql, USER_TABLE_NAME);</span><br><span class="line">    USER_Table tmp;</span><br><span class="line">    statement = <span class="built_in">aeci_prepare_query</span>(session, query_sql);<span class="comment">//预查询</span></span><br><span class="line">    rc = <span class="built_in">aeci_execute_query</span>(statement, aeci_view_only, &amp;tmp);</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">aeci_get_next</span>(statement) == rc_ok)<span class="comment">//组查询</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot; uid : %d \n auth : %d \n token : %d \n&quot;</span>, tmp.uid, tmp.auth, tmp.token);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">aeci_close</span>(session);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="9-17"><a href="#9-17" class="headerlink" title="[9.17]"></a>[9.17]</h2><h1 id="附录-后续移除"><a href="#附录-后续移除" class="headerlink" title="附录(后续移除)"></a>附录(后续移除)</h1><p>Code文件为代号文件。</p>
+<p>敏感内容不做直接书写。<br>决定性词汇无关联书写。<br>主要内容根据程度书写。</p>
 
     </article>
     <!-- license -->
     
         <div class="license-wrapper">
             <p>Author：<a href="http://itheds.github.io">iTheds</a>
-            <p>Link：<a href="http://itheds.github.io/work/python-%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE%E6%9C%8D%E5%8A%A1.html">http://itheds.github.io/work/python-%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE%E6%9C%8D%E5%8A%A1.html</a>
-            <p>Publish date：<a href="http://itheds.github.io/work/python-%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE%E6%9C%8D%E5%8A%A1.html">March 2nd 2022, 12:00:00 am</a>
-            <p>Update date：<a href="http://itheds.github.io/work/python-%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE%E6%9C%8D%E5%8A%A1.html">August 23rd 2022, 3:16:28 pm</a>
+            <p>Link：<a href="http://itheds.github.io/work/2021/Code_LM.html">http://itheds.github.io/work/2021/Code_LM.html</a>
+            <p>Publish date：<a href="http://itheds.github.io/work/2021/Code_LM.html">September 13th 2021, 12:00:00 am</a>
+            <p>Update date：<a href="http://itheds.github.io/work/2021/Code_LM.html">September 17th 2021, 2:13:15 pm</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -513,13 +500,13 @@
     
         
             
-                <a href="mailto:12345@qq.com" class="iconfont-archer email" title=email ></a>
+                <a href="mailto:itheds@163.com" class="iconfont-archer email" title=email ></a>
             
         
     
         
             
-                <a href="//github.com/fi3ework" class="iconfont-archer github" target="_blank" title=github></a>
+                <a href="//github.com/iTheds" class="iconfont-archer github" target="_blank" title=github></a>
             
         
     
@@ -966,104 +953,7 @@
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -1788,7 +1678,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 78
+        Total : 73
         </div>
         <!-- search  -->
         
@@ -1827,12 +1717,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">11/17</span>
             <a class="archive-post-title" href="/2021/11/17/QT%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">QT学习札记</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">09/06</span>
-            <a class="archive-post-title" href="/2021/09/06/%E8%BF%9E%E6%8E%A5%E6%B1%A0%E5%AE%9E%E7%8E%B0/">连接池实现</a>
         </li>
     
         
@@ -1963,18 +1847,6 @@
     
         
         <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span>
-            <a class="archive-post-title" href="/2021/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/">设计模式总结</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span>
-            <a class="archive-post-title" href="/2021/03/08/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E6%8C%87%E5%8D%97/">重装系统指南</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
             <span class="archive-post-date">03/05</span>
             <a class="archive-post-title" href="/2021/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%85%A5%E9%97%A8%E8%B7%AF%E7%BA%BF/">计算机入门路线(应用篇)</a>
         </li>
@@ -2067,12 +1939,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">01/02</span>
             <a class="archive-post-title" href="/2021/01/02/VS%E5%BC%80%E5%8F%91%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">VS C++开发使用笔记</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/02</span>
-            <a class="archive-post-title" href="/2021/01/02/YII%E6%A1%86%E6%9E%B6%E7%AC%94%E8%AE%B0/">YII框架笔记</a>
         </li>
     
         
@@ -2172,12 +2038,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">07/07</span>
             <a class="archive-post-title" href="/2018/07/07/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86oo/">通信原理</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span>
-            <a class="archive-post-title" href="/2018/06/18/AA%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95/">文件目录</a>
         </li>
     
         
@@ -2308,6 +2168,11 @@
                 JAVA
             </span>
         
+            <span class="sidebar-tag-name" data-tags="-- RTthread">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- RTthread
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="Linux">
                 <span class="iconfont-archer">&#xe606;</span>
                 Linux
@@ -2318,6 +2183,11 @@
                 信息安全
             </span>
         
+            <span class="sidebar-tag-name" data-tags="-- C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="apache">
                 <span class="iconfont-archer">&#xe606;</span>
                 apache
@@ -2326,11 +2196,6 @@
             <span class="sidebar-tag-name" data-tags="-- work -- cmake">
                 <span class="iconfont-archer">&#xe606;</span>
                 -- work -- cmake
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="-- C/C++">
-                <span class="iconfont-archer">&#xe606;</span>
-                -- C/C++
             </span>
         
             <span class="sidebar-tag-name" data-tags="JS">
@@ -2376,11 +2241,6 @@
             <span class="sidebar-tag-name" data-tags="-- work">
                 <span class="iconfont-archer">&#xe606;</span>
                 -- work
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="-- C/C++ -- C/C++手册">
-                <span class="iconfont-archer">&#xe606;</span>
-                -- C/C++ -- C/C++手册
             </span>
         
             <span class="sidebar-tag-name" data-tags="wiki">
@@ -2448,11 +2308,6 @@
                 计算机组成原理
             </span>
         
-            <span class="sidebar-tag-name" data-tags="-- RTthread">
-                <span class="iconfont-archer">&#xe606;</span>
-                -- RTthread
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="算法">
                 <span class="iconfont-archer">&#xe606;</span>
                 算法
@@ -2471,11 +2326,6 @@
             <span class="sidebar-tag-name" data-tags="CPU">
                 <span class="iconfont-archer">&#xe606;</span>
                 CPU
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="-- C/C++ -- C/C++问题收录">
-                <span class="iconfont-archer">&#xe606;</span>
-                -- C/C++ -- C/C++问题收录
             </span>
         
             <span class="sidebar-tag-name" data-tags="Socket网络编程">

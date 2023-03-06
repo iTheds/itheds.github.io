@@ -36,7 +36,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/favicon.ico">
     
-    <title>Linux下配置服务器环境(lamp和shadowsocks、lnmp) · fi3ework&#39;s Studio</title>
+    <title>Linux下配置服务器环境(lamp和shadowsocks、lnmp) · iTheds&#39;s Studio</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -249,7 +249,7 @@
         </span>
         <!-- back to home page text -->
         <span class="home-link header-element">
-            <a href=/>fi3ework's Studio.</a>
+            <a href=/>iTheds's Studio.</a>
         </span>
     </div>
     <!-- toggle banner for post layout -->
@@ -258,7 +258,7 @@
             <div class="banner">
         
             <div class="blog-title header-element">
-                <a href="/">fi3ework&#39;s Studio.</a>
+                <a href="/">iTheds&#39;s Studio.</a>
             </div>
             <div class="post-title header-element">
                 <a href="#" class="post-name">Linux下配置服务器环境(lamp和shadowsocks、lnmp)</a>
@@ -510,7 +510,7 @@
 <h3 id="Recording"><a href="#Recording" class="headerlink" title="Recording"></a>Recording</h3><p>乘着等进度条，说一说感想吧，18年的文章，前后搭建了许多次服务器，问题都不慌不忙。<br>现在正21年的1月份，也是当好自律的年纪，久违的充实。<br>总是在强调差距，映射到对事务的处理来看就是，事务完成度阈值，有的人可能一点点就以为做了很多，好似可以换来放松的时光，但是有的人却知道前路漫漫，快乐好似就是学习和工作本身。要求放松，什么时候才是尽头，最后只有深渊在等着；能感觉到创造本身的快乐，我很开心。以人为镜，大概如此。</p>
 <p>linux-centos7下配置环境包括shadowsocks、lamp和phpmyadmin。</p>
 <p>本身版本：<br>Centos 7 x86_64 bbr<br>Linux host.localdomain 4.10.4-1.el7.elrepo.x86_64 #1 SMP Sat Mar 18 12:50:10 EDT 2017 x86_64 x86_64 x86_64 GNU&#x2F;Linux<br>Apache版本：Server version: Apache&#x2F;2.4.6 (CentOS)<br>php版本：PHP 5.5.38<br>mysql版本：5.7.21<br>phpmyadmin版本：4.0.10.20<br>此配套支持utf8mb4</p>
-<p>本次版本：<br>Linux version 4.18.0-193.14.2.el8_2.x86_64 (<a href="mailto:&#x6d;&#x6f;&#x63;&#x6b;&#98;&#x75;&#x69;&#108;&#x64;&#64;&#x6b;&#98;&#x75;&#105;&#x6c;&#100;&#x65;&#114;&#x2e;&#x62;&#115;&#x79;&#x73;&#x2e;&#99;&#x65;&#110;&#116;&#x6f;&#x73;&#x2e;&#x6f;&#x72;&#103;">&#x6d;&#x6f;&#x63;&#x6b;&#98;&#x75;&#x69;&#108;&#x64;&#64;&#x6b;&#98;&#x75;&#105;&#x6c;&#100;&#x65;&#114;&#x2e;&#x62;&#115;&#x79;&#x73;&#x2e;&#99;&#x65;&#110;&#116;&#x6f;&#x73;&#x2e;&#x6f;&#x72;&#103;</a>) (gcc version 8.3.1 20191121 (Red Hat 8.3.1-5) (GCC)) x86_64 x86_64 x86_64 GNU&#x2F;Linux<br>LSB Version:	:core-4.1-amd64:core-4.1-noarch<br>Distributor ID:	CentOS<br>Description:	CentOS Linux release 8.2.2004 (Core)<br>Release:	8.2.2004<br>Codename:	Core<br>httpd-2.4.37-30.module_el8.3.0+561+97fdbbcc.x86_64<br>PHP 7.4.15 (cli) (built: Feb  2 2021 14:19:57) ( NTS )<br>Copyright (c) The PHP Group<br>Zend Engine v3.4.0, Copyright (c) Zend Technologies<br>    with Zend OPcache v7.4.15, Copyright (c), by Zend Technologies</p>
+<p>本次版本：<br>Linux version 4.18.0-193.14.2.el8_2.x86_64 (<a href="mailto:&#x6d;&#111;&#99;&#x6b;&#98;&#117;&#x69;&#x6c;&#100;&#64;&#x6b;&#98;&#x75;&#105;&#108;&#x64;&#101;&#114;&#x2e;&#x62;&#115;&#121;&#x73;&#x2e;&#x63;&#x65;&#110;&#116;&#x6f;&#x73;&#46;&#x6f;&#114;&#103;">&#x6d;&#111;&#99;&#x6b;&#98;&#117;&#x69;&#x6c;&#100;&#64;&#x6b;&#98;&#x75;&#105;&#108;&#x64;&#101;&#114;&#x2e;&#x62;&#115;&#121;&#x73;&#x2e;&#x63;&#x65;&#110;&#116;&#x6f;&#x73;&#46;&#x6f;&#114;&#103;</a>) (gcc version 8.3.1 20191121 (Red Hat 8.3.1-5) (GCC)) x86_64 x86_64 x86_64 GNU&#x2F;Linux<br>LSB Version:	:core-4.1-amd64:core-4.1-noarch<br>Distributor ID:	CentOS<br>Description:	CentOS Linux release 8.2.2004 (Core)<br>Release:	8.2.2004<br>Codename:	Core<br>httpd-2.4.37-30.module_el8.3.0+561+97fdbbcc.x86_64<br>PHP 7.4.15 (cli) (built: Feb  2 2021 14:19:57) ( NTS )<br>Copyright (c) The PHP Group<br>Zend Engine v3.4.0, Copyright (c) Zend Technologies<br>    with Zend OPcache v7.4.15, Copyright (c), by Zend Technologies</p>
 <h3 id="linux基本命令-命令库"><a href="#linux基本命令-命令库" class="headerlink" title="linux基本命令-命令库"></a>linux基本命令-命令库</h3><p>下载wget，后台下载使用wget -b + url，可以在当前目录wget-log文件查看进度。</p>
 <pre><code>yum install -y wget
 </code></pre>
@@ -783,13 +783,13 @@ sudo apt install php7.0
     
         
             
-                <a href="mailto:12345@qq.com" class="iconfont-archer email" title=email ></a>
+                <a href="mailto:itheds@163.com" class="iconfont-archer email" title=email ></a>
             
         
     
         
             
-                <a href="//github.com/fi3ework" class="iconfont-archer github" target="_blank" title=github></a>
+                <a href="//github.com/iTheds" class="iconfont-archer github" target="_blank" title=github></a>
             
         
     
@@ -1253,104 +1253,7 @@ sudo apt install php7.0
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -2075,7 +1978,7 @@ sudo apt install php7.0
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 78
+        Total : 73
         </div>
         <!-- search  -->
         
@@ -2114,12 +2017,6 @@ sudo apt install php7.0
         <li class="archive-post-item">
             <span class="archive-post-date">11/17</span>
             <a class="archive-post-title" href="/2021/11/17/QT%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">QT学习札记</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">09/06</span>
-            <a class="archive-post-title" href="/2021/09/06/%E8%BF%9E%E6%8E%A5%E6%B1%A0%E5%AE%9E%E7%8E%B0/">连接池实现</a>
         </li>
     
         
@@ -2250,18 +2147,6 @@ sudo apt install php7.0
     
         
         <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span>
-            <a class="archive-post-title" href="/2021/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/">设计模式总结</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span>
-            <a class="archive-post-title" href="/2021/03/08/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E6%8C%87%E5%8D%97/">重装系统指南</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
             <span class="archive-post-date">03/05</span>
             <a class="archive-post-title" href="/2021/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%85%A5%E9%97%A8%E8%B7%AF%E7%BA%BF/">计算机入门路线(应用篇)</a>
         </li>
@@ -2354,12 +2239,6 @@ sudo apt install php7.0
         <li class="archive-post-item">
             <span class="archive-post-date">01/02</span>
             <a class="archive-post-title" href="/2021/01/02/VS%E5%BC%80%E5%8F%91%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">VS C++开发使用笔记</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/02</span>
-            <a class="archive-post-title" href="/2021/01/02/YII%E6%A1%86%E6%9E%B6%E7%AC%94%E8%AE%B0/">YII框架笔记</a>
         </li>
     
         
@@ -2459,12 +2338,6 @@ sudo apt install php7.0
         <li class="archive-post-item">
             <span class="archive-post-date">07/07</span>
             <a class="archive-post-title" href="/2018/07/07/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86oo/">通信原理</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span>
-            <a class="archive-post-title" href="/2018/06/18/AA%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95/">文件目录</a>
         </li>
     
         
@@ -2595,6 +2468,11 @@ sudo apt install php7.0
                 JAVA
             </span>
         
+            <span class="sidebar-tag-name" data-tags="-- RTthread">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- RTthread
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="Linux">
                 <span class="iconfont-archer">&#xe606;</span>
                 Linux
@@ -2605,6 +2483,11 @@ sudo apt install php7.0
                 信息安全
             </span>
         
+            <span class="sidebar-tag-name" data-tags="-- C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="apache">
                 <span class="iconfont-archer">&#xe606;</span>
                 apache
@@ -2613,11 +2496,6 @@ sudo apt install php7.0
             <span class="sidebar-tag-name" data-tags="-- work -- cmake">
                 <span class="iconfont-archer">&#xe606;</span>
                 -- work -- cmake
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="-- C/C++">
-                <span class="iconfont-archer">&#xe606;</span>
-                -- C/C++
             </span>
         
             <span class="sidebar-tag-name" data-tags="JS">
@@ -2663,11 +2541,6 @@ sudo apt install php7.0
             <span class="sidebar-tag-name" data-tags="-- work">
                 <span class="iconfont-archer">&#xe606;</span>
                 -- work
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="-- C/C++ -- C/C++手册">
-                <span class="iconfont-archer">&#xe606;</span>
-                -- C/C++ -- C/C++手册
             </span>
         
             <span class="sidebar-tag-name" data-tags="wiki">
@@ -2735,11 +2608,6 @@ sudo apt install php7.0
                 计算机组成原理
             </span>
         
-            <span class="sidebar-tag-name" data-tags="-- RTthread">
-                <span class="iconfont-archer">&#xe606;</span>
-                -- RTthread
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="算法">
                 <span class="iconfont-archer">&#xe606;</span>
                 算法
@@ -2758,11 +2626,6 @@ sudo apt install php7.0
             <span class="sidebar-tag-name" data-tags="CPU">
                 <span class="iconfont-archer">&#xe606;</span>
                 CPU
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="-- C/C++ -- C/C++问题收录">
-                <span class="iconfont-archer">&#xe606;</span>
-                -- C/C++ -- C/C++问题收录
             </span>
         
             <span class="sidebar-tag-name" data-tags="Socket网络编程">

@@ -19,15 +19,15 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="BLOB调研一、目前数据库支持 BLOB 方式Moc 接口使用时，将设置 BLOB 类型，将数据设置为字符串进行存储。SQL 语句使用时对 BLOB 数据识别为字符串进行存储。二、CLOB 与 BLOB 区别BLOB和CLOB都是大字段类型，BLOB是按二进制来存储的，而CLOB是可以直接存储文字的。其实两个是可以互换的的，或者可以直接用LOB字段代替这两个。但是为了更好的管理ORACLE数据库，">
+    <meta name="description" content="202105月月报汇报人： 严林涛汇报日期： 2021年6月2日 工作内容一、 三亚船舶项目 新增功能模块：log日志文件模块、动态管理配置文件。 优化：丢包问题、错误处理、内存泄露、传输链路size动态。 实装：出差4天(20-23日)，在船上装服务器，并布置环境实地运行。 增加数据项，VLW、VBW。 监控程序设计。主要模块：读写模块、管道通信、shell界面、日志文件读写、协议解析模块。">
 <meta property="og:type" content="website">
-<meta property="og:title" content="BLOB调研">
-<meta property="og:url" content="http://itheds.github.io/work/BLOB%E8%B0%83%E7%A0%94.html">
+<meta property="og:title" content="202105月月报">
+<meta property="og:url" content="http://itheds.github.io/work/2021/202105%E6%9C%88%E6%9C%88%E6%8A%A5.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="BLOB调研一、目前数据库支持 BLOB 方式Moc 接口使用时，将设置 BLOB 类型，将数据设置为字符串进行存储。SQL 语句使用时对 BLOB 数据识别为字符串进行存储。二、CLOB 与 BLOB 区别BLOB和CLOB都是大字段类型，BLOB是按二进制来存储的，而CLOB是可以直接存储文字的。其实两个是可以互换的的，或者可以直接用LOB字段代替这两个。但是为了更好的管理ORACLE数据库，">
+<meta property="og:description" content="202105月月报汇报人： 严林涛汇报日期： 2021年6月2日 工作内容一、 三亚船舶项目 新增功能模块：log日志文件模块、动态管理配置文件。 优化：丢包问题、错误处理、内存泄露、传输链路size动态。 实装：出差4天(20-23日)，在船上装服务器，并布置环境实地运行。 增加数据项，VLW、VBW。 监控程序设计。主要模块：读写模块、管道通信、shell界面、日志文件读写、协议解析模块。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-05-06T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-05-11T07:26:40.216Z">
+<meta property="article:published_time" content="2021-06-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-03T01:14:04.427Z">
 <meta property="article:author" content="iTheds">
 <meta property="article:tag" content="-- work">
 <meta name="twitter:card" content="summary">
@@ -35,7 +35,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/favicon.ico">
     
-    <title>BLOB调研 · fi3ework&#39;s Studio</title>
+    <title>202105月月报 · iTheds&#39;s Studio</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -246,7 +246,7 @@
         </span>
         <!-- back to home page text -->
         <span class="home-link header-element">
-            <a href=/>fi3ework's Studio.</a>
+            <a href=/>iTheds's Studio.</a>
         </span>
     </div>
     <!-- toggle banner for post layout -->
@@ -426,32 +426,64 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <h1 id="BLOB调研"><a href="#BLOB调研" class="headerlink" title="BLOB调研"></a>BLOB调研</h1><p>一、目前数据库支持 BLOB 方式<br>Moc 接口使用时，将设置 BLOB 类型，将数据设置为字符串进行存储。<br>SQL 语句使用时对 BLOB 数据识别为字符串进行存储。<br>二、CLOB 与 BLOB 区别<br>BLOB和CLOB都是大字段类型，BLOB是按二进制来存储的，而CLOB是可以直接存储文字的。其实两个是可以互换的的，或者可以直接用LOB字段代替这两个。但是为了更好的管理ORACLE数据库，通常像图片、文件、音乐等信息就用BLOB字段来存储，先将文件转为二进制再存储进去。而像文章或者是较长的文字，就用CLOB存储，这样对以后的查询更新存储等操作都提供很大的方便。</p>
-<p>三、BLOB 使用方式</p>
-<ol>
-<li>JAVA 中的使用方式</li>
+        <h1 id="202105月月报"><a href="#202105月月报" class="headerlink" title="202105月月报"></a>202105月月报</h1><p>汇报人： 严林涛<br>汇报日期： 2021年6月2日</p>
+<h2 id="工作内容"><a href="#工作内容" class="headerlink" title="工作内容"></a>工作内容</h2><h5 id="一、-三亚船舶项目"><a href="#一、-三亚船舶项目" class="headerlink" title="一、 三亚船舶项目"></a>一、 三亚船舶项目</h5><ol>
+<li>新增功能模块：log日志文件模块、动态管理配置文件。</li>
+<li>优化：丢包问题、错误处理、内存泄露、传输链路size动态。</li>
+<li>实装：出差4天(20-23日)，在船上装服务器，并布置环境实地运行。</li>
+<li>增加数据项，VLW、VBW。</li>
+<li>监控程序设计。主要模块：读写模块、管道通信、shell界面、日志文件读写、协议解析模块。</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">PreparedStatement</span> <span class="variable">stmt</span> <span class="operator">=</span> con.prepareStatement(<span class="string">&quot;insert into student(name,image) values(?,?)&quot;</span>);			</span><br><span class="line">stmt.setString(<span class="number">1</span>,<span class="string">&quot;April&quot;</span>);</span><br><span class="line">stmt.setBlob(<span class="number">2</span>, <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;D:\\work\\April.png&quot;</span>));</span><br><span class="line">stmt.executeUpdate();</span><br></pre></td></tr></table></figure>
-
-<p>Mysql 中 使用 Blob，有长度限制。</p>
-<ol start="2">
-<li>C++ 中的使用方式</li>
+<h5 id="二、-远程访问模块调研"><a href="#二、-远程访问模块调研" class="headerlink" title="二、 远程访问模块调研"></a>二、 远程访问模块调研</h5><ol>
+<li>调研ODBC运行机制。考虑实现方案。</li>
+<li>根据官方文档确定功能点、以及机制。</li>
+<li>比较mysql-connect、Microsoft ODBC运行区别，推测运行机制。</li>
+<li>收集SQLite与postgresql源代码。</li>
+<li>编写远程访问模块要求文档。</li>
 </ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::stringbuf <span class="title">buf</span><span class="params">(blob, std::ios_base::in)</span></span>;</span><br><span class="line"><span class="function">std::istream <span class="title">stream</span><span class="params">(&amp;buf)</span></span>;</span><br><span class="line">pstmt-&gt;<span class="built_in">setBlob</span>(<span class="number">2</span>, &amp;stream);</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>ODBC 中的使用方式</li>
+<h5 id="三-、后续工作"><a href="#三-、后续工作" class="headerlink" title="三 、后续工作"></a>三 、后续工作</h5><ol>
+<li>编写初步监控程序。(6.5)。后续测试。</li>
+<li>对船舶中间层项目给出用户手册。(6.4)</li>
+<li>对远程访问模块方案进行讨论。(6.8 周二)</li>
+<li>确立远程访问模块开发模式，提出详细分析。(6.20)</li>
 </ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h6 id="监控程序计摘要"><a href="#监控程序计摘要" class="headerlink" title="监控程序计摘要"></a>监控程序计摘要</h6><ol>
+<li>读写模块，拥有文件写权限。考虑文件锁。</li>
+<li>主程序运行，不再等待而是双工通信。能够单项写就能够双向写。<br>分配好内存与线程之后，进入shell。</li>
+<li>次级线程，运行主要程序部分，保证子程序宕机之后仍然可以重启。</li>
+<li>第二线程程序，负责向其他程序进行通信。</li>
+<li>shell。主程序中运行。调度命令。</li>
+<li>管道通信。采用管道的方式在进程间通信。</li>
+<li>协议解析模块</li>
+</ol>
+<h6 id="ODBC架构摘要"><a href="#ODBC架构摘要" class="headerlink" title="ODBC架构摘要"></a>ODBC架构摘要</h6><ol>
+<li><p>应用程序：<br> 指客户端使用的程序。可以接触到的是驱动程序。</p>
+</li>
+<li><p>驱动程序管理器<br> 负责响应应用程序连接，管理应用程序和驱动程序之间的通信，例如连接和断开。<br> 通过驱动程序管理器，解决了所有应用程序通用的一些问题。 其中包括根据数据源名称确定要加载的驱动程序、加载和卸载驱动程序以及在驱动程序中调用函数。<br> <em>大多数情况下，驱动程序管理器只是将函数调用从应用程序传递到正确的驱动程序。</em><br> 驱动程序管理器的最终主要角色是加载和卸载驱动程序。 应用程序仅加载并卸载驱动程序管理器。<br> 表现级为动态连接库(DLL)。</p>
+</li>
+<li><p>驱动程序<br> ①连接到数据源和从数据源断开连接。<br> ②开始事务。<br> ③向数据源提交要执行的 SQL 语句。 驱动程序必须将 ODBC SQL 修改为特定于 DBMS 的 SQL;这通常仅限于将 ODBC 定义的转义子句替换为 DBMS 特定的 SQL。<br> ④将数据发送到数据源和从数据源中检索数据，包括转换应用程序指定的数据类型。<br> ⑤返回错误处理。并检查。<br> 有两种，基于文件的和基于DBMS。区别在于是否通过单独的<code>数据库引擎</code>访问物理数据。</p>
+</li>
+<li><p>数据源<br> 数据源也有两种情况，是否提供数据库引擎，内容不再赘述。</p>
+</li>
+</ol>
+<h6 id="ODBC功能点摘要"><a href="#ODBC功能点摘要" class="headerlink" title="ODBC功能点摘要"></a>ODBC功能点摘要</h6><ol>
+<li>响应连接请求。</li>
+<li>对连接进行管理，维持连接并且管理，连接池模块。</li>
+<li>事务逻辑。如何安全执行一个元操作。</li>
+<li>联合接口与协议规则，考虑对数据源的接口方式。规定程序内部各个接口协议。</li>
+<li>对驱动程序进行管理、维护以及升级。</li>
+<li>转换SQL语句使其符合DBMS的SQL语句。</li>
+<li>身份验证。建立用户数据库，存储用户名密码和权限管理。</li>
+</ol>
 
     </article>
     <!-- license -->
     
         <div class="license-wrapper">
             <p>Author：<a href="http://itheds.github.io">iTheds</a>
-            <p>Link：<a href="http://itheds.github.io/work/BLOB%E8%B0%83%E7%A0%94.html">http://itheds.github.io/work/BLOB%E8%B0%83%E7%A0%94.html</a>
-            <p>Publish date：<a href="http://itheds.github.io/work/BLOB%E8%B0%83%E7%A0%94.html">May 7th 2022, 12:00:00 am</a>
-            <p>Update date：<a href="http://itheds.github.io/work/BLOB%E8%B0%83%E7%A0%94.html">May 11th 2022, 3:26:40 pm</a>
+            <p>Link：<a href="http://itheds.github.io/work/2021/202105%E6%9C%88%E6%9C%88%E6%8A%A5.html">http://itheds.github.io/work/2021/202105%E6%9C%88%E6%9C%88%E6%8A%A5.html</a>
+            <p>Publish date：<a href="http://itheds.github.io/work/2021/202105%E6%9C%88%E6%9C%88%E6%8A%A5.html">June 2nd 2021, 12:00:00 am</a>
+            <p>Update date：<a href="http://itheds.github.io/work/2021/202105%E6%9C%88%E6%9C%88%E6%8A%A5.html">June 3rd 2021, 9:14:04 am</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -508,13 +540,13 @@
     
         
             
-                <a href="mailto:12345@qq.com" class="iconfont-archer email" title=email ></a>
+                <a href="mailto:itheds@163.com" class="iconfont-archer email" title=email ></a>
             
         
     
         
             
-                <a href="//github.com/fi3ework" class="iconfont-archer github" target="_blank" title=github></a>
+                <a href="//github.com/iTheds" class="iconfont-archer github" target="_blank" title=github></a>
             
         
     
@@ -961,104 +993,7 @@
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -1783,7 +1718,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 78
+        Total : 73
         </div>
         <!-- search  -->
         
@@ -1822,12 +1757,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">11/17</span>
             <a class="archive-post-title" href="/2021/11/17/QT%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">QT学习札记</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">09/06</span>
-            <a class="archive-post-title" href="/2021/09/06/%E8%BF%9E%E6%8E%A5%E6%B1%A0%E5%AE%9E%E7%8E%B0/">连接池实现</a>
         </li>
     
         
@@ -1958,18 +1887,6 @@
     
         
         <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span>
-            <a class="archive-post-title" href="/2021/03/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/">设计模式总结</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span>
-            <a class="archive-post-title" href="/2021/03/08/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E6%8C%87%E5%8D%97/">重装系统指南</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
             <span class="archive-post-date">03/05</span>
             <a class="archive-post-title" href="/2021/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%85%A5%E9%97%A8%E8%B7%AF%E7%BA%BF/">计算机入门路线(应用篇)</a>
         </li>
@@ -2062,12 +1979,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">01/02</span>
             <a class="archive-post-title" href="/2021/01/02/VS%E5%BC%80%E5%8F%91%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">VS C++开发使用笔记</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/02</span>
-            <a class="archive-post-title" href="/2021/01/02/YII%E6%A1%86%E6%9E%B6%E7%AC%94%E8%AE%B0/">YII框架笔记</a>
         </li>
     
         
@@ -2167,12 +2078,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">07/07</span>
             <a class="archive-post-title" href="/2018/07/07/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86oo/">通信原理</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span>
-            <a class="archive-post-title" href="/2018/06/18/AA%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95/">文件目录</a>
         </li>
     
         
@@ -2303,6 +2208,11 @@
                 JAVA
             </span>
         
+            <span class="sidebar-tag-name" data-tags="-- RTthread">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- RTthread
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="Linux">
                 <span class="iconfont-archer">&#xe606;</span>
                 Linux
@@ -2313,6 +2223,11 @@
                 信息安全
             </span>
         
+            <span class="sidebar-tag-name" data-tags="-- C/C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                -- C/C++
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="apache">
                 <span class="iconfont-archer">&#xe606;</span>
                 apache
@@ -2321,11 +2236,6 @@
             <span class="sidebar-tag-name" data-tags="-- work -- cmake">
                 <span class="iconfont-archer">&#xe606;</span>
                 -- work -- cmake
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="-- C/C++">
-                <span class="iconfont-archer">&#xe606;</span>
-                -- C/C++
             </span>
         
             <span class="sidebar-tag-name" data-tags="JS">
@@ -2371,11 +2281,6 @@
             <span class="sidebar-tag-name" data-tags="-- work">
                 <span class="iconfont-archer">&#xe606;</span>
                 -- work
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="-- C/C++ -- C/C++手册">
-                <span class="iconfont-archer">&#xe606;</span>
-                -- C/C++ -- C/C++手册
             </span>
         
             <span class="sidebar-tag-name" data-tags="wiki">
@@ -2443,11 +2348,6 @@
                 计算机组成原理
             </span>
         
-            <span class="sidebar-tag-name" data-tags="-- RTthread">
-                <span class="iconfont-archer">&#xe606;</span>
-                -- RTthread
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="算法">
                 <span class="iconfont-archer">&#xe606;</span>
                 算法
@@ -2466,11 +2366,6 @@
             <span class="sidebar-tag-name" data-tags="CPU">
                 <span class="iconfont-archer">&#xe606;</span>
                 CPU
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="-- C/C++ -- C/C++问题收录">
-                <span class="iconfont-archer">&#xe606;</span>
-                -- C/C++ -- C/C++问题收录
             </span>
         
             <span class="sidebar-tag-name" data-tags="Socket网络编程">
