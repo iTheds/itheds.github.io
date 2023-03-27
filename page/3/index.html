@@ -443,6 +443,46 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2021/05/25/SQLite/">
+                
+                <span class="abstract-title-text">SQLite</span>
+            </a>
+            <div class="abstract-content">
+                SQLite目前已经找到SQLite源代码。
+发现其中ODBC连接是调用了Microsoft的头文件odbcinst.h，里面调用了sql.h和sqltypes.h头文件。
+重写了其中ODBC的大部分函数，但是仍使用数据结构。
+其中连接过程为SQLConnectdrvconnectSQLGetPrivateProfileString(buf, “timeout”, “100000”,                   busy, sizeof (busy), ODBC_INI);dbopen
+最后的dbopen中动态连接了库pa.dll，系统库等
+HANDLE h &#x3D; Ope...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/06/17">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/05/25</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="-- work">-- work</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2021/05/18/Cppwindows%E6%9C%8D%E5%8A%A1/">
                 
                 <span class="abstract-title-text">C/C++windows服务</span>
@@ -756,34 +796,6 @@ tags:    – English
                 <!-- date -->
                 <div class="abstract-date" title="Last updated: 2021/04/14">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/11</span>
-                </div>
-                <!-- tags -->
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/">
-                
-                <span class="abstract-title-text">CRC循环冗余校验</span>
-            </a>
-            <div class="abstract-content">
-                CRC循环冗余校验循环冗余校验（Cyclic Redundancy Check， CRC）是一种根据网络数据包或计算机文件等数据产生简短固定位数校验码的一种信道编码技术，主要用来检测或校验数据传输或者保存后可能出现的错误。它是利用除法及余数的原理来作错误侦测的。
-在数据传输过程中，无论传输系统的设计再怎么完美，差错总会存在，这种差错可能会导致在链路上传输的一个或者多个帧被破坏(出现比特差错，0变为1，或者1变为0)，从而接受方接收到错误的数据。为尽量提高接受方收到数据的正确率，在接收方接收数据之前需要对数据进行差错检测，当且仅当检测的结果为正确时接收方才真正收下数据。检测的方式有多种，常...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2023/02/23">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/10</span>
                 </div>
                 <!-- tags -->
                 
@@ -1398,7 +1410,32 @@ tags:    – English
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2253,7 +2290,7 @@ tags:    – English
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 83
+        Total : 84
         </div>
         <!-- search  -->
         
@@ -2267,6 +2304,12 @@ tags:    – English
             <div class="archive-year"> 2023 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2023/03/27/big_data&flow_calculation/">大数据和流式计算</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">03/10</span>
@@ -3020,6 +3063,11 @@ tags:    – English
             <span class="sidebar-tag-name" data-tags="ocker">
                 <span class="iconfont-archer">&#xe606;</span>
                 ocker
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="大数据">
+                <span class="iconfont-archer">&#xe606;</span>
+                大数据
             </span>
         
     </div>

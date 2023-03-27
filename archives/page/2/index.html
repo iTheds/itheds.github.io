@@ -428,6 +428,45 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2021/08/25/Lib%E5%92%8CDLL%E8%AF%A6%E8%A7%A3/">
+                
+                <span class="abstract-title-text">Lib和DLL详解</span>
+            </a>
+            <div class="abstract-content">
+                Lib和DLL详解lib是静态库。dll是动态库。这两类库是两种链接方式，一般提供给exe可执行文件进行调用，使得代码可复用。
+lib静态库，编译器在链接阶段将lib库中的函数等以内部嵌入的方式拷贝到exe文件中。生成exe文件之后，可以不再需要该lib文件。
+dll动态库，编译器再链接阶段将记录下dll库中的共享对象以及其他少量的登记信息，生成exe文件之后通过记录的信息调用dll库中的函数或者变量等。exe文件的执行将依赖被调用的dll文件。dll文件可以通过版本迭代进行更新，但是接口和信需要与之前版本一致。
+这两种链接库内部都含有函数的实现方式。
+在整个C++程序生成过程(源代码[...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/07/05">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/08/25</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="-- C/C++">-- C/C++</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2021/08/11/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B002/">
                 
                 <span class="abstract-title-text">算法学习笔记02</span>
@@ -750,43 +789,6 @@ SCM 维护注册表中已...
     
     
         <a class="post-tag" href="javascript:void(0);" data-tags="-- C/C++">-- C/C++</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/05/13/ODBC%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                
-                <span class="abstract-title-text">ODBC连接数据库</span>
-            </a>
-            <div class="abstract-content">
-                ODBC连接数据库连接本地数据库sql server如果是直接使用函数SQLConnect， 则将需要配置数据库源。参照连接在VS中用C语言连接sql server
-大概意思就是，sql server mangement 中配置SQL 验证。数据库属性，安全性， SQL server 和windwos 身份验证。数据库，安全性，登录名，sa，密码，状态，启用。之后控制面板，系统安全，管理工具，ODBC Data Sources (32-bit)，系统DSN，添加，SQL server ，名称自己命名，服务器本机，登入名与配置的数据库登入名一致。
-其他的数据库连接也是这样，只是如果在本机配...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/07/08">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/05/13</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="-- C/C++ -- ODBC">-- C/C++ -- ODBC</a>
     
 </div>
 
@@ -1317,7 +1319,32 @@ SCM 维护注册表中已...
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2172,7 +2199,7 @@ SCM 维护注册表中已...
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 83
+        Total : 84
         </div>
         <!-- search  -->
         
@@ -2186,6 +2213,12 @@ SCM 维护注册表中已...
             <div class="archive-year"> 2023 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2023/03/27/big_data&flow_calculation/">大数据和流式计算</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">03/10</span>
@@ -2939,6 +2972,11 @@ SCM 维护注册表中已...
             <span class="sidebar-tag-name" data-tags="ocker">
                 <span class="iconfont-archer">&#xe606;</span>
                 ocker
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="大数据">
+                <span class="iconfont-archer">&#xe606;</span>
+                大数据
             </span>
         
     </div>

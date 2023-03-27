@@ -27,7 +27,7 @@
 <meta property="og:description" content="TDengine学习札记TDengine 完整的软件包包括服务端（taosd）、用于与第三方系统对接并提供 RESTful 接口的 taosAdapter、应用驱动（taosc）、命令行程序 (CLI，taos) 和一些工具软件。 关键技术集群管理高效写入数据订阅运维诊断主要涉及 RPC 诊断。 传输方式涉及到 REST API。 对于数据量不到 15K 的数据包，采取 UDP 的方式进行传输，超">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-08-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-17T09:51:44.577Z">
+<meta property="article:modified_time" content="2023-03-27T06:31:33.292Z">
 <meta property="article:author" content="iTheds">
 <meta name="twitter:card" content="summary">
     <meta http-equiv="Cache-control" content="no-cache">
@@ -501,7 +501,7 @@
 <li>STaosQnode : 单个节点，存有上级队列 Queue 和下个节点 Qnode 指针。以 <code>char item[]</code> 作为数据存放点。</li>
 <li>STaosQueue : 毫无疑问，这里面存储了 Qnode ，并且含有一个锁和一个信号量，</li>
 <li>STaosQset : 存储的是多个 Queue ， 作为 STaosQueue 的集合，拥有一个特定的锁和信号量。存储了 STaosQueue 的头节点和当前节点位置。</li>
-<li>STaosQall : 队列全集？？， 存放 STaosQnode 头和当前位置指针。似乎和 STaosQueue 职能冲突。</li>
+<li>STaosQall : 队列全集， 存放的是 STaosQnode 头和当前位置指针。用于将 StaoSet 或者 STaosQueue 转换为最基本的以 STaosQnode 组成的链表形态。</li>
 </ol>
 <p>其中基本方法群有：</p>
 <ol>
@@ -518,7 +518,7 @@
 <li>SQWorker : 基本的 worker ，没有涉及到 STaosQall 和 STaosQset </li>
 <li>SWWorker : 含有 STaosQall 和 STaosQset 的 worker ，专门为 SWWorkerPool 定制</li>
 </ol>
-<p>似乎是表示有三种池模式：</p>
+<p>似乎是表示有三种池模式，本质上是应对不同任务结构：</p>
 <ol>
 <li>SQWorkerPool 系列<ol>
 <li>这里运用到的就是 SQWorker 。</li>
@@ -526,7 +526,7 @@
 </ol>
 </li>
 <li>SAutoQWorkerPool 系列<ol>
-<li>所用到的是 SArray 作为 worker。</li>
+<li>所用到的是 SArray 作为 worker。- 实际上该处还是使用的 SQworker</li>
 <li>含有 STaosQset</li>
 </ol>
 </li>
@@ -602,7 +602,7 @@
             <p>Author：<a href="http://itheds.github.io">iTheds</a>
             <p>Link：<a href="http://itheds.github.io/2022/08/10/TDengine%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">http://itheds.github.io/2022/08/10/TDengine%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/</a>
             <p>Publish date：<a href="http://itheds.github.io/2022/08/10/TDengine%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">August 10th 2022, 12:00:00 am</a>
-            <p>Update date：<a href="http://itheds.github.io/2022/08/10/TDengine%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">March 17th 2023, 5:51:44 pm</a>
+            <p>Update date：<a href="http://itheds.github.io/2022/08/10/TDengine%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">March 27th 2023, 2:31:33 pm</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -1189,7 +1189,32 @@
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2044,7 +2069,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 83
+        Total : 84
         </div>
         <!-- search  -->
         
@@ -2058,6 +2083,12 @@
             <div class="archive-year"> 2023 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2023/03/27/big_data&flow_calculation/">大数据和流式计算</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">03/10</span>
@@ -2811,6 +2842,11 @@
             <span class="sidebar-tag-name" data-tags="ocker">
                 <span class="iconfont-archer">&#xe606;</span>
                 ocker
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="大数据">
+                <span class="iconfont-archer">&#xe606;</span>
+                大数据
             </span>
         
     </div>
