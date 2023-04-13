@@ -443,6 +443,37 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2021/05/28/DB_%E6%9C%8D%E5%8A%A1%E5%99%A8_%E6%A1%A5%E9%80%BB%E8%BE%91/">
+                
+                <span class="abstract-title-text">DB 服务器 桥逻辑</span>
+            </a>
+            <div class="abstract-content">
+                DB 服务器 桥逻辑本篇主要验证逻辑特点。Sql server在本地时，结构是：    应用程序- 驱动程序管理器- 驱动程序- 数据源
+但是ODBC，或者说远程连接模块，是否是双端的呢。远程服务器上安装了mysql， 需不需要安装ODBC驱动程序？本地需要安装驱动程序吗？
+更底层的逻辑结构，面对开源的数据库SQLite时呢？面对PostgreSQL时呢？
+mysql三个组件。另外两个没什么好说的，大致是表示版本的mysql80社区版，工具集。第三个就是connectors，估计是一些连接工具。先尝试不安装它。
+123mysql-connectors-community/x86_64 M...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/09/16">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/05/28</span>
+                </div>
+                <!-- tags -->
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2021/05/25/SQLite/">
                 
                 <span class="abstract-title-text">SQLite</span>
@@ -712,19 +743,17 @@ m阶B树(Balanced tree of order m)是一棵平衡的m路搜索树。它或者是
             </a>
             <div class="abstract-content">
                 C++基本项目开发思路基本的开发思路
-概要设计从模块化的思想上进行，尽可能的明确系统中细分的各个主要模块。并且明确之间的联系。
-其实一开始开发项目的时候不建议定义太多的文件，编码混乱并且会分散精力，而且初期的文件系统即使有充足的经验后期也是需要进行修正的。如果长期维护的话可能需要在前中期就进行重构。
-所以比较好的方式是：在前期构建尽量少的文件系统，在需要的时候进行纵向扩展，在前中期的时候进行重构文件系统，获得比较健壮的项目体系。
+概要设计从模块化的思想上进行，尽可能的明确系统中细分的各个主要模块。并且明确之间的联系。其实一开始开发项目的时候不建议定义太多的文件，编码混乱并且会分散精力，而且初期的文件系统即使有充足的经验后期也是需要进行修正的。如果长期维护的话可能需要在前中期就进行重构。所以比较好的方式是：在前期构建尽量少的文件系统，在需要的时候进行纵向扩展，在前中期的时候进行重构文件系统，获得比较健壮的项目体系。
 项目文件结构项目在创立初期需要考虑文件的引用结构。
 一个.cpp文件，会伴随一个同名的.h头文件。
 
-.cpp文件内容:  include”同名.h”，函数的定...
+.cpp文件内容:  include”同名.h”，函数的定义。...
             </div>
             <!-- read more -->
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/03/31">
+                <div class="abstract-date" title="Last updated: 2023/04/11">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/16</span>
                 </div>
                 <!-- tags -->
@@ -768,36 +797,6 @@ m阶B树(Balanced tree of order m)是一棵平衡的m路搜索树。它或者是
     
 </div>
 
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/04/11/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">
-                
-                <span class="abstract-title-text">开发者手册</span>
-            </a>
-            <div class="abstract-content">
-                tags:    – C&#x2F;C++    – C&#x2F;C++手册    – C&#x2F;C++问题收录
-tags:    – English
-    
-
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/04/14">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/11</span>
-                </div>
-                <!-- tags -->
                 
             </div>
         </article>
@@ -1415,13 +1414,12 @@ tags:    – English
         
         
         
+        
+        
+        
+        
+        
     
-        
-        
-        
-        
-        
-        
         
         
         
@@ -2290,7 +2288,7 @@ tags:    – English
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 84
+        Total : 85
         </div>
         <!-- search  -->
         
@@ -2304,6 +2302,12 @@ tags:    – English
             <div class="archive-year"> 2023 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/12</span>
+            <a class="archive-post-title" href="/2023/04/12/VScode_debug/">VScode Debuge</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">03/27</span>
@@ -2358,7 +2362,7 @@ tags:    – English
         
         <li class="archive-post-item">
             <span class="archive-post-date">08/10</span>
-            <a class="archive-post-title" href="/2022/08/10/TDengine%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">TDengine学习札记</a>
+            <a class="archive-post-title" href="/2022/08/10/TDengine%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/">TDengine技术分析</a>
         </li>
     
         
@@ -3068,6 +3072,11 @@ tags:    – English
             <span class="sidebar-tag-name" data-tags="大数据">
                 <span class="iconfont-archer">&#xe606;</span>
                 大数据
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="project">
+                <span class="iconfont-archer">&#xe606;</span>
+                project
             </span>
         
     </div>

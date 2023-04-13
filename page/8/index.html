@@ -443,6 +443,106 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2018/06/11/%E5%9F%BA%E4%BA%8EMIPS%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%8432%E4%BD%8D%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%E8%AE%BE%E8%AE%A1oo/">
+                
+                <span class="abstract-title-text">基于MIPS指令集的32位五级流水线CPU设计</span>
+            </a>
+            <div class="abstract-content">
+                基于MIPS指令集的32位五级流水线CPU设计理论篇
+概念理解
+
+什么是MIPS？
+
+什么是五位流水线？
+
+32位是什么？
+
+
+
+模块说明
+
+
+
+模块型号
+包含模块
+模块功能
+备注
+
+
+
+regfile
+无
+寄存器模块
+初始值为0。
+
+
+mux2x32
+无
+32位二选一
+
+
+
+pipecu
+无
+控制单元，产生控制信号
+设计关键所在
+
+
+Compare
+无
+比较电路，相等输出0
+
+
+
+Pcinstmem
+无
+指令存储寄存器
+
+
+
+Pcpemem
+无
+数据存储寄存器
+调用系统模块编出来的
+
+
+Pipemwreg
+无
+mem和wb阶段中间的信号寄存器，见图土黄色长条
+
+
+
+Pipeemreg
+...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2018/09/19">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/06/11</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="CPU">CPU</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2018/06/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86oo/">
                 
                 <span class="abstract-title-text">计算机组成原理</span>
@@ -837,46 +937,6 @@ pytho...
     
     
         <a class="post-tag" href="javascript:void(0);" data-tags="数据库">数据库</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2018/05/12/%E7%BD%91%E9%A1%B5%E7%8A%B6%E6%80%81%E6%89%8B%E5%86%8C/">
-                
-                <span class="abstract-title-text">网页状态提示说明</span>
-            </a>
-            <div class="abstract-content">
-                网页状态提示说明
-401
-
-一般来说该错误消息表明首先需要登录（输入有效的用户名和密码）。
-您的Web服务器认为，客户端（例如您的浏览器或我们的 CheckUpDown 机器人）发送的 HTTP 数据流是正确的，但进入网址 (URL) 资源 ， 需要用户身份验证 ， 而相关信息 1 ）尚未被提供, 或 2 ）已提供但没有通过授权测试。这就是通常所知的“ HTTP 基本验证 ”。 需客户端提供的验证请求在 HTTP 协议中被定义为 WWW – 验证标头字段 (WWW-Authenticate header field) 。
-401，发现是 IIS6，试了一圈以后发现 ::$INDEX_AL...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2023/02/28">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/05/12</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="计划">计划</a>
     
 </div>
 
@@ -1497,13 +1557,12 @@ pytho...
         
         
         
+        
+        
+        
+        
+        
     
-        
-        
-        
-        
-        
-        
         
         
         
@@ -2372,7 +2431,7 @@ pytho...
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 84
+        Total : 85
         </div>
         <!-- search  -->
         
@@ -2386,6 +2445,12 @@ pytho...
             <div class="archive-year"> 2023 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/12</span>
+            <a class="archive-post-title" href="/2023/04/12/VScode_debug/">VScode Debuge</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">03/27</span>
@@ -2440,7 +2505,7 @@ pytho...
         
         <li class="archive-post-item">
             <span class="archive-post-date">08/10</span>
-            <a class="archive-post-title" href="/2022/08/10/TDengine%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">TDengine学习札记</a>
+            <a class="archive-post-title" href="/2022/08/10/TDengine%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/">TDengine技术分析</a>
         </li>
     
         
@@ -3150,6 +3215,11 @@ pytho...
             <span class="sidebar-tag-name" data-tags="大数据">
                 <span class="iconfont-archer">&#xe606;</span>
                 大数据
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="project">
+                <span class="iconfont-archer">&#xe606;</span>
+                project
             </span>
         
     </div>

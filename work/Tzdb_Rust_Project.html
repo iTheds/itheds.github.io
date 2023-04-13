@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://itheds.github.io/image/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9C%8D%E5%8A%A1%E5%99%A8.png">
 <meta property="og:image" content="http://itheds.github.io/">
 <meta property="article:published_time" content="2022-10-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-29T07:40:43.313Z">
+<meta property="article:modified_time" content="2023-04-10T02:48:22.347Z">
 <meta property="article:author" content="iTheds">
 <meta property="article:tag" content="rust">
 <meta name="twitter:card" content="summary">
@@ -567,7 +567,10 @@
 <p>我们使用 <code>Arc&lt;Mutex&lt;()&gt;&gt;</code> 来实现多线程中的可修改读写，代价是作为锁而存在。但还是有问题，是否表明，struct 中的 struct 还是只能用部分锁来使用呢，只是没有拷贝而已。</p>
 <p>[3.24]<br>经过一天的拼凑，大致上已经编写完成。但是还没有测试，也不具备测试的条件。<br>接下来的工作就是调查数据库流式计算应该如何处理。<br>现在是两条路子，一个是对 TDengine 调研并且编写尽可能准确的文档，不需要太宽泛；<br>一个是对流式计算做出调研。</p>
 <p>[3.27]<br>流式计算在数据库中的使用。<br>在时序数据的处理中，经常要对原始数据进行清洗、预处理，再使用时序数据库进行长久的储存。在传统的时序数据解决方案中，常常需要部署 Kafka、Flink 等流处理系统。而流处理系统的复杂性，带来了高昂的开发与运维成本。</p>
-<p>[3.29]<br>混子，混吃等死。</p>
+<p>[4.3]<br>开始设计工作。</p>
+<p>[4.10]<br>仍然在排查算子的运作方式。</p>
+<p>总体框架大概是，每个节点线程对应一个工作者。</p>
+<p>调试方法和推断过程很重要。调试如果是为了了解系统大致架构，那么不需要仔细查看，但是也必须知晓关键函数所在，才能够尽量减少断点。</p>
 <h1 id="Consciousness"><a href="#Consciousness" class="headerlink" title="Consciousness"></a>Consciousness</h1>
     </article>
     <!-- license -->
@@ -576,7 +579,7 @@
             <p>Author：<a href="http://itheds.github.io">iTheds</a>
             <p>Link：<a href="http://itheds.github.io/work/Tzdb_Rust_Project.html">http://itheds.github.io/work/Tzdb_Rust_Project.html</a>
             <p>Publish date：<a href="http://itheds.github.io/work/Tzdb_Rust_Project.html">October 15th 2022, 12:00:00 am</a>
-            <p>Update date：<a href="http://itheds.github.io/work/Tzdb_Rust_Project.html">March 29th 2023, 3:40:43 pm</a>
+            <p>Update date：<a href="http://itheds.github.io/work/Tzdb_Rust_Project.html">April 10th 2023, 10:48:22 am</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -1141,13 +1144,12 @@
         
         
         
+        
+        
+        
+        
+        
     
-        
-        
-        
-        
-        
-        
         
         
         
@@ -2016,7 +2018,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 84
+        Total : 85
         </div>
         <!-- search  -->
         
@@ -2030,6 +2032,12 @@
             <div class="archive-year"> 2023 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/12</span>
+            <a class="archive-post-title" href="/2023/04/12/VScode_debug/">VScode Debuge</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">03/27</span>
@@ -2084,7 +2092,7 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">08/10</span>
-            <a class="archive-post-title" href="/2022/08/10/TDengine%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">TDengine学习札记</a>
+            <a class="archive-post-title" href="/2022/08/10/TDengine%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/">TDengine技术分析</a>
         </li>
     
         
@@ -2794,6 +2802,11 @@
             <span class="sidebar-tag-name" data-tags="大数据">
                 <span class="iconfont-archer">&#xe606;</span>
                 大数据
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="project">
+                <span class="iconfont-archer">&#xe606;</span>
+                project
             </span>
         
     </div>

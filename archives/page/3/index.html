@@ -428,6 +428,45 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2021/05/18/Cppwindows%E6%9C%8D%E5%8A%A1/">
+                
+                <span class="abstract-title-text">C/C++windows服务</span>
+            </a>
+            <div class="abstract-content">
+                C&#x2F;C++windows服务希望能够通过一个后台的服务来管理一个程序。
+需要知道的是，程序的运行方式，是内部分配一个线程进行运行，还是整体程序都是服务的方式。
+理论基础服务控制管理器 (SCM)服务控制管理器 (SCM) 维护安装的服务和驱动程序服务的数据库，并提供统一的安全方法来控制它们。 数据库包括有关如何启动每个服务或驱动程序服务的信息。 它还使系统管理员能够自定义每个服务的安全要求，从而控制对服务的访问。
+服务控制管理器 (SCM) 在系统启动时启动。 这是 (RPC) 服务器的远程过程调用，因此服务配置和服务控制程序可以操作远程计算机上的服务。
+SCM 维护注册表中已...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/05/24">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/05/18</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="-- C/C++">-- C/C++</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2021/05/13/ODBC%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/">
                 
                 <span class="abstract-title-text">ODBC连接数据库</span>
@@ -658,19 +697,17 @@ Language featuresProgrammi...
             </a>
             <div class="abstract-content">
                 C++基本项目开发思路基本的开发思路
-概要设计从模块化的思想上进行，尽可能的明确系统中细分的各个主要模块。并且明确之间的联系。
-其实一开始开发项目的时候不建议定义太多的文件，编码混乱并且会分散精力，而且初期的文件系统即使有充足的经验后期也是需要进行修正的。如果长期维护的话可能需要在前中期就进行重构。
-所以比较好的方式是：在前期构建尽量少的文件系统，在需要的时候进行纵向扩展，在前中期的时候进行重构文件系统，获得比较健壮的项目体系。
+概要设计从模块化的思想上进行，尽可能的明确系统中细分的各个主要模块。并且明确之间的联系。其实一开始开发项目的时候不建议定义太多的文件，编码混乱并且会分散精力，而且初期的文件系统即使有充足的经验后期也是需要进行修正的。如果长期维护的话可能需要在前中期就进行重构。所以比较好的方式是：在前期构建尽量少的文件系统，在需要的时候进行纵向扩展，在前中期的时候进行重构文件系统，获得比较健壮的项目体系。
 项目文件结构项目在创立初期需要考虑文件的引用结构。
 一个.cpp文件，会伴随一个同名的.h头文件。
 
-.cpp文件内容:  include”同名.h”，函数的定...
+.cpp文件内容:  include”同名.h”，函数的定义。...
             </div>
             <!-- read more -->
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/03/31">
+                <div class="abstract-date" title="Last updated: 2023/04/11">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/16</span>
                 </div>
                 <!-- tags -->
@@ -742,34 +779,6 @@ tags:    – English
                 <!-- date -->
                 <div class="abstract-date" title="Last updated: 2021/04/14">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/11</span>
-                </div>
-                <!-- tags -->
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/04/10/CRC%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C/">
-                
-                <span class="abstract-title-text">CRC循环冗余校验</span>
-            </a>
-            <div class="abstract-content">
-                CRC循环冗余校验循环冗余校验（Cyclic Redundancy Check， CRC）是一种根据网络数据包或计算机文件等数据产生简短固定位数校验码的一种信道编码技术，主要用来检测或校验数据传输或者保存后可能出现的错误。它是利用除法及余数的原理来作错误侦测的。
-在数据传输过程中，无论传输系统的设计再怎么完美，差错总会存在，这种差错可能会导致在链路上传输的一个或者多个帧被破坏(出现比特差错，0变为1，或者1变为0)，从而接受方接收到错误的数据。为尽量提高接受方收到数据的正确率，在接收方接收数据之前需要对数据进行差错检测，当且仅当检测的结果为正确时接收方才真正收下数据。检测的方式有多种，常...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2023/02/23">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/10</span>
                 </div>
                 <!-- tags -->
                 
@@ -1304,13 +1313,12 @@ tags:    – English
         
         
         
+        
+        
+        
+        
+        
     
-        
-        
-        
-        
-        
-        
         
         
         
@@ -2179,7 +2187,7 @@ tags:    – English
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 84
+        Total : 85
         </div>
         <!-- search  -->
         
@@ -2193,6 +2201,12 @@ tags:    – English
             <div class="archive-year"> 2023 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/12</span>
+            <a class="archive-post-title" href="/2023/04/12/VScode_debug/">VScode Debuge</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">03/27</span>
@@ -2247,7 +2261,7 @@ tags:    – English
         
         <li class="archive-post-item">
             <span class="archive-post-date">08/10</span>
-            <a class="archive-post-title" href="/2022/08/10/TDengine%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/">TDengine学习札记</a>
+            <a class="archive-post-title" href="/2022/08/10/TDengine%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/">TDengine技术分析</a>
         </li>
     
         
@@ -2957,6 +2971,11 @@ tags:    – English
             <span class="sidebar-tag-name" data-tags="大数据">
                 <span class="iconfont-archer">&#xe606;</span>
                 大数据
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="project">
+                <span class="iconfont-archer">&#xe606;</span>
+                project
             </span>
         
     </div>
